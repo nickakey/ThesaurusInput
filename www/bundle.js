@@ -26012,7 +26012,7 @@ var SentenceRoller = function (_React$Component) {
         value: function getSynonyms(keyword) {
             return new Promise(function (resolve, reject) {
                 _axios2.default.get("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK").then(function (response) {
-                    var formattedSynonyms = (0, _utilities.synonymsFormatter)(response.data.response[0].list.synonyms);
+                    var formattedSynonyms = (0, _utilities.synonymsFormatter)(response.data.response);
                     resolve(formattedSynonyms);
                 }).catch(function (err) {
                     reject(err);
@@ -26134,10 +26134,16 @@ exports.default = SynonymSelector;
 "use strict";
 
 
-function synonymsFormatter(synonymsString) {
-    return synonymsString.split("|").filter(function (string) {
-        return !string.includes("(generic term)");
+function synonymsFormatter(synonymsArray) {
+    var formattedSynonyms = [];
+    synonymsArray.forEach(function (_ref) {
+        var synonymsString = _ref.list.synonyms;
+
+        synonymsString.split("|").forEach(function (synonym) {
+            formattedSynonyms.push(synonym.split(" ")[0]);
+        });
     });
+    return formattedSynonyms;
 }
 
 module.exports.synonymsFormatter = synonymsFormatter;

@@ -20,7 +20,7 @@ class SentenceRoller extends React.Component {
       return new Promise((resolve, reject)=>{
         axios.get(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`)
         .then((response)=>{
-            const formattedSynonyms = synonymsFormatter(response.data.response[0].list.synonyms)
+            const formattedSynonyms = synonymsFormatter(response.data.response)
             resolve(formattedSynonyms);
         })
         .catch((err)=>{
