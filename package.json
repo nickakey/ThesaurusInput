@@ -1,0 +1,36 @@
+{
+  "name": "sentenceroller",
+  "version": "1.0.0",
+  "description": "Expand your vocabulary",
+  "main": "App.js",
+  "scripts": {
+    "compile": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickakey/SentenceRoller.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickakey/SentenceRoller/issues"
+  },
+  "homepage": "https://github.com/nickakey/SentenceRoller#readme",
+  "dependencies": {
+    "react": "15.6.1",
+    "axios": "0.18.0",
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-latest": "6.24.1",
+    "babel-preset-react": "6.24.1",
+    "body-parser": "1.18.3",
+    "emotion": "9.2.12",
+    "react-dom": "15.6.1",
+    "react-emotion": "9.2.12",
+    "webpack": "3.12.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}
