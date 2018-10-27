@@ -12,6 +12,7 @@ class SentenceRoller extends React.Component {
         displaySynonymSelector: false,
         selectedKeyWord: null,
         synonymsOfSelectedKeyWord: [],
+        selectedKeyWordIndex: null
     }
   }
 
@@ -19,42 +20,61 @@ class SentenceRoller extends React.Component {
       return new Promise((resolve, reject)=>{
         axios.get(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`)
         .then((response)=>{
-            //TODO - I am only choosing the first elemnet of the array, which is an issue... Since there may be more data
-            resolve(synonymsFormatter(response.data.response[0].list.synonyms));
+            const formattedSynonyms = synonymsFormatter(response.data.response[0].list.synonyms)
+            resolve(formattedSynonyms);
         })
         .catch((err)=>{
-            console.log("this is an err ", err )
             reject(err);
         })
       })
   }
 
   handleKeyWordClick(keyword, index){
+      console.log("handle keyword click is firing");
       this.getSynonyms(keyword)
       .then((synonyms)=>{
-        this.setState({synonymsOfSelectedKeyWord: synonyms, selectedKeyWord: keyword, displaySynonymSelector: true})
+        this.setState({
+            synonymsOfSelectedKeyWord: synonyms, 
+            selectedKeyWord: keyword, 
+            displaySynonymSelector: true,
+            selectedKeyWordIndex: index
+        })
       })   
       .catch((err)=>{
           console.log("an error has occurred while fetching synonyms, check your network connection and try again ", err);
       })
   }
 
+  handleSynonymClick(synonym){
+      this.setState((state)=>{
+          state.keywords[state.selectedKeyWordIndex] = synonym;
+          state.displaySynonymSelector = false;
+          state.selectedKeyWord = null;
+          state.synonymsOfSelectedKeyWord = [];
+          state.selectedKeyWordIndex = null;
+      })
+  }
+
   render() {
-      if(this.state.displaySynonymSelector){
-          return <SynonymSelector synonyms={this.state.synonymsOfSelectedKeyWord} keyword={this.state.selectedKeyWord}/>
-      } else {
-        return (
-            <div>
-                <form>
-                    {this.state.keywords.map((keyword, index)=>{
-                        return <span key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
-                    })}
-                </form>
-            </div>
-          )
-      }
-  } 
-}
+    return (
+        <div>
+            {this.state.displaySynonymSelector ? 
+                <SynonymSelector 
+                    handleSynonymClick={this.handleSynonymClick.bind(this)}
+                    synonyms={this.state.synonymsOfSelectedKeyWord} 
+                    keyword={this.state.selectedKeyWord}
+                /> 
+                : ""
+            }
+            <form>
+                {this.state.keywords.map((keyword, index)=>{
+                    return <span key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
+                })}
+            </form>
+        </div>
+        )
+    }
+} 
 export default SentenceRoller;
 
 

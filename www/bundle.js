@@ -26001,7 +26001,8 @@ var SentenceRoller = function (_React$Component) {
             keywords: state.keywords,
             displaySynonymSelector: false,
             selectedKeyWord: null,
-            synonymsOfSelectedKeyWord: []
+            synonymsOfSelectedKeyWord: [],
+            selectedKeyWordIndex: null
         };
         return _this;
     }
@@ -26011,10 +26012,9 @@ var SentenceRoller = function (_React$Component) {
         value: function getSynonyms(keyword) {
             return new Promise(function (resolve, reject) {
                 _axios2.default.get("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK").then(function (response) {
-                    //TODO - I am only choosing the first elemnet of the array, which is an issue... Since there may be more data
-                    resolve((0, _utilities.synonymsFormatter)(response.data.response[0].list.synonyms));
+                    var formattedSynonyms = (0, _utilities.synonymsFormatter)(response.data.response[0].list.synonyms);
+                    resolve(formattedSynonyms);
                 }).catch(function (err) {
-                    console.log("this is an err ", err);
                     reject(err);
                 });
             });
@@ -26024,10 +26024,27 @@ var SentenceRoller = function (_React$Component) {
         value: function handleKeyWordClick(keyword, index) {
             var _this2 = this;
 
+            console.log("handle keyword click is firing");
             this.getSynonyms(keyword).then(function (synonyms) {
-                _this2.setState({ synonymsOfSelectedKeyWord: synonyms, selectedKeyWord: keyword, displaySynonymSelector: true });
+                _this2.setState({
+                    synonymsOfSelectedKeyWord: synonyms,
+                    selectedKeyWord: keyword,
+                    displaySynonymSelector: true,
+                    selectedKeyWordIndex: index
+                });
             }).catch(function (err) {
                 console.log("an error has occurred while fetching synonyms, check your network connection and try again ", err);
+            });
+        }
+    }, {
+        key: "handleSynonymClick",
+        value: function handleSynonymClick(synonym) {
+            this.setState(function (state) {
+                state.keywords[state.selectedKeyWordIndex] = synonym;
+                state.displaySynonymSelector = false;
+                state.selectedKeyWord = null;
+                state.synonymsOfSelectedKeyWord = [];
+                state.selectedKeyWordIndex = null;
             });
         }
     }, {
@@ -26035,25 +26052,26 @@ var SentenceRoller = function (_React$Component) {
         value: function render() {
             var _this3 = this;
 
-            if (this.state.displaySynonymSelector) {
-                return _react2.default.createElement(_SynonymSelector2.default, { synonyms: this.state.synonymsOfSelectedKeyWord, keyword: this.state.selectedKeyWord });
-            } else {
-                return _react2.default.createElement(
-                    "div",
+            return _react2.default.createElement(
+                "div",
+                null,
+                this.state.displaySynonymSelector ? _react2.default.createElement(_SynonymSelector2.default, {
+                    handleSynonymClick: this.handleSynonymClick.bind(this),
+                    synonyms: this.state.synonymsOfSelectedKeyWord,
+                    keyword: this.state.selectedKeyWord
+                }) : "",
+                _react2.default.createElement(
+                    "form",
                     null,
-                    _react2.default.createElement(
-                        "form",
-                        null,
-                        this.state.keywords.map(function (keyword, index) {
-                            return _react2.default.createElement(
-                                "span",
-                                { key: index, onClick: _this3.handleKeyWordClick.bind(_this3, keyword, index) },
-                                keyword
-                            );
-                        })
-                    )
-                );
-            }
+                    this.state.keywords.map(function (keyword, index) {
+                        return _react2.default.createElement(
+                            "span",
+                            { key: index, onClick: _this3.handleKeyWordClick.bind(_this3, keyword, index) },
+                            keyword
+                        );
+                    })
+                )
+            );
         }
     }]);
 
@@ -26084,7 +26102,8 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SynonymSelector = function SynonymSelector(_ref) {
-    var synonyms = _ref.synonyms;
+    var synonyms = _ref.synonyms,
+        handleSynonymClick = _ref.handleSynonymClick;
     return _react2.default.createElement(
         "div",
         null,
@@ -26094,7 +26113,9 @@ var SynonymSelector = function SynonymSelector(_ref) {
             synonyms.map(function (synonym, index) {
                 return _react2.default.createElement(
                     "div",
-                    { key: index },
+                    { onClick: function onClick() {
+                            handleSynonymClick(synonym);
+                        }, key: index },
                     " ",
                     synonym,
                     " "
