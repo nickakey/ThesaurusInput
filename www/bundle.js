@@ -22529,7 +22529,8 @@ var App = function (_React$Component) {
     _this.state = {
       keyWords: [],
       synonyms: { 0: [], 1: [], 2: [], 3: [] },
-      keyWordsSubmitted: false
+      keyWordsSubmitted: false,
+      numberOfWordSlots: 4
     };
     return _this;
   }
@@ -22569,6 +22570,13 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: "addNewWordSlot",
+    value: function addNewWordSlot() {
+      this.setState(function (state) {
+        state.numberOfWordSlots++;return state;
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.state.keyWordsSubmitted) {
@@ -22585,9 +22593,10 @@ var App = function (_React$Component) {
           "div",
           null,
           _react2.default.createElement(_KeyWordInputWindow2.default, {
-            numberOfInputs: 4,
             handleChange: this.handleKeyWordChange.bind(this),
-            handleSubmit: this.handleKeyWordSubmit.bind(this)
+            handleSubmit: this.handleKeyWordSubmit.bind(this),
+            addNewWordSlot: this.addNewWordSlot.bind(this),
+            numberOfWordSlots: this.state.numberOfWordSlots
           })
         );
       }
@@ -22667,16 +22676,17 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var KeyWordInputWindow = function KeyWordInputWindow(_ref) {
-    var numberOfInputs = _ref.numberOfInputs,
+    var numberOfWordSlots = _ref.numberOfWordSlots,
         handleChange = _ref.handleChange,
-        handleSubmit = _ref.handleSubmit;
+        handleSubmit = _ref.handleSubmit,
+        addNewWordSlot = _ref.addNewWordSlot;
     return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
             "form",
             null,
-            _underscore2.default.range(numberOfInputs).map(function (num) {
+            _underscore2.default.range(numberOfWordSlots).map(function (num) {
                 return _react2.default.createElement("input", { key: num, onChange: function onChange(e) {
                         handleChange(num, e.target.value);
                     } });
@@ -22685,6 +22695,11 @@ var KeyWordInputWindow = function KeyWordInputWindow(_ref) {
                 "div",
                 { onClick: handleSubmit },
                 " SUBMIT "
+            ),
+            _react2.default.createElement(
+                "div",
+                { onClick: addNewWordSlot },
+                " ADD NEW WORD SLOT "
             )
         )
     );

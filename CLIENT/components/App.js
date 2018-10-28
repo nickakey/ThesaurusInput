@@ -8,7 +8,8 @@ class App extends React.Component {
     this.state = {
       keyWords: [],
       synonyms: {0: [], 1: [], 2: [], 3: []},
-      keyWordsSubmitted: false
+      keyWordsSubmitted: false,
+      numberOfWordSlots: 4,
     };
   }
 
@@ -40,6 +41,10 @@ class App extends React.Component {
     })
   }
 
+  addNewWordSlot(){
+    this.setState((state)=>{state.numberOfWordSlots++; return state})
+  }
+
   render() {
     if(this.state.keyWordsSubmitted){
       return (
@@ -54,9 +59,10 @@ class App extends React.Component {
       return (
         <div>
           <KeyWordInputWindow 
-            numberOfInputs={4}
             handleChange={this.handleKeyWordChange.bind(this)}
             handleSubmit={this.handleKeyWordSubmit.bind(this)}
+            addNewWordSlot={this.addNewWordSlot.bind(this)}
+            numberOfWordSlots={this.state.numberOfWordSlots}
           />
         </div>
       )
