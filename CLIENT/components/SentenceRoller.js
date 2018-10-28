@@ -19,9 +19,9 @@ class SentenceRoller extends React.Component {
   getSynonyms(keyword){
       return new Promise((resolve, reject)=>{
         axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`)
-        .then((response)=>{
+        .then(({response})=>{
             console.log("this is the response... " ,response)
-            const formattedSynonyms = synonymsFormatter(response.data.response)
+            const formattedSynonyms = synonymsFormatter(response)
             resolve(formattedSynonyms);
         })
         .catch((err)=>{

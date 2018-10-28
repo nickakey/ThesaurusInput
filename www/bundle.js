@@ -24492,9 +24492,11 @@ var SentenceRoller = function (_React$Component) {
         key: "getSynonyms",
         value: function getSynonyms(keyword) {
             return new Promise(function (resolve, reject) {
-                _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK").then(function (response) {
+                _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK").then(function (_ref) {
+                    var response = _ref.response;
+
                     console.log("this is the response... ", response);
-                    var formattedSynonyms = (0, _utilities.synonymsFormatter)(response.data.response);
+                    var formattedSynonyms = (0, _utilities.synonymsFormatter)(response);
                     resolve(formattedSynonyms);
                 }).catch(function (err) {
                     reject(err);
