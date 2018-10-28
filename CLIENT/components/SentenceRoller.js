@@ -1,6 +1,6 @@
 import _ from "underscore";
 import React from 'react';
-import axios from "axios";
+import axios from "axios-jsonp-pro";
 import SynonymSelector from "./SynonymSelector";
 import { synonymsFormatter } from "../utilities";
 
@@ -18,8 +18,9 @@ class SentenceRoller extends React.Component {
 
   getSynonyms(keyword){
       return new Promise((resolve, reject)=>{
-        axios.get(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`)
+        axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`)
         .then((response)=>{
+            console.log("this is the response... " ,response)
             const formattedSynonyms = synonymsFormatter(response.data.response)
             resolve(formattedSynonyms);
         })

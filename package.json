@@ -19,6 +19,8 @@
   "homepage": "https://github.com/nickakey/SentenceRoller#readme",
   "dependencies": {
     "axios": "0.18.0",
+    "axios-jsonp": "^1.0.2",
+    "axios-jsonp-pro": "^1.1.4",
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-preset-latest": "6.24.1",
