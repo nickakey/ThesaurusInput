@@ -1,6 +1,8 @@
 import SentenceRoller from "./SentenceRoller";
 import KeyWordInputWindow from "./KeyWordInputWindow";
 import React from 'react';
+import styled, { css } from 'react-emotion';
+
 
 class App extends React.Component {
   constructor() {
@@ -37,7 +39,8 @@ class App extends React.Component {
     this.setState({
       keyWords: [],
       synonyms: {0: [], 1: [], 2: [], 3: []},
-      keyWordsSubmitted: false
+      keyWordsSubmitted: false,
+      numberOfWordSlots: 4,
     })
   }
 

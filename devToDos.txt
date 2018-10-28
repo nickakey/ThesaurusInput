@@ -2,5 +2,6 @@ DONE -  When I open the synonym menu, I also want to be able to close it in case
 DONE - Error handle if the word is not a valid word... 
 DONE - When I click submit without any words, it shouldn't let me do anything
 DONE - I want a "New Sentence" button that will take me back to the mainscreen and clear everything
+DONE - I want to add more word slots so that I can roll longer sentences
 
 * CSS duh...

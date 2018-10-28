@@ -3,6 +3,39 @@ import React from 'react';
 import axios from "axios-jsonp-pro";
 import SynonymSelector from "./SynonymSelector";
 import { synonymsFormatter } from "../utilities";
+import styled, { css } from 'react-emotion';
+
+const inlineBlock = css`
+    display: inline-block;
+`
+const textAlignCenter = css`
+    text-align: center;
+`
+
+const topRightButton = css`
+    display: inline-block;
+    position: absolute;
+    left: 90%;
+`
+
+const centeredContainer = css`
+    /* basically anytime you want center, use position absolute, because html hates vertical stuff  */
+    position: absolute;
+    /* These top and left mean 50% FROM the parent element */
+    top: 40%;
+    left: 50%;
+
+    /* without these, the far left side of this element would be at the 50% mark of the parent elemnet.
+    WITh this translate, we shift the element 50% to the left, such that now it's actually centered */
+    transform: translate(-50%, -50%);
+`
+
+const keyWords = css`
+    display: inline-block;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+`
 
 class SentenceRoller extends React.Component {
   constructor(props) {
@@ -27,6 +60,7 @@ class SentenceRoller extends React.Component {
             resolve(formattedSynonyms);
         })
         .catch((err)=>{
+            console.log("this is the err in it's fullness .... ", err)
             reject(err);
         })
       })
@@ -69,22 +103,26 @@ class SentenceRoller extends React.Component {
   render() {
     return (
         <div>
-            {this.state.displaySynonymSelector ? 
-                <SynonymSelector 
-                    handleSynonymClick={this.handleSynonymClick.bind(this)}
-                    synonyms={this.state.synonymsOfSelectedKeyWord} 
-                    keyword={this.state.selectedKeyWord}
-                    handleCloseMenu={this.closeSynonymMenu.bind(this)}
-                /> 
-                : ""
-            }
-            <form>
-                {this.state.keyWords.map((keyword, index)=>{
-                    return <span key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
-                })}
-            </form>
-            <span onClick={this.props.handleNewSentence}>New Sentence</span>
-
+            <div className={centeredContainer}>
+                    {this.state.displaySynonymSelector ? 
+                        <SynonymSelector 
+                            handleSynonymClick={this.handleSynonymClick.bind(this)}
+                            synonyms={this.state.synonymsOfSelectedKeyWord} 
+                            keyword={this.state.selectedKeyWord}
+                            handleCloseMenu={this.closeSynonymMenu.bind(this)}
+                        /> 
+                        : ""
+                    }
+            
+                    <div className={textAlignCenter}>
+                        {this.state.keyWords.map((keyword, index)=>{
+                            return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
+                        })}
+                    </div>
+            </div>
+            <div className={css`${textAlignCenter} ${topRightButton}`}>
+                <span className={inlineBlock} onClick={this.props.handleNewSentence}>New Sentence</span>
+            </div>
         </div>
         )
     }
