@@ -4,6 +4,7 @@ import axios from "axios-jsonp-pro";
 import SynonymSelector from "./SynonymSelector";
 import { synonymsFormatter } from "../utilities";
 import styled, { css } from 'react-emotion';
+import Button from "../reusableComponents/Button.js";
 
 const inlineBlock = css`
     display: inline-block;
@@ -15,7 +16,9 @@ const textAlignCenter = css`
 const topRightButton = css`
     display: inline-block;
     position: absolute;
-    left: 90%;
+    left: 81%;
+    top: 13%;
+    width: 300px;    
 `
 
 const centeredContainer = css`
@@ -78,6 +81,7 @@ class SentenceRoller extends React.Component {
         })
       })   
       .catch((err)=>{
+          console.log("this is the err in handlekeyword click ", err)
         if(err.toString().includes("Request timed out")){alert("We could not find any synonyms for this word... Please try again")} else {
             alert("an error has occurred while fetching synonyms, please check your network connection and try again ");
         }
@@ -114,14 +118,14 @@ class SentenceRoller extends React.Component {
                         : ""
                     }
             
-                    <div className={textAlignCenter}>
-                        {this.state.keyWords.map((keyword, index)=>{
-                            return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
-                        })}
-                    </div>
+            <div className={textAlignCenter}>
+                {this.state.keyWords.map((keyword, index)=>{
+                    return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
+                })}
+            </div>
             </div>
             <div className={css`${textAlignCenter} ${topRightButton}`}>
-                <span className={inlineBlock} onClick={this.props.handleNewSentence}>New Sentence</span>
+                <Button handleOnClick={this.props.handleNewSentence} text={"New Sentence"}></Button>
             </div>
         </div>
         )

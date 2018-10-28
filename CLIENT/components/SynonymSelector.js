@@ -1,6 +1,7 @@
 import _ from "underscore";
 import React from "react";
 import styled, { css } from 'react-emotion';
+import Button from "../reusableComponents/Button.js";
 
 const modal = css`
     position: absolute;
@@ -15,7 +16,7 @@ const SynonymSelector = ({synonyms, handleSynonymClick, handleCloseMenu}) => (
         {synonyms.map((synonym, index)=>{
             return <div onClick={()=>{handleSynonymClick(synonym)}}key={index}> {synonym} </div>
         })}
-        <span onClick={()=>{handleCloseMenu()}}>close</span>
+        <Button handleOnClick={()=>{handleCloseMenu()}} text={"close"}/>
     </div>
 )
 

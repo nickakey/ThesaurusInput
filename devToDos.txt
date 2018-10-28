@@ -5,3 +5,5 @@ DONE - I want a "New Sentence" button that will take me back to the mainscreen a
 DONE - I want to add more word slots so that I can roll longer sentences
 
 * CSS duh...
+* Change it to ONE input field, that splits everything
+* Request the synonyms for EVERYTHING right away..

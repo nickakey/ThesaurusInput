@@ -1,6 +1,8 @@
 import _ from "underscore";
 import React from "react";
 import styled, { css } from 'react-emotion';
+import Button from "../reusableComponents/Button.js";
+import Input from "../reusableComponents/Input.js";
 
 
 const inlineBlock = css`
@@ -29,15 +31,15 @@ const KeyWordInputWindow = ({numberOfWordSlots, handleChange, handleSubmit, addN
         <div className={textAlignCenter}>
             <div className={inlineBlock}>
                 {_.range(numberOfWordSlots).map((num)=>{
-                    return <input key={num} onChange={(e)=>{handleChange(num, e.target.value)}}></input>
+                    return <Input key={num} onChange={(e)=>{handleChange(num, e.target.value)}}></Input>
                 })}
             </div>
         </div>
 
         <div className={textAlignCenter}>
             <div className={inlineBlock}>
-                <span onClick={handleSubmit}> SUBMIT </span>
-                <span onClick={addNewWordSlot}> ADD NEW WORD SLOT </span>
+                <Button handleOnClick={handleSubmit} text="SUBMIT"/>
+                <Button handleOnClick={addNewWordSlot} text="ADD NEW WORD SLOT"/>
             </div>
         </div>
       

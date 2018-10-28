@@ -25055,6 +25055,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _templateObject = _taggedTemplateLiteral(["\n  * {\n    @import url('https://fonts.googleapis.com/css?family=Work+Sans');\n    font-family: 'Work Sans', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n"], ["\n  * {\n    @import url('https://fonts.googleapis.com/css?family=Work+Sans');\n    font-family: 'Work Sans', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n    background-image: linear-gradient(\n        to right bottom,\n        rgba(220, 76, 76, 0.8),\n        rgba(190, 105, 60, 0.71)),\n        url(\"https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940\");\n    height: 100vh;\n    width: 100vw;\n    background-size: cover;\n    background-position: center;\n    clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n"], ["\n    background-image: linear-gradient(\n        to right bottom,\n        rgba(220, 76, 76, 0.8),\n        rgba(190, 105, 60, 0.71)),\n        url(\"https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940\");\n    height: 100vh;\n    width: 100vw;\n    background-size: cover;\n    background-position: center;\n    clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n"]);
+
 var _SentenceRoller = __webpack_require__(199);
 
 var _SentenceRoller2 = _interopRequireDefault(_SentenceRoller);
@@ -25071,6 +25074,8 @@ var _reactEmotion = __webpack_require__(34);
 
 var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
 
+var _emotion = __webpack_require__(94);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25078,6 +25083,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+(0, _emotion.injectGlobal)(_templateObject);
+
+var background = (0, _reactEmotion.css)(_templateObject2);
 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -25143,23 +25154,33 @@ var App = function (_React$Component) {
     value: function render() {
       if (this.state.keyWordsSubmitted) {
         return _react2.default.createElement(
-          "div",
+          "span",
           null,
-          _react2.default.createElement(_SentenceRoller2.default, {
-            keyWords: this.state.keyWords,
-            handleNewSentence: this.handleNewSentence.bind(this)
-          })
+          _react2.default.createElement("div", { className: background }),
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(_SentenceRoller2.default, {
+              keyWords: this.state.keyWords,
+              handleNewSentence: this.handleNewSentence.bind(this)
+            })
+          )
         );
       } else {
         return _react2.default.createElement(
-          "div",
+          "span",
           null,
-          _react2.default.createElement(_KeyWordInputWindow2.default, {
-            handleChange: this.handleKeyWordChange.bind(this),
-            handleSubmit: this.handleKeyWordSubmit.bind(this),
-            addNewWordSlot: this.addNewWordSlot.bind(this),
-            numberOfWordSlots: this.state.numberOfWordSlots
-          })
+          _react2.default.createElement("div", { className: background }),
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(_KeyWordInputWindow2.default, {
+              handleChange: this.handleKeyWordChange.bind(this),
+              handleSubmit: this.handleKeyWordSubmit.bind(this),
+              addNewWordSlot: this.addNewWordSlot.bind(this),
+              numberOfWordSlots: this.state.numberOfWordSlots
+            })
+          )
         );
       }
     }
@@ -25185,7 +25206,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _templateObject = _taggedTemplateLiteral(["\n    display: inline-block;\n"], ["\n    display: inline-block;\n"]),
     _templateObject2 = _taggedTemplateLiteral(["\n    text-align: center;\n"], ["\n    text-align: center;\n"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n    display: inline-block;\n    position: absolute;\n    left: 90%;\n"], ["\n    display: inline-block;\n    position: absolute;\n    left: 90%;\n"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n    display: inline-block;\n    position: absolute;\n    left: 81%;\n    top: 13%;\n    width: 300px;    \n"], ["\n    display: inline-block;\n    position: absolute;\n    left: 81%;\n    top: 13%;\n    width: 300px;    \n"]),
     _templateObject4 = _taggedTemplateLiteral(["\n    /* basically anytime you want center, use position absolute, because html hates vertical stuff  */\n    position: absolute;\n    /* These top and left mean 50% FROM the parent element */\n    top: 40%;\n    left: 50%;\n\n    /* without these, the far left side of this element would be at the 50% mark of the parent elemnet.\n    WITh this translate, we shift the element 50% to the left, such that now it's actually centered */\n    transform: translate(-50%, -50%);\n"], ["\n    /* basically anytime you want center, use position absolute, because html hates vertical stuff  */\n    position: absolute;\n    /* These top and left mean 50% FROM the parent element */\n    top: 40%;\n    left: 50%;\n\n    /* without these, the far left side of this element would be at the 50% mark of the parent elemnet.\n    WITh this translate, we shift the element 50% to the left, such that now it's actually centered */\n    transform: translate(-50%, -50%);\n"]),
     _templateObject5 = _taggedTemplateLiteral(["\n    display: inline-block;\n    margin: 10px;\n    margin-left: 20px;\n    margin-right: 20px;\n"], ["\n    display: inline-block;\n    margin: 10px;\n    margin-left: 20px;\n    margin-right: 20px;\n"]),
     _templateObject6 = _taggedTemplateLiteral(["", " ", ""], ["", " ", ""]);
@@ -25211,6 +25232,10 @@ var _utilities = __webpack_require__(230);
 var _reactEmotion = __webpack_require__(34);
 
 var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
+
+var _Button = __webpack_require__(233);
+
+var _Button2 = _interopRequireDefault(_Button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25279,6 +25304,7 @@ var SentenceRoller = function (_React$Component) {
                     selectedKeyWordIndex: index
                 });
             }).catch(function (err) {
+                console.log("this is the err in handlekeyword click ", err);
                 if (err.toString().includes("Request timed out")) {
                     alert("We could not find any synonyms for this word... Please try again");
                 } else {
@@ -25339,11 +25365,7 @@ var SentenceRoller = function (_React$Component) {
                 _react2.default.createElement(
                     "div",
                     { className: (0, _reactEmotion.css)(_templateObject6, textAlignCenter, topRightButton) },
-                    _react2.default.createElement(
-                        "span",
-                        { className: inlineBlock, onClick: this.props.handleNewSentence },
-                        "New Sentence"
-                    )
+                    _react2.default.createElement(_Button2.default, { handleOnClick: this.props.handleNewSentence, text: "New Sentence" })
                 )
             );
         }
@@ -26347,6 +26369,10 @@ var _reactEmotion = __webpack_require__(34);
 
 var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
 
+var _Button = __webpack_require__(233);
+
+var _Button2 = _interopRequireDefault(_Button);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -26371,13 +26397,9 @@ var SynonymSelector = function SynonymSelector(_ref) {
                 " "
             );
         }),
-        _react2.default.createElement(
-            "span",
-            { onClick: function onClick() {
-                    handleCloseMenu();
-                } },
-            "close"
-        )
+        _react2.default.createElement(_Button2.default, { handleOnClick: function handleOnClick() {
+                handleCloseMenu();
+            }, text: "close" })
     );
 };
 
@@ -28098,6 +28120,14 @@ var _reactEmotion = __webpack_require__(34);
 
 var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
 
+var _Button = __webpack_require__(233);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Input = __webpack_require__(234);
+
+var _Input2 = _interopRequireDefault(_Input);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -28122,7 +28152,7 @@ var KeyWordInputWindow = function KeyWordInputWindow(_ref) {
                 "div",
                 { className: inlineBlock },
                 _underscore2.default.range(numberOfWordSlots).map(function (num) {
-                    return _react2.default.createElement("input", { key: num, onChange: function onChange(e) {
+                    return _react2.default.createElement(_Input2.default, { key: num, onChange: function onChange(e) {
                             handleChange(num, e.target.value);
                         } });
                 })
@@ -28134,22 +28164,89 @@ var KeyWordInputWindow = function KeyWordInputWindow(_ref) {
             _react2.default.createElement(
                 "div",
                 { className: inlineBlock },
-                _react2.default.createElement(
-                    "span",
-                    { onClick: handleSubmit },
-                    " SUBMIT "
-                ),
-                _react2.default.createElement(
-                    "span",
-                    { onClick: addNewWordSlot },
-                    " ADD NEW WORD SLOT "
-                )
+                _react2.default.createElement(_Button2.default, { handleOnClick: handleSubmit, text: "SUBMIT" }),
+                _react2.default.createElement(_Button2.default, { handleOnClick: addNewWordSlot, text: "ADD NEW WORD SLOT" })
             )
         )
     );
 };
 
 exports.default = KeyWordInputWindow;
+
+/***/ }),
+/* 232 */,
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(['\n    margin: 3px;\n    background-color: #544444;\n    display: inline-block;\n    padding: 10px;\n    border: solid black;\n    border-width: 1px;\n    font-weight: bold;\n    border-radius: 40px;\n    text-transform: uppercase;\n    font-size: 15px;\n    -webkit-transition: all .2s;\n    transition: all .2s;\n    cursor: pointer;\n    color: white;\n}\n    &:hover {\n        transform: translate(0, -1px);\n        box-shadow: 0 .3rem .2rem rgb(0, 0, 0, .2);\n\n        \n    }   \n    &:active {\n        transform: translate(0, 1px);\n        box-shadow: 0 .2rem .2rem rgb(0, 0, 0, .2);\n} \n'], ['\n    margin: 3px;\n    background-color: #544444;\n    display: inline-block;\n    padding: 10px;\n    border: solid black;\n    border-width: 1px;\n    font-weight: bold;\n    border-radius: 40px;\n    text-transform: uppercase;\n    font-size: 15px;\n    -webkit-transition: all .2s;\n    transition: all .2s;\n    cursor: pointer;\n    color: white;\n}\n    &:hover {\n        transform: translate(0, -1px);\n        box-shadow: 0 .3rem .2rem rgb(0, 0, 0, .2);\n\n        \n    }   \n    &:active {\n        transform: translate(0, 1px);\n        box-shadow: 0 .2rem .2rem rgb(0, 0, 0, .2);\n} \n']);
+
+var _react = __webpack_require__(17);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(34);
+
+var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var StyledButton = (0, _reactEmotion2.default)('span')(_templateObject);
+
+var Button = function Button(_ref) {
+    var handleOnClick = _ref.handleOnClick,
+        text = _ref.text;
+    return _react2.default.createElement(
+        StyledButton,
+        { onClick: handleOnClick },
+        text
+    );
+};
+
+exports.default = Button;
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(['\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    /* &:hover {\n        transform: translate(0, -1px);\n        box-shadow: 0 .3rem .2rem rgb(0, 0, 0, .2);\n    }    */\n    /* &:active {\n        transform: translate(0, 1px);\n        box-shadow: 0 .4rem .4rem rgb(0, 0, 0, .2);\n        outline-style: outset;\n        outline-color: rgba(123, 121, 121, 0.55);\n        outline-width: 2px;\n        transition: all .2s;\n    }  */\n    &:focus {\n        /* box-shadow: 0 .1rem .1rem rgb(0, 0, 0, .2); */\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n'], ['\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    /* &:hover {\n        transform: translate(0, -1px);\n        box-shadow: 0 .3rem .2rem rgb(0, 0, 0, .2);\n    }    */\n    /* &:active {\n        transform: translate(0, 1px);\n        box-shadow: 0 .4rem .4rem rgb(0, 0, 0, .2);\n        outline-style: outset;\n        outline-color: rgba(123, 121, 121, 0.55);\n        outline-width: 2px;\n        transition: all .2s;\n    }  */\n    &:focus {\n        /* box-shadow: 0 .1rem .1rem rgb(0, 0, 0, .2); */\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n']);
+
+var _react = __webpack_require__(17);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(34);
+
+var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var StyledInput = (0, _reactEmotion2.default)('input')(_templateObject);
+
+var Input = function Input(_ref) {
+    var onChange = _ref.onChange,
+        key = _ref.key;
+    return _react2.default.createElement(StyledInput, { key: key, onChange: onChange });
+};
+
+exports.default = Input;
 
 /***/ })
 /******/ ]);
