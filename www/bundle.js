@@ -22553,7 +22553,20 @@ var App = function (_React$Component) {
   }, {
     key: "handleKeyWordSubmit",
     value: function handleKeyWordSubmit() {
-      this.setState({ keyWordsSubmitted: true });
+      if (this.state.keyWords.length > 0) {
+        this.setState({ keyWordsSubmitted: true });
+      } else {
+        alert("Enter at least 1 keyword before submitting");
+      }
+    }
+  }, {
+    key: "handleNewSentence",
+    value: function handleNewSentence() {
+      this.setState({
+        keyWords: [],
+        synonyms: { 0: [], 1: [], 2: [], 3: [] },
+        keyWordsSubmitted: false
+      });
     }
   }, {
     key: "render",
@@ -22562,7 +22575,10 @@ var App = function (_React$Component) {
         return _react2.default.createElement(
           "div",
           null,
-          _react2.default.createElement(_SentenceRoller2.default, { keywords: this.state.keyWords })
+          _react2.default.createElement(_SentenceRoller2.default, {
+            keyWords: this.state.keyWords,
+            handleNewSentence: this.handleNewSentence.bind(this)
+          })
         );
       } else {
         return _react2.default.createElement(
@@ -24473,13 +24489,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SentenceRoller = function (_React$Component) {
     _inherits(SentenceRoller, _React$Component);
 
-    function SentenceRoller(state) {
+    function SentenceRoller(props) {
         _classCallCheck(this, SentenceRoller);
 
-        var _this = _possibleConstructorReturn(this, (SentenceRoller.__proto__ || Object.getPrototypeOf(SentenceRoller)).call(this, state));
+        var _this = _possibleConstructorReturn(this, (SentenceRoller.__proto__ || Object.getPrototypeOf(SentenceRoller)).call(this, props));
 
         _this.state = {
-            keywords: state.keywords,
+            keyWords: props.keyWords,
             displaySynonymSelector: false,
             selectedKeyWord: null,
             synonymsOfSelectedKeyWord: [],
@@ -24492,7 +24508,7 @@ var SentenceRoller = function (_React$Component) {
         key: "getSynonyms",
         value: function getSynonyms(keyword) {
             return new Promise(function (resolve, reject) {
-                _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK").then(function (_ref) {
+                _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK", { timeout: 2500 }).then(function (_ref) {
                     var response = _ref.response;
 
                     console.log("this is the response... ", response);
@@ -24517,7 +24533,11 @@ var SentenceRoller = function (_React$Component) {
                     selectedKeyWordIndex: index
                 });
             }).catch(function (err) {
-                console.log("an error has occurred while fetching synonyms, check your network connection and try again ", err);
+                if (err.toString().includes("Request timed out")) {
+                    alert("We could not find any synonyms for this word... Please try again");
+                } else {
+                    alert("an error has occurred while fetching synonyms, please check your network connection and try again ");
+                }
             });
         }
     }, {
@@ -24526,7 +24546,7 @@ var SentenceRoller = function (_React$Component) {
             var _this3 = this;
 
             this.setState(function (state) {
-                state.keywords[state.selectedKeyWordIndex] = synonym;
+                state.keyWords[state.selectedKeyWordIndex] = synonym;
             }, function () {
                 _this3.closeSynonymMenu();
             });
@@ -24558,13 +24578,18 @@ var SentenceRoller = function (_React$Component) {
                 _react2.default.createElement(
                     "form",
                     null,
-                    this.state.keywords.map(function (keyword, index) {
+                    this.state.keyWords.map(function (keyword, index) {
                         return _react2.default.createElement(
                             "span",
                             { key: index, onClick: _this4.handleKeyWordClick.bind(_this4, keyword, index) },
                             keyword
                         );
                     })
+                ),
+                _react2.default.createElement(
+                    "span",
+                    { onClick: this.props.handleNewSentence },
+                    "New Sentence"
                 )
             );
         }

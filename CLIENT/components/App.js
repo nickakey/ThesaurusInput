@@ -25,14 +25,29 @@ class App extends React.Component {
   }
 
   handleKeyWordSubmit(){
-    this.setState({keyWordsSubmitted: true})
+    if(this.state.keyWords.length > 0){
+      this.setState({keyWordsSubmitted: true})
+    } else {
+      alert("Enter at least 1 keyword before submitting")
+    }
+  }
+
+  handleNewSentence(){
+    this.setState({
+      keyWords: [],
+      synonyms: {0: [], 1: [], 2: [], 3: []},
+      keyWordsSubmitted: false
+    })
   }
 
   render() {
     if(this.state.keyWordsSubmitted){
       return (
         <div>
-          <SentenceRoller keywords={this.state.keyWords}/>
+          <SentenceRoller 
+            keyWords={this.state.keyWords}
+            handleNewSentence={this.handleNewSentence.bind(this)}
+          />
         </div>
       )   
     } else {

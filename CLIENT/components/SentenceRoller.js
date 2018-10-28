@@ -5,10 +5,10 @@ import SynonymSelector from "./SynonymSelector";
 import { synonymsFormatter } from "../utilities";
 
 class SentenceRoller extends React.Component {
-  constructor(state) {
-    super(state);
+  constructor(props) {
+    super(props);
     this.state = {
-        keywords: state.keywords,
+        keyWords: props.keyWords,
         displaySynonymSelector: false,
         selectedKeyWord: null,
         synonymsOfSelectedKeyWord: [],
@@ -18,7 +18,9 @@ class SentenceRoller extends React.Component {
 
   getSynonyms(keyword){
       return new Promise((resolve, reject)=>{
-        axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`)
+        axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
+            {timeout: 2500}
+        )
         .then(({response})=>{
             console.log("this is the response... " ,response)
             const formattedSynonyms = synonymsFormatter(response)
@@ -42,14 +44,16 @@ class SentenceRoller extends React.Component {
         })
       })   
       .catch((err)=>{
-          console.log("an error has occurred while fetching synonyms, check your network connection and try again ", err);
+        if(err.toString().includes("Request timed out")){alert("We could not find any synonyms for this word... Please try again")} else {
+            alert("an error has occurred while fetching synonyms, please check your network connection and try again ");
+        }
       })
   }
 
   handleSynonymClick(synonym){
-      this.setState((state)=>{
-          state.keywords[state.selectedKeyWordIndex] = synonym;
-      }, ()=>{this.closeSynonymMenu()}
+      this.setState(
+        (state)=>{state.keyWords[state.selectedKeyWordIndex] = synonym},
+        ()=>{this.closeSynonymMenu()}
       )
   }
 
@@ -61,8 +65,6 @@ class SentenceRoller extends React.Component {
         state.selectedKeyWordIndex = null;
     })
 }  
-
-
 
   render() {
     return (
@@ -77,10 +79,12 @@ class SentenceRoller extends React.Component {
                 : ""
             }
             <form>
-                {this.state.keywords.map((keyword, index)=>{
+                {this.state.keyWords.map((keyword, index)=>{
                     return <span key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
                 })}
             </form>
+            <span onClick={this.props.handleNewSentence}>New Sentence</span>
+
         </div>
         )
     }
