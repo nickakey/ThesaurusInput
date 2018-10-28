@@ -49,12 +49,20 @@ class SentenceRoller extends React.Component {
   handleSynonymClick(synonym){
       this.setState((state)=>{
           state.keywords[state.selectedKeyWordIndex] = synonym;
-          state.displaySynonymSelector = false;
-          state.selectedKeyWord = null;
-          state.synonymsOfSelectedKeyWord = [];
-          state.selectedKeyWordIndex = null;
-      })
+      }, ()=>{this.closeSynonymMenu()}
+      )
   }
+
+  closeSynonymMenu(){
+    this.setState((state)=>{
+        state.displaySynonymSelector = false;
+        state.selectedKeyWord = null;
+        state.synonymsOfSelectedKeyWord = [];
+        state.selectedKeyWordIndex = null;
+    })
+}  
+
+
 
   render() {
     return (
@@ -64,6 +72,7 @@ class SentenceRoller extends React.Component {
                     handleSynonymClick={this.handleSynonymClick.bind(this)}
                     synonyms={this.state.synonymsOfSelectedKeyWord} 
                     keyword={this.state.selectedKeyWord}
+                    handleCloseMenu={this.closeSynonymMenu.bind(this)}
                 /> 
                 : ""
             }

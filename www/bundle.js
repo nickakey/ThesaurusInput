@@ -24523,8 +24523,18 @@ var SentenceRoller = function (_React$Component) {
     }, {
         key: "handleSynonymClick",
         value: function handleSynonymClick(synonym) {
+            var _this3 = this;
+
             this.setState(function (state) {
                 state.keywords[state.selectedKeyWordIndex] = synonym;
+            }, function () {
+                _this3.closeSynonymMenu();
+            });
+        }
+    }, {
+        key: "closeSynonymMenu",
+        value: function closeSynonymMenu() {
+            this.setState(function (state) {
                 state.displaySynonymSelector = false;
                 state.selectedKeyWord = null;
                 state.synonymsOfSelectedKeyWord = [];
@@ -24534,7 +24544,7 @@ var SentenceRoller = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             return _react2.default.createElement(
                 "div",
@@ -24542,7 +24552,8 @@ var SentenceRoller = function (_React$Component) {
                 this.state.displaySynonymSelector ? _react2.default.createElement(_SynonymSelector2.default, {
                     handleSynonymClick: this.handleSynonymClick.bind(this),
                     synonyms: this.state.synonymsOfSelectedKeyWord,
-                    keyword: this.state.selectedKeyWord
+                    keyword: this.state.selectedKeyWord,
+                    handleCloseMenu: this.closeSynonymMenu.bind(this)
                 }) : "",
                 _react2.default.createElement(
                     "form",
@@ -24550,7 +24561,7 @@ var SentenceRoller = function (_React$Component) {
                     this.state.keywords.map(function (keyword, index) {
                         return _react2.default.createElement(
                             "span",
-                            { key: index, onClick: _this3.handleKeyWordClick.bind(_this3, keyword, index) },
+                            { key: index, onClick: _this4.handleKeyWordClick.bind(_this4, keyword, index) },
                             keyword
                         );
                     })
@@ -24587,7 +24598,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var SynonymSelector = function SynonymSelector(_ref) {
     var synonyms = _ref.synonyms,
-        handleSynonymClick = _ref.handleSynonymClick;
+        handleSynonymClick = _ref.handleSynonymClick,
+        handleCloseMenu = _ref.handleCloseMenu;
     return _react2.default.createElement(
         "div",
         null,
@@ -24604,7 +24616,14 @@ var SynonymSelector = function SynonymSelector(_ref) {
                     synonym,
                     " "
                 );
-            })
+            }),
+            _react2.default.createElement(
+                "span",
+                { onClick: function onClick() {
+                        handleCloseMenu();
+                    } },
+                "close"
+            )
         )
     );
 };
