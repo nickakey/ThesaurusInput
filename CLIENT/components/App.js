@@ -37,7 +37,7 @@ class App extends React.Component {
     super();
     this.state = {
       keyWords: [],
-      synonyms: {0: [], 1: [], 2: [], 3: []},
+      synonyms: [[], [], [], []],
       synonymsFetched: false,
       numberOfWordSlots: 4,
       loading: false,
@@ -51,14 +51,16 @@ class App extends React.Component {
   handleKeyWordChange(index, value){
     this.setState((state)=>{
       state.keyWords[index] = value;
-      console.log(this.state)
       return state;
     })
   }
 
+  handleSynonymClick(synonym, selectedKeyWordIndex){
+    this.setState((state)=>{this.state.keyWords[selectedKeyWordIndex] = synonym})
+  }  
+
   getSynonyms(keyWords){
     return new Promise((resolve, reject)=>{
-      console.log("we in here! ", keyWords)
       const allRequestPromises = keyWords.map((keyword)=>{
         return axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
                   {timeout: 2500}
@@ -70,32 +72,13 @@ class App extends React.Component {
         resolve(formattedSynonyms);
       })
       .catch((err)=>{
-        console.log("this is the errr ", err);
         reject(err);
       })
     })
-
-
-
-    // return new Promise((resolve, reject)=>{
-    //   axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
-    //       {timeout: 2500}
-    //   )
-    //   .then(({response})=>{
-    //       console.log("this is the response... " ,response)
-    
-    //       resolve(formattedSynonyms);
-    //   })
-    //   .catch((err)=>{
-    //       console.log("this is the err in it's fullness .... ", err)
-    //       reject(err);
-    //   })
-    // })
   }
 
   handleKeyWordSubmit(){
     if(this.state.keyWords.length > 0){
-      console.log("this.state.keyWords ", this.state.keyWords)
       this.setState({loading: true});
       this.getSynonyms(this.state.keyWords)
       .then((synonyms)=>{
@@ -123,9 +106,7 @@ class App extends React.Component {
     if(this.state.loading){
       return (
         <div className={background}>
-          {/* <div> */}
           <LoadingScreen/>
-          {/* </div> */}
         </div>
       ) 
     }
@@ -135,8 +116,10 @@ class App extends React.Component {
           <div className={background}></div>
           <div >
             <SentenceRoller 
+              handleSynonymClick={this.handleSynonymClick.bind(this)}
               keyWords={this.state.keyWords}
               handleNewSentence={this.handleNewSentence.bind(this)}
+              synonyms={this.state.synonyms}
             />
           </div>
         </span>

@@ -22,14 +22,9 @@ const topRightButton = css`
 `
 
 const centeredContainer = css`
-    /* basically anytime you want center, use position absolute, because html hates vertical stuff  */
     position: absolute;
-    /* These top and left mean 50% FROM the parent element */
     top: 40%;
     left: 50%;
-
-    /* without these, the far left side of this element would be at the 50% mark of the parent elemnet.
-    WITh this translate, we shift the element 50% to the left, such that now it's actually centered */
     transform: translate(-50%, -50%);
 `
 
@@ -40,81 +35,27 @@ const keyWords = css`
     margin-right: 20px;
 `
 
-class SentenceRoller extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        keyWords: props.keyWords,
-        displaySynonymSelector: false,
-        selectedKeyWord: null,
-        synonyms: props.synonyms,
-        selectedKeyWordIndex: null
-    }
-  }
-
-  handleKeyWordClick(keyword, index){
-      console.log("handle keyword click is firing");
-      this.getSynonyms(keyword)
-      .then((synonyms)=>{
-        this.setState({
-            synonymsOfSelectedKeyWord: synonyms, 
-            selectedKeyWord: keyword, 
-            displaySynonymSelector: true,
-            selectedKeyWordIndex: index
-        })
-      })   
-      .catch((err)=>{
-          console.log("this is the err in handlekeyword click ", err)
-        if(err.toString().includes("Request timed out")){alert("We could not find any synonyms for this word... Please try again")} else {
-            alert("an error has occurred while fetching synonyms, please check your network connection and try again ");
-        }
-      })
-  }
-
-  handleSynonymClick(synonym){
-      this.setState(
-        (state)=>{state.keyWords[state.selectedKeyWordIndex] = synonym},
-        ()=>{this.closeSynonymMenu()}
-      )
-  }
-
-  closeSynonymMenu(){
-    this.setState((state)=>{
-        state.displaySynonymSelector = false;
-        state.selectedKeyWord = null;
-        state.synonymsOfSelectedKeyWord = [];
-        state.selectedKeyWordIndex = null;
-    })
-}  
-
-  render() {
-    return (
-        <div>
-            <div className={centeredContainer}>
-                    {this.state.displaySynonymSelector ? 
-                        <SynonymSelector 
-                            handleSynonymClick={this.handleSynonymClick.bind(this)}
-                            synonyms={this.state.synonymsOfSelectedKeyWord} 
-                            keyword={this.state.selectedKeyWord}
-                            handleCloseMenu={this.closeSynonymMenu.bind(this)}
-                        /> 
-                        : ""
-                    }
-            
-            <div className={textAlignCenter}>
-                {this.state.keyWords.map((keyword, index)=>{
-                    return <DropDown topItem={"TOP ITEM"} dropDownItems={["1", "2", "3"]}></DropDown>
-                    // return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
-                })}
-            </div>
-            </div>
-            <div className={css`${textAlignCenter} ${topRightButton}`}>
-                <Button handleOnClick={this.props.handleNewSentence} text={"New Sentence"}></Button>
-            </div>
+const SentenceRoller = ({handleSynonymClick, keyWords, handleNewSentence, synonyms}) => (
+    <div>
+        <div className={centeredContainer}>
+        <div className={textAlignCenter}>
+            {keyWords.map((keyword, index)=>(
+                <DropDown 
+                    key={index}
+                    onClick={handleSynonymClick}
+                    topItem={keyword} 
+                    topItemIndex={index} 
+                    dropDownItems={synonyms[index]}
+                ></DropDown>
+            ))}
         </div>
-        )
-    }
-} 
+        </div>
+        <div className={css`${textAlignCenter} ${topRightButton}`}>
+            <Button handleOnClick={handleNewSentence} text={"New Sentence"}></Button>
+        </div>
+    </div>
+)
+
 export default SentenceRoller;
 
 

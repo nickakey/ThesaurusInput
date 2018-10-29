@@ -13,14 +13,9 @@ const textAlignCenter = css`
 `
 
 const centeredContainer = css`
-    /* basically anytime you want center, use position absolute, because html hates vertical stuff  */
     position: absolute;
-    /* These top and left mean 50% FROM the parent element */
     top: 40%;
     left: 50%;
-
-    /* without these, the far left side of this element would be at the 50% mark of the parent elemnet.
-    WITh this translate, we shift the element 50% to the left, such that now it's actually centered */
     transform: translate(-50%, -50%);
 `
 
@@ -29,8 +24,8 @@ const KeyWordInputWindow = ({numberOfWordSlots, handleChange, handleSubmit, addN
     <div className={centeredContainer}>
         <div className={textAlignCenter}>
             <div className={inlineBlock}>
-                {_.range(numberOfWordSlots).map((num)=>{
-                    return <Input key={num} onChange={(e)=>{handleChange(num, e.target.value)}}></Input>
+                {_.range(numberOfWordSlots).map((num, index)=>{
+                    return <Input key={index} index={index} onChange={(e)=>{handleChange(num, e.target.value)}}></Input>
                 })}
             </div>
         </div>

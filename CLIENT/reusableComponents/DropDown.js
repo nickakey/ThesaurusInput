@@ -8,6 +8,8 @@ const dropDownContent = css`
     width: inherit;
     transform: translate(-50%, 0); 
     box-shadow: 0.2rem 0.4rem 0.4rem rgb(0,0,0,.3);
+    overflow: scroll;
+    max-height: 30vh;    
 `
 
 const dropDownContainer = css` 
@@ -22,16 +24,14 @@ const dropDownContainer = css`
     
 `
 
-
-
-const DropDown = ({topItem, dropDownItems}) => (
+const DropDown = ({topItem, topItemIndex, dropDownItems, onClick}) => (
     <div className={dropDownContainer}>
         <div>
             {topItem}
         </div>
         <div className={dropDownContent}>
-            {dropDownItems.map((item)=>{
-                return <div>{item}</div>         
+            {dropDownItems.map((item, index)=>{
+                return <div key={index} onClick={()=>{onClick(item, topItemIndex)}}>{item}</div>         
             })}
         </div>
     </div>

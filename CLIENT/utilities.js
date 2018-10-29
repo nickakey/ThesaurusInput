@@ -1,5 +1,4 @@
 function synonymsFormatter(synonymsArrays){
-    console.log("this is synynons arrays ", synonymsArrays)
     const allSynonymsLists = [];
 
     synonymsArrays.forEach((synonymsArray)=>{
@@ -12,7 +11,6 @@ function synonymsFormatter(synonymsArrays){
         })
         allSynonymsLists.push(formattedSynonyms);
     })
-    console.log("this is the result of the ultilite ", allSynonymsLists);
 
     return allSynonymsLists;
 
