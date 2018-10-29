@@ -25237,6 +25237,10 @@ var _Button = __webpack_require__(233);
 
 var _Button2 = _interopRequireDefault(_Button);
 
+var _DropDown = __webpack_require__(235);
+
+var _DropDown2 = _interopRequireDefault(_DropDown);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25336,8 +25340,6 @@ var SentenceRoller = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var _this4 = this;
-
             return _react2.default.createElement(
                 "div",
                 null,
@@ -25354,11 +25356,8 @@ var SentenceRoller = function (_React$Component) {
                         "div",
                         { className: textAlignCenter },
                         this.state.keyWords.map(function (keyword, index) {
-                            return _react2.default.createElement(
-                                "span",
-                                { className: keyWords, key: index, onClick: _this4.handleKeyWordClick.bind(_this4, keyword, index) },
-                                keyword
-                            );
+                            return _react2.default.createElement(_DropDown2.default, { topItem: "TOP ITEM", dropDownItems: ["1", "2", "3"] });
+                            // return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
                         })
                     )
                 ),
@@ -28247,6 +28246,63 @@ var Input = function Input(_ref) {
 };
 
 exports.default = Input;
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(["\n    display: none;\n    position: absolute;\n    background-color: inherit;\n    /* left: 50%; */\n    width: inherit;\n    transform: translate(-50%, 0);    \n"], ["\n    display: none;\n    position: absolute;\n    background-color: inherit;\n    /* left: 50%; */\n    width: inherit;\n    transform: translate(-50%, 0);    \n"]),
+    _templateObject2 = _taggedTemplateLiteral([" \n    display: inline-block;\n    width: 140px;\n    background-color: white;\n    &:hover {\n        .", " {\n            display: inline-block;\n        }\n    }\n    \n"], [" \n    display: inline-block;\n    width: 140px;\n    background-color: white;\n    &:hover {\n        .", " {\n            display: inline-block;\n        }\n    }\n    \n"]);
+
+var _react = __webpack_require__(17);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(34);
+
+var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var dropDownContent = (0, _reactEmotion.css)(_templateObject);
+
+var dropDownContainer = (0, _reactEmotion.css)(_templateObject2, dropDownContent);
+
+var DropDown = function DropDown(_ref) {
+    var topItem = _ref.topItem,
+        dropDownItems = _ref.dropDownItems;
+    return _react2.default.createElement(
+        "div",
+        { className: dropDownContainer },
+        _react2.default.createElement(
+            "div",
+            null,
+            topItem
+        ),
+        _react2.default.createElement(
+            "div",
+            { className: dropDownContent },
+            dropDownItems.map(function (item) {
+                return _react2.default.createElement(
+                    "div",
+                    null,
+                    item
+                );
+            })
+        )
+    );
+};
+
+exports.default = DropDown;
 
 /***/ })
 /******/ ]);

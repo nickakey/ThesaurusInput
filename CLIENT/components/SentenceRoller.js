@@ -5,6 +5,7 @@ import SynonymSelector from "./SynonymSelector";
 import { synonymsFormatter } from "../utilities";
 import styled, { css } from 'react-emotion';
 import Button from "../reusableComponents/Button.js";
+import DropDown from "../reusableComponents/DropDown.js";
 
 const inlineBlock = css`
     display: inline-block;
@@ -120,7 +121,8 @@ class SentenceRoller extends React.Component {
             
             <div className={textAlignCenter}>
                 {this.state.keyWords.map((keyword, index)=>{
-                    return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
+                    return <DropDown topItem={"TOP ITEM"} dropDownItems={["1", "2", "3"]}></DropDown>
+                    // return <span className={keyWords} key={index} onClick={this.handleKeyWordClick.bind(this, keyword, index)}>{keyword}</span>
                 })}
             </div>
             </div>
