@@ -27,7 +27,6 @@ const centeredContainer = css`
 
 const KeyWordInputWindow = ({numberOfWordSlots, handleChange, handleSubmit, addNewWordSlot}) => (
     <div className={centeredContainer}>
-
         <div className={textAlignCenter}>
             <div className={inlineBlock}>
                 {_.range(numberOfWordSlots).map((num)=>{

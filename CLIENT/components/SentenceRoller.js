@@ -2,7 +2,6 @@ import _ from "underscore";
 import React from 'react';
 import axios from "axios-jsonp-pro";
 import SynonymSelector from "./SynonymSelector";
-import { synonymsFormatter } from "../utilities";
 import styled, { css } from 'react-emotion';
 import Button from "../reusableComponents/Button.js";
 import DropDown from "../reusableComponents/DropDown.js";
@@ -48,26 +47,9 @@ class SentenceRoller extends React.Component {
         keyWords: props.keyWords,
         displaySynonymSelector: false,
         selectedKeyWord: null,
-        synonymsOfSelectedKeyWord: [],
+        synonyms: props.synonyms,
         selectedKeyWordIndex: null
     }
-  }
-
-  getSynonyms(keyword){
-      return new Promise((resolve, reject)=>{
-        axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
-            {timeout: 2500}
-        )
-        .then(({response})=>{
-            console.log("this is the response... " ,response)
-            const formattedSynonyms = synonymsFormatter(response)
-            resolve(formattedSynonyms);
-        })
-        .catch((err)=>{
-            console.log("this is the err in it's fullness .... ", err)
-            reject(err);
-        })
-      })
   }
 
   handleKeyWordClick(keyword, index){

@@ -1,9 +1,11 @@
+import { synonymsFormatter } from "../utilities";
 import SentenceRoller from "./SentenceRoller";
 import KeyWordInputWindow from "./KeyWordInputWindow";
+import LoadingScreen from "./LoadingScreen.js";
 import React from 'react';
 import styled, { css } from 'react-emotion';
 import { injectGlobal } from 'emotion';
-
+import axios from "axios-jsonp-pro";
 
 injectGlobal`
   * {
@@ -36,8 +38,9 @@ class App extends React.Component {
     this.state = {
       keyWords: [],
       synonyms: {0: [], 1: [], 2: [], 3: []},
-      keyWordsSubmitted: false,
+      synonymsFetched: false,
       numberOfWordSlots: 4,
+      loading: false,
     };
   }
 
@@ -53,9 +56,51 @@ class App extends React.Component {
     })
   }
 
+  getSynonyms(keyWords){
+    return new Promise((resolve, reject)=>{
+      console.log("we in here! ", keyWords)
+      const allRequestPromises = keyWords.map((keyword)=>{
+        return axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
+                  {timeout: 2500}
+              )
+      });
+      Promise.all(allRequestPromises)
+      .then((results)=>{
+        const formattedSynonyms = synonymsFormatter(results)
+        resolve(formattedSynonyms);
+      })
+      .catch((err)=>{
+        console.log("this is the errr ", err);
+        reject(err);
+      })
+    })
+
+
+
+    // return new Promise((resolve, reject)=>{
+    //   axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
+    //       {timeout: 2500}
+    //   )
+    //   .then(({response})=>{
+    //       console.log("this is the response... " ,response)
+    
+    //       resolve(formattedSynonyms);
+    //   })
+    //   .catch((err)=>{
+    //       console.log("this is the err in it's fullness .... ", err)
+    //       reject(err);
+    //   })
+    // })
+  }
+
   handleKeyWordSubmit(){
     if(this.state.keyWords.length > 0){
-      this.setState({keyWordsSubmitted: true})
+      console.log("this.state.keyWords ", this.state.keyWords)
+      this.setState({loading: true});
+      this.getSynonyms(this.state.keyWords)
+      .then((synonyms)=>{
+        this.setState({synonymsFetched: true, synonyms: synonyms, loading: false})
+      })
     } else {
       alert("Enter at least 1 keyword before submitting")
     }
@@ -65,7 +110,7 @@ class App extends React.Component {
     this.setState({
       keyWords: [],
       synonyms: {0: [], 1: [], 2: [], 3: []},
-      keyWordsSubmitted: false,
+      synonymsFetched: false,
       numberOfWordSlots: 4,
     })
   }
@@ -75,7 +120,16 @@ class App extends React.Component {
   }
 
   render() {
-    if(this.state.keyWordsSubmitted){
+    if(this.state.loading){
+      return (
+        <div className={background}>
+          {/* <div> */}
+          <LoadingScreen/>
+          {/* </div> */}
+        </div>
+      ) 
+    }
+    if(this.state.synonymsFetched){
       return (
         <span>
           <div className={background}></div>

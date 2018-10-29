@@ -5,9 +5,9 @@ const dropDownContent = css`
     display: none;
     position: absolute;
     background-color: inherit;
-    /* left: 50%; */
     width: inherit;
-    transform: translate(-50%, 0);    
+    transform: translate(-50%, 0); 
+    box-shadow: 0.2rem 0.4rem 0.4rem rgb(0,0,0,.3);
 `
 
 const dropDownContainer = css` 
