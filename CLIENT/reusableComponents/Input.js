@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css } from 'react-emotion';
 
 
-
 const StyledInput = styled('input')`
     margin: 3px;
     background-color: white;

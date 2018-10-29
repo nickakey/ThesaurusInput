@@ -19,7 +19,6 @@ const centeredContainer = css`
     transform: translate(-50%, -50%);
 `
 
-
 const KeyWordInputWindow = ({numberOfWordSlots, handleChange, handleSubmit, addNewWordSlot}) => (
     <div className={centeredContainer}>
         <div className={textAlignCenter}>
