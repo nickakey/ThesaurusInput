@@ -3,24 +3,35 @@ const path = require('path');
 module.exports = {
   context: path.join(__dirname, 'CLIENT'),
   entry: [
-    './components/main.js',
+    './components/main.jsx',
   ],
   output: {
     path: path.join(__dirname, 'www'),
     filename: 'bundle.js',
   },
   module: {
-    rules: [
+    loaders: [
       {
-        test: /\.js$/,
+        test: /.jsx?$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        use: [
-          'babel-loader',
-        ],
-      },
-    ],
+        query: {
+          presets: ['es2015', 'react']
+        }
+      }
+    ]    
+    // rules: [
+    //   {
+    //     test: /\.js$/,
+    //     exclude: /node_modules/,
+    //     use: [
+    //       'babel-loader',
+    //     ],
+    //   },
+    // ],
   },
   resolve: {
+    extensions: [".js", ".json", ".jsx"],
     modules: [
       path.join(__dirname, 'node_modules'),
     ],

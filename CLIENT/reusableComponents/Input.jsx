@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { css } from 'react-emotion';
+import React from 'react';
+import styled from 'react-emotion';
 
 
 const StyledInput = styled('input')`
@@ -20,7 +20,7 @@ const StyledInput = styled('input')`
         box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);
         transition: all .3s;
     }
-`
+`;
 
 const Input = ({onChange, index}) => (
     <StyledInput key={index} onChange={onChange}>
