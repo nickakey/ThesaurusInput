@@ -3,6 +3,7 @@ function synonymsFormatter(synonymsArrays){
 
     synonymsArrays.forEach((synonymsArray)=>{
         const formattedSynonyms = [];
+        if(!synonymsArray){return allSynonymsLists.push([undefined])}
         synonymsArray.response.forEach(({list : {synonyms: synonymsString}})=>{
             synonymsString.split("|")
             .forEach((synonym)=>{

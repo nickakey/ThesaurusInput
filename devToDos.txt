@@ -4,7 +4,7 @@ DONE - When I click submit without any words, it shouldn't let me do anything
 DONE - I want a "New Sentence" button that will take me back to the mainscreen and clear everything
 DONE - I want to add more word slots so that I can roll longer sentences
 DONE -  Request the synonyms for EVERYTHING right away..
-
+DONE - handle words without synonyms
 
 * CSS duh...
 * Change it to ONE input field, that splits everything
@@ -14,8 +14,9 @@ DONE -  Request the synonyms for EVERYTHING right away..
 
 
 * There should be a share button that allows me to share the before sentence and the after sentence and a link to the app
-* There needs to be better handling where words without synonyms are highlighted red and given the option to change
-    * You should also be able to proceed with certain words without them being synonyms. 
-    ("there are no synonyms for the words highlighted in red... proceed anyways?");
-    
+
+
+
+
+
 

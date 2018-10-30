@@ -21,20 +21,44 @@ const dropDownContainer = css`
             display: inline-block;
         }
     }
-    
 `
 
-const DropDown = ({topItem, topItemIndex, dropDownItems, onClick}) => (
-    <div className={dropDownContainer}>
-        <div>
-            {topItem}
-        </div>
-        <div className={dropDownContent}>
-            {dropDownItems.map((item, index)=>{
-                return <div key={index} onClick={()=>{onClick(item, topItemIndex)}}>{item}</div>         
-            })}
-        </div>
-    </div>
-)
+const noneFoundDropDownContainer = css`
+    background-color: lightgrey;
+    cursor: not-allowed;
+`
+
+const DropDown = ({topItem, topItemIndex, dropDownItems, onClick}) => {
+    
+    if(!dropDownItems[0]){
+        return (
+            <div className={`${dropDownContainer} ${noneFoundDropDownContainer}`}>
+                <div>
+                    {topItem}
+                </div>
+                <div className={dropDownContent}>
+                    {dropDownItems.map((item, index)=>{
+                        return <div key={index}>{"No Synonyms Found"}</div>         
+                    })}
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div className={dropDownContainer}>
+                <div>
+                    {topItem}
+                </div>
+                <div className={dropDownContent}>
+                    {dropDownItems.map((item, index)=>{
+                        return <div key={index} onClick={()=>{onClick(item, topItemIndex)}}>{item}</div>         
+                    })}
+                </div>
+            </div>
+        )
+    }
+
+
+}
 
 export default DropDown;

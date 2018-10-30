@@ -25190,7 +25190,9 @@ var App = function (_React$Component) {
     value: function getSynonyms(keyWords) {
       return new Promise(function (resolve, reject) {
         var allRequestPromises = keyWords.map(function (keyword) {
-          return _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK", { timeout: 2500 });
+          return _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + keyword + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK", { timeout: 1500 }).catch(function () {
+            return undefined;
+          });
         });
         Promise.all(allRequestPromises).then(function (results) {
           var formattedSynonyms = (0, _utilities.synonymsFormatter)(results);
@@ -25294,6 +25296,9 @@ function synonymsFormatter(synonymsArrays) {
 
     synonymsArrays.forEach(function (synonymsArray) {
         var formattedSynonyms = [];
+        if (!synonymsArray) {
+            return allSynonymsLists.push([undefined]);
+        }
         synonymsArray.response.forEach(function (_ref) {
             var synonymsString = _ref.list.synonyms;
 
@@ -28105,7 +28110,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _templateObject = _taggedTemplateLiteral(["\n    display: none;\n    position: absolute;\n    background-color: inherit;\n    width: inherit;\n    transform: translate(-50%, 0); \n    box-shadow: 0.2rem 0.4rem 0.4rem rgb(0,0,0,.3);\n    overflow: scroll;\n    max-height: 30vh;    \n"], ["\n    display: none;\n    position: absolute;\n    background-color: inherit;\n    width: inherit;\n    transform: translate(-50%, 0); \n    box-shadow: 0.2rem 0.4rem 0.4rem rgb(0,0,0,.3);\n    overflow: scroll;\n    max-height: 30vh;    \n"]),
-    _templateObject2 = _taggedTemplateLiteral([" \n    display: inline-block;\n    width: 140px;\n    background-color: white;\n    &:hover {\n        .", " {\n            display: inline-block;\n        }\n    }\n    \n"], [" \n    display: inline-block;\n    width: 140px;\n    background-color: white;\n    &:hover {\n        .", " {\n            display: inline-block;\n        }\n    }\n    \n"]);
+    _templateObject2 = _taggedTemplateLiteral([" \n    display: inline-block;\n    width: 140px;\n    background-color: white;\n    &:hover {\n        .", " {\n            display: inline-block;\n        }\n    }\n"], [" \n    display: inline-block;\n    width: 140px;\n    background-color: white;\n    &:hover {\n        .", " {\n            display: inline-block;\n        }\n    }\n"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n    background-color: lightgrey;\n    cursor: not-allowed;\n"], ["\n    background-color: lightgrey;\n    cursor: not-allowed;\n"]);
 
 var _react = __webpack_require__(10);
 
@@ -28123,33 +28129,60 @@ var dropDownContent = (0, _reactEmotion.css)(_templateObject);
 
 var dropDownContainer = (0, _reactEmotion.css)(_templateObject2, dropDownContent);
 
+var noneFoundDropDownContainer = (0, _reactEmotion.css)(_templateObject3);
+
 var DropDown = function DropDown(_ref) {
     var topItem = _ref.topItem,
         topItemIndex = _ref.topItemIndex,
         dropDownItems = _ref.dropDownItems,
         _onClick = _ref.onClick;
-    return _react2.default.createElement(
-        "div",
-        { className: dropDownContainer },
-        _react2.default.createElement(
+
+
+    if (!dropDownItems[0]) {
+        return _react2.default.createElement(
             "div",
-            null,
-            topItem
-        ),
-        _react2.default.createElement(
+            { className: dropDownContainer + " " + noneFoundDropDownContainer },
+            _react2.default.createElement(
+                "div",
+                null,
+                topItem
+            ),
+            _react2.default.createElement(
+                "div",
+                { className: dropDownContent },
+                dropDownItems.map(function (item, index) {
+                    return _react2.default.createElement(
+                        "div",
+                        { key: index },
+                        "No Synonyms Found"
+                    );
+                })
+            )
+        );
+    } else {
+        return _react2.default.createElement(
             "div",
-            { className: dropDownContent },
-            dropDownItems.map(function (item, index) {
-                return _react2.default.createElement(
-                    "div",
-                    { key: index, onClick: function onClick() {
-                            _onClick(item, topItemIndex);
-                        } },
-                    item
-                );
-            })
-        )
-    );
+            { className: dropDownContainer },
+            _react2.default.createElement(
+                "div",
+                null,
+                topItem
+            ),
+            _react2.default.createElement(
+                "div",
+                { className: dropDownContent },
+                dropDownItems.map(function (item, index) {
+                    return _react2.default.createElement(
+                        "div",
+                        { key: index, onClick: function onClick() {
+                                _onClick(item, topItemIndex);
+                            } },
+                        item
+                    );
+                })
+            )
+        );
+    }
 };
 
 exports.default = DropDown;

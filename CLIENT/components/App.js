@@ -63,8 +63,8 @@ class App extends React.Component {
     return new Promise((resolve, reject)=>{
       const allRequestPromises = keyWords.map((keyword)=>{
         return axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`, 
-                  {timeout: 2500}
-              )
+                  {timeout: 1500}
+              ).catch(()=>undefined)
       });
       Promise.all(allRequestPromises)
       .then((results)=>{
