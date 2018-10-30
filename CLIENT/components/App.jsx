@@ -41,7 +41,7 @@ class App extends React.Component {
       keyWords: [],
       synonyms: [[], [], [], []],
       synonymsFetched: false,
-      loading: false,
+      currentWord: [],
     };
   }
 
@@ -63,6 +63,19 @@ class App extends React.Component {
     });
   }
 
+  getSynonym(keyword, index) {
+    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${keyword}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      { timeout: 1500 })
+      .then((result) => {
+        this.setState((state) => {
+          state.synonyms[index] = synonymsFormatter(result);
+        })
+      })
+      .catch((err)=>{
+
+      })
+  }
+
   handleSynonymClick(synonym, selectedKeyWordIndex) {
     this.setState((state) => {
       const newState = Object.assign({}, state);
@@ -71,50 +84,53 @@ class App extends React.Component {
     });
   }
 
-  handleKeyWordChange(value) {
-    this.setState({ keyWords: value.split(' ') });
+  handleKeyboardInput(value) {
+    if (value === ' ') {
+      this.handleSpaceInput();
+    } else {
+      this.handleLetterInput(value);
+    }
   }
+
+  handleLetterInput(letter) {
+    this.setState((state) => {
+      state.currentWord.push(letter);
+      return state;
+    });
+  }
+
+  handleSpaceInput() {
+    this.setState((state) => {
+      const newWord = state.currentWord.join('');
+      //kick off the async get synonym function... let it do it's thing in the background
+
+      this.getSynonym(newWord, this.state.keyWords.length);
+      state.keyWords.push(newWord);
+      state.currentWord = [];
+      return state;
+    })
+  }
+
 
   isFirstRender() {
     return this.state.keyWords.length === 0;
   }
 
-  handleKeyWordSubmit() {
-    if (this.state.keyWords.length > 0) {
-      this.setState({ loading: true });
-      App.getSynonyms(this.state.keyWords)
-        .then((synonyms) => {
-          this.setState({ synonymsFetched: true, synonyms, loading: false })
-        })
-    } else {
-      alert('Enter at least 1 keyword before submitting')
-    }
+  componentDidUpdate(){
+    this.refs.keyPressHandler.focus();
   }
 
-  handleNewSentence() {
-    this.setState({
-      keyWords: [],
-      synonyms: {
-        0: [], 1: [], 2: [], 3: [],
-      },
-      synonymsFetched: false,
-      numberOfWordSlots: 4,
-    });
+  componentDidMount(){
+    this.refs.keyPressHandler.focus();
   }
+
 
   render() {
-    if (this.state.loading) {
-      return (
-        <div className={background}>
-          <LoadingScreen />
-        </div>
-      )
-    }
-    if (this.state.synonymsFetched) {
-      return (
+    return (
+      <div className={background}>
         <span>
-          <div className={background} />
           <div>
+          <div ref="keyPressHandler" autoFocus="true" tabIndex="0" onKeyPress={(e)=>{this.handleKeyboardInput(e.key)}}>input field</div>
             <SentenceRoller
               handleSynonymClick={(...args) => this.handleSynonymClick(...args)}
               keyWords={this.state.keyWords}
@@ -123,21 +139,7 @@ class App extends React.Component {
             />
           </div>
         </span>
-      );
-    } return (
-      <span>
-        <div className={background} />
-        <div>
-          <KeyWordInputWindow
-            // this stupid args things is a terrible pattern... 
-            // TODO: Use bind or ANYTHING else
-            handleChange={(...args) => this.handleKeyWordChange(...args)}
-            handleSubmit={(...args) => this.handleKeyWordSubmit(...args)}
-            addNewWordSlot={(...args) => this.addNewWordSlot(...args)}
-            numberOfWordSlots={this.state.numberOfWordSlots}
-          />
-        </div>
-      </span>
+      </div>
     );
   }
 }

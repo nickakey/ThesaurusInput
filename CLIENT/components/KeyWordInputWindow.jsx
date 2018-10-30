@@ -17,7 +17,7 @@ const textInput = css`
 
 const centeredContainer = css`
     position: absolute;
-    top: 40%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
 `;
@@ -30,9 +30,9 @@ const KeyWordInputWindow = ({ handleChange, handleSubmit }) => (
           handleChange(e.target.value)
         }} />
     </div>
-    <div className={textAlignCenter}>
-      <Button handleOnClick={handleSubmit} text="SUBMIT SENTENCE"/>
-    </div>
+    { /*<div className={textAlignCenter}>
+       <Button handleOnClick={handleSubmit} text="SUBMIT SENTENCE"/>
+      </div> */} 
   </div>
 )
 

@@ -23486,12 +23486,23 @@ var App = function (_React$Component) {
       keyWords: [],
       synonyms: [[], [], [], []],
       synonymsFetched: false,
-      loading: false
+      currentWord: []
     };
     return _this;
   }
 
   _createClass(App, [{
+    key: 'getSynonym',
+    value: function getSynonym(keyword, index) {
+      var _this2 = this;
+
+      _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + keyword + '&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK', { timeout: 1500 }).then(function (result) {
+        _this2.setState(function (state) {
+          state.synonyms[index] = (0, _utilities.synonymsFormatter)(result);
+        });
+      }).catch(function (err) {});
+    }
+  }, {
     key: 'handleSynonymClick',
     value: function handleSynonymClick(synonym, selectedKeyWordIndex) {
       this.setState(function (state) {
@@ -23501,9 +23512,36 @@ var App = function (_React$Component) {
       });
     }
   }, {
-    key: 'handleKeyWordChange',
-    value: function handleKeyWordChange(value) {
-      this.setState({ keyWords: value.split(' ') });
+    key: 'handleKeyboardInput',
+    value: function handleKeyboardInput(value) {
+      if (value === ' ') {
+        this.handleSpaceInput();
+      } else {
+        this.handleLetterInput(value);
+      }
+    }
+  }, {
+    key: 'handleLetterInput',
+    value: function handleLetterInput(letter) {
+      this.setState(function (state) {
+        state.currentWord.push(letter);
+        return state;
+      });
+    }
+  }, {
+    key: 'handleSpaceInput',
+    value: function handleSpaceInput() {
+      var _this3 = this;
+
+      this.setState(function (state) {
+        var newWord = state.currentWord.join('');
+        //kick off the async get synonym function... let it do it's thing in the background
+
+        _this3.getSynonym(newWord, _this3.state.keyWords.length);
+        state.keyWords.push(newWord);
+        state.currentWord = [];
+        return state;
+      });
     }
   }, {
     key: 'isFirstRender',
@@ -23511,84 +23549,47 @@ var App = function (_React$Component) {
       return this.state.keyWords.length === 0;
     }
   }, {
-    key: 'handleKeyWordSubmit',
-    value: function handleKeyWordSubmit() {
-      var _this2 = this;
-
-      if (this.state.keyWords.length > 0) {
-        this.setState({ loading: true });
-        App.getSynonyms(this.state.keyWords).then(function (synonyms) {
-          _this2.setState({ synonymsFetched: true, synonyms: synonyms, loading: false });
-        });
-      } else {
-        alert('Enter at least 1 keyword before submitting');
-      }
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.refs.keyPressHandler.focus();
     }
   }, {
-    key: 'handleNewSentence',
-    value: function handleNewSentence() {
-      this.setState({
-        keyWords: [],
-        synonyms: {
-          0: [], 1: [], 2: [], 3: []
-        },
-        synonymsFetched: false,
-        numberOfWordSlots: 4
-      });
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.refs.keyPressHandler.focus();
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
-      if (this.state.loading) {
-        return _react2.default.createElement(
-          'div',
-          { className: background },
-          _react2.default.createElement(_LoadingScreen2.default, null)
-        );
-      }
-      if (this.state.synonymsFetched) {
-        return _react2.default.createElement(
+      return _react2.default.createElement(
+        'div',
+        { className: background },
+        _react2.default.createElement(
           'span',
           null,
-          _react2.default.createElement('div', { className: background }),
           _react2.default.createElement(
             'div',
             null,
+            _react2.default.createElement(
+              'div',
+              { ref: 'keyPressHandler', autoFocus: 'true', tabIndex: '0', onKeyPress: function onKeyPress(e) {
+                  _this4.handleKeyboardInput(e.key);
+                } },
+              'input field'
+            ),
             _react2.default.createElement(_SentenceRoller2.default, {
               handleSynonymClick: function handleSynonymClick() {
-                return _this3.handleSynonymClick.apply(_this3, arguments);
+                return _this4.handleSynonymClick.apply(_this4, arguments);
               },
               keyWords: this.state.keyWords,
               handleNewSentence: function handleNewSentence() {
-                return _this3.handleNewSentence.apply(_this3, arguments);
+                return _this4.handleNewSentence.apply(_this4, arguments);
               },
               synonyms: this.state.synonyms
             })
           )
-        );
-      }return _react2.default.createElement(
-        'span',
-        null,
-        _react2.default.createElement('div', { className: background }),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(_KeyWordInputWindow2.default
-          // this stupid args things is a terrible pattern... 
-          // TODO: Use bind or ANYTHING else
-          , { handleChange: function handleChange() {
-              return _this3.handleKeyWordChange.apply(_this3, arguments);
-            },
-            handleSubmit: function handleSubmit() {
-              return _this3.handleKeyWordSubmit.apply(_this3, arguments);
-            },
-            addNewWordSlot: function addNewWordSlot() {
-              return _this3.addNewWordSlot.apply(_this3, arguments);
-            },
-            numberOfWordSlots: this.state.numberOfWordSlots
-          })
         )
       );
     }
@@ -26196,25 +26197,19 @@ module.exports = function spread(callback) {
 "use strict";
 
 
-function synonymsFormatter(synonymsArrays) {
-    var allSynonymsLists = [];
+function synonymsFormatter(synonyms) {
+  var formattedSynonyms = [];
+  if (!synonyms) {
+    return formattedSynonyms.push([undefined]);
+  }
+  synonyms.response.forEach(function (_ref) {
+    var synonymsString = _ref.list.synonyms;
 
-    synonymsArrays.forEach(function (synonymsArray) {
-        var formattedSynonyms = [];
-        if (!synonymsArray) {
-            return allSynonymsLists.push([undefined]);
-        }
-        synonymsArray.response.forEach(function (_ref) {
-            var synonymsString = _ref.list.synonyms;
-
-            synonymsString.split("|").forEach(function (synonym) {
-                formattedSynonyms.push(synonym.split(" ")[0]);
-            });
-        });
-        allSynonymsLists.push(formattedSynonyms);
+    synonymsString.split('|').forEach(function (synonym) {
+      formattedSynonyms.push(synonym.split(' ')[0]);
     });
-
-    return allSynonymsLists;
+  });
+  return formattedSynonyms;
 }
 
 module.exports.synonymsFormatter = synonymsFormatter;
@@ -26408,7 +26403,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n    text-align: center;\n'], ['\n    text-align: center;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    display: inline-block;\n    width: 70vw;\n'], ['\n    display: inline-block;\n    width: 70vw;\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n'], ['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n']);
+    _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    top: 70%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n'], ['\n    position: absolute;\n    top: 70%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n']);
 
 var _propTypes = __webpack_require__(35);
 
@@ -26455,11 +26450,6 @@ var KeyWordInputWindow = function KeyWordInputWindow(_ref) {
         onChange: function onChange(e) {
           handleChange(e.target.value);
         } })
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: textAlignCenter },
-      _react2.default.createElement(_Button2.default, { handleOnClick: handleSubmit, text: 'SUBMIT SENTENCE' })
     )
   );
 };
@@ -28210,7 +28200,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    width: 75vw;\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n'], ['\n    width: 75vw;\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    text-align: center;\n    width: 75vw;\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n'], ['\n    text-align: center;\n    width: 75vw;\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n']);
 
 var _react = __webpack_require__(13);
 
