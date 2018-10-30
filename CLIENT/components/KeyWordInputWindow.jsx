@@ -5,12 +5,16 @@ import { css } from 'react-emotion';
 import Button from '../reusableComponents/Button';
 import Input from '../reusableComponents/Input';
 
-const inlineBlock = css`
-    display: inline-block;
-`;
+
 const textAlignCenter = css`
     text-align: center;
 `;
+
+const textInput = css`
+    display: inline-block;
+    width: 70vw;
+`;
+
 const centeredContainer = css`
     position: absolute;
     top: 40%;
@@ -18,31 +22,23 @@ const centeredContainer = css`
     transform: translate(-50%, -50%);
 `;
 
-const KeyWordInputWindow = ({ numberOfWordSlots, handleChange, handleSubmit, addNewWordSlot }) => (
+const KeyWordInputWindow = ({ handleChange, handleSubmit }) => (
   <div className={centeredContainer}>
     <div className={textAlignCenter}>
-      <div className={inlineBlock}>
-        <Input onChange={(e) => {
+      <Input
+        onChange={(e) => {
           handleChange(e.target.value)
-        }}/>
-      </div>
+        }} />
     </div>
-
     <div className={textAlignCenter}>
-      <div className={inlineBlock}>
-        <Button handleOnClick={handleSubmit} text="SUBMIT"/>
-        <Button handleOnClick={addNewWordSlot} text="ADD NEW WORD SLOT"/>
-      </div>
+      <Button handleOnClick={handleSubmit} text="SUBMIT SENTENCE"/>
     </div>
-    
   </div>
 )
 
 KeyWordInputWindow.propTypes = {
-  numberOfWordSlots: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  addNewWordSlot: PropTypes.func.isRequired,
 };
 
 export default KeyWordInputWindow;

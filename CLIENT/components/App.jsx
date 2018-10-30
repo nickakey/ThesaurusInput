@@ -41,7 +41,6 @@ class App extends React.Component {
       keyWords: [],
       synonyms: [[], [], [], []],
       synonymsFetched: false,
-      numberOfWordSlots: 4,
       loading: false,
     };
   }
@@ -100,14 +99,6 @@ class App extends React.Component {
       },
       synonymsFetched: false,
       numberOfWordSlots: 4,
-    });
-  }
-
-  addNewWordSlot() {
-    this.setState((state) => {
-      const newState = Object.assign({}, state);
-      newState.numberOfWordSlots += 1;
-      return newState;
     });
   }
 

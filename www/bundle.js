@@ -23486,7 +23486,6 @@ var App = function (_React$Component) {
       keyWords: [],
       synonyms: [[], [], [], []],
       synonymsFetched: false,
-      numberOfWordSlots: 4,
       loading: false
     };
     return _this;
@@ -23535,15 +23534,6 @@ var App = function (_React$Component) {
         },
         synonymsFetched: false,
         numberOfWordSlots: 4
-      });
-    }
-  }, {
-    key: 'addNewWordSlot',
-    value: function addNewWordSlot() {
-      this.setState(function (state) {
-        var newState = Object.assign({}, state);
-        newState.numberOfWordSlots += 1;
-        return newState;
       });
     }
   }, {
@@ -26242,7 +26232,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n    text-align: center;\n'], ['\n    text-align: center;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    display: inline-block;\n    position: absolute;\n    left: 81%;\n    top: 13%;\n    width: 300px;    \n'], ['\n    display: inline-block;\n    position: absolute;\n    left: 81%;\n    top: 13%;\n    width: 300px;    \n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n'], ['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 85vw;\n'], ['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 85vw;\n']),
     _templateObject4 = _taggedTemplateLiteral(['', ' ', ''], ['', ' ', '']);
 
 var _react = __webpack_require__(13);
@@ -26416,8 +26406,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    display: inline-block;\n'], ['\n    display: inline-block;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n    text-align: center;\n'], ['\n    text-align: center;\n']),
+var _templateObject = _taggedTemplateLiteral(['\n    text-align: center;\n'], ['\n    text-align: center;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n    display: inline-block;\n    width: 70vw;\n'], ['\n    display: inline-block;\n    width: 70vw;\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n'], ['\n    position: absolute;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n']);
 
 var _propTypes = __webpack_require__(35);
@@ -26446,47 +26436,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var inlineBlock = (0, _reactEmotion.css)(_templateObject);
-var textAlignCenter = (0, _reactEmotion.css)(_templateObject2);
+var textAlignCenter = (0, _reactEmotion.css)(_templateObject);
+
+var textInput = (0, _reactEmotion.css)(_templateObject2);
+
 var centeredContainer = (0, _reactEmotion.css)(_templateObject3);
 
 var KeyWordInputWindow = function KeyWordInputWindow(_ref) {
-  var numberOfWordSlots = _ref.numberOfWordSlots,
-      handleChange = _ref.handleChange,
-      handleSubmit = _ref.handleSubmit,
-      addNewWordSlot = _ref.addNewWordSlot;
+  var handleChange = _ref.handleChange,
+      handleSubmit = _ref.handleSubmit;
   return _react2.default.createElement(
     'div',
     { className: centeredContainer },
     _react2.default.createElement(
       'div',
       { className: textAlignCenter },
-      _react2.default.createElement(
-        'div',
-        { className: inlineBlock },
-        _react2.default.createElement(_Input2.default, { onChange: function onChange(e) {
-            handleChange(e.target.value);
-          } })
-      )
+      _react2.default.createElement(_Input2.default, {
+        onChange: function onChange(e) {
+          handleChange(e.target.value);
+        } })
     ),
     _react2.default.createElement(
       'div',
       { className: textAlignCenter },
-      _react2.default.createElement(
-        'div',
-        { className: inlineBlock },
-        _react2.default.createElement(_Button2.default, { handleOnClick: handleSubmit, text: 'SUBMIT' }),
-        _react2.default.createElement(_Button2.default, { handleOnClick: addNewWordSlot, text: 'ADD NEW WORD SLOT' })
-      )
+      _react2.default.createElement(_Button2.default, { handleOnClick: handleSubmit, text: 'SUBMIT SENTENCE' })
     )
   );
 };
 
 KeyWordInputWindow.propTypes = {
-  numberOfWordSlots: _propTypes2.default.number.isRequired,
   handleChange: _propTypes2.default.func.isRequired,
-  handleSubmit: _propTypes2.default.func.isRequired,
-  addNewWordSlot: _propTypes2.default.func.isRequired
+  handleSubmit: _propTypes2.default.func.isRequired
 };
 
 exports.default = KeyWordInputWindow;
@@ -28230,7 +28210,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n'], ['\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    width: 75vw;\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n'], ['\n    width: 75vw;\n    margin: 3px;\n    background-color: white;\n    display: inline-block;\n    padding: 10px;\n    border: solid #646161;\n    border-width: 2px;\n    font-weight: bold;\n    border-radius: 5px;\n    text-transform: uppercase;\n    font-size: 10px;\n    transition: all .2s;\n    cursor: text;\n    &:focus {\n        outline: none;\n        box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n        transition: all .3s;\n    }\n']);
 
 var _react = __webpack_require__(13);
 

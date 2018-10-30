@@ -22,6 +22,7 @@ const centeredContainer = css`
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 85vw;
 `;
 
 

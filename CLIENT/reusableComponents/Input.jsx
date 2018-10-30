@@ -3,6 +3,7 @@ import styled from 'react-emotion';
 
 
 const StyledInput = styled('input')`
+    width: 75vw;
     margin: 3px;
     background-color: white;
     display: inline-block;
