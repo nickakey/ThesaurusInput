@@ -5,6 +5,11 @@ DONE - I want a "New Sentence" button that will take me back to the mainscreen a
 DONE - I want to add more word slots so that I can roll longer sentences
 DONE -  Request the synonyms for EVERYTHING right away..
 DONE - handle words without synonyms
+DONE - Have there just be one screen, and you type your words, they get added to the dom as grey, and 
+if there are no synonyms, they turn red, but if there ARE syonyms they turn green. That all happens
+asynchronously. 
+
+* The new sentence button stopped working
 
 * CSS duh...
 * Change it to ONE input field, that splits everything
@@ -15,6 +20,3 @@ DONE - handle words without synonyms
 
 * There should be a share button that allows me to share the before sentence and the after sentence and a link to the app
 
-* Have there just be one screen, and you type your words, they get added to the dom as grey, and 
-if there are no synonyms, they turn red, but if there ARE syonyms they turn green. That all happens
-asynchronously. 

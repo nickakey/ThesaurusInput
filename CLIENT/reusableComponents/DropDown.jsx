@@ -28,37 +28,34 @@ const noneFoundDropDownContainer = css`
     cursor: not-allowed;
 `
 
-const DropDown = ({topItem, topItemIndex, dropDownItems, onClick}) => {
+const DropDown = ({topItem, topItemIndex, dropDownItems = [], onClick}) => {
     
-    if(!dropDownItems[0]){
-        return (
-            <div className={`${dropDownContainer} ${noneFoundDropDownContainer}`}>
-                <div>
-                    {topItem}
-                </div>
-                <div className={dropDownContent}>
-                    {dropDownItems.map((item, index)=>{
-                        return <div key={index}>{"No Synonyms Found"}</div>         
-                    })}
-                </div>
-            </div>
-        )
-    } else {
-        return (
-            <div className={dropDownContainer}>
-                <div>
-                    {topItem}
-                </div>
-                <div className={dropDownContent}>
-                    {dropDownItems.map((item, index)=>{
-                        return <div key={index} onClick={()=>{onClick(item, topItemIndex)}}>{item}</div>         
-                    })}
-                </div>
-            </div>
-        )
-    }
-
-
+  if(!dropDownItems[0]) {
+    return (
+      <div className={`${dropDownContainer} ${noneFoundDropDownContainer}`}>
+        <div>
+          {topItem}
+        </div>
+        <div className={dropDownContent}>
+          {dropDownItems.map((item, index)=>{
+            return <div key={index}>{"No Synonyms Found"}</div>         
+          })}
+        </div>
+      </div>
+    )
+  } return (
+    <div className={dropDownContainer}>
+      <div>
+        {topItem}
+      </div>
+      <div className={dropDownContent}>
+        {dropDownItems.map((item, index)=>{
+          return <div key={index} onClick={() => {onClick(item, topItemIndex)}}>{item}</div>         
+        })}
+      </div>
+    </div>
+  )
 }
+
 
 export default DropDown;

@@ -23430,7 +23430,10 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n'], ['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n    background-image: linear-gradient(\n        to right bottom,\n        rgba(220, 76, 76, 0.8),\n        rgba(190, 105, 60, 0.71)),\n        url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n    height: 100vh;\n    width: 100vw;\n    background-size: cover;\n    background-position: center;\n    clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n'], ['\n    background-image: linear-gradient(\n        to right bottom,\n        rgba(220, 76, 76, 0.8),\n        rgba(190, 105, 60, 0.71)),\n        url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n    height: 100vh;\n    width: 100vw;\n    background-size: cover;\n    background-position: center;\n    clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n']);
+    _templateObject2 = _taggedTemplateLiteral(['\n  background-image: linear-gradient(\n      to right bottom,\n      rgba(220, 76, 76, 0.8),\n      rgba(190, 105, 60, 0.71)),\n      url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n  height: 100vh;\n  width: 100vw;\n  background-size: cover;\n  background-position: center;\n  clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n'], ['\n  background-image: linear-gradient(\n      to right bottom,\n      rgba(220, 76, 76, 0.8),\n      rgba(190, 105, 60, 0.71)),\n      url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n  height: 100vh;\n  width: 100vw;\n  background-size: cover;\n  background-position: center;\n  clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 72%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  background-color: white;\n  padding: 13px;\n  width: 15rem;\n  text-align: center;\n  border-radius: 6px;\n  border: solid grey 1.5px;\n  height: 3.5rem;\n  color: grey;\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n  }\n'], ['\n  position: absolute;\n  top: 72%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  background-color: white;\n  padding: 13px;\n  width: 15rem;\n  text-align: center;\n  border-radius: 6px;\n  border: solid grey 1.5px;\n  height: 3.5rem;\n  color: grey;\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n  }\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 32%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  /* background-color: white; */\n  /* padding: 13px; */\n  /* width: 15rem; */\n  /* text-align: center; */\n  /* border-radius: 6px; */\n  /* border: solid grey 1.5px; */\n  height: 3.5rem;\n  color: white;\n  font-size: 4.3rem;\n  width: 100%;\n  text-align: center;  \n'], ['\n  position: absolute;\n  top: 32%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  /* background-color: white; */\n  /* padding: 13px; */\n  /* width: 15rem; */\n  /* text-align: center; */\n  /* border-radius: 6px; */\n  /* border: solid grey 1.5px; */\n  height: 3.5rem;\n  color: white;\n  font-size: 4.3rem;\n  width: 100%;\n  text-align: center;  \n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 30%;\n  right: 23%;\n  transform: translate(50%, 50%);\n  height: 3.5rem;\n  color: white;\n  font-size: 1.6rem;\n  width: 28%;\n  text-align: center;  \n'], ['\n  position: absolute;\n  top: 30%;\n  right: 23%;\n  transform: translate(50%, 50%);\n  height: 3.5rem;\n  color: white;\n  font-size: 1.6rem;\n  width: 28%;\n  text-align: center;  \n']);
 
 var _react = __webpack_require__(13);
 
@@ -23474,6 +23477,12 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var background = (0, _reactEmotion.css)(_templateObject2);
 
+var input = (0, _reactEmotion.css)(_templateObject3);
+
+var welcomeMessage = (0, _reactEmotion.css)(_templateObject4);
+
+var hintMessage = (0, _reactEmotion.css)(_templateObject5);
+
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -23484,9 +23493,10 @@ var App = function (_React$Component) {
 
     _this.state = {
       keyWords: [],
-      synonyms: [[], [], [], []],
-      synonymsFetched: false,
-      currentWord: []
+      synonyms: [],
+      currentWord: [],
+      welcomeMessage: "Start Typing!",
+      hintMessage: ''
     };
     return _this;
   }
@@ -23507,6 +23517,7 @@ var App = function (_React$Component) {
     value: function handleSynonymClick(synonym, selectedKeyWordIndex) {
       this.setState(function (state) {
         var newState = Object.assign({}, state);
+        newState.hintMessage = "";
         newState.keyWords[selectedKeyWordIndex] = synonym;
         return newState;
       });
@@ -23514,11 +23525,31 @@ var App = function (_React$Component) {
   }, {
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(value) {
-      if (value === ' ') {
+      var _this3 = this;
+
+      if (value === 'Backspace') {
+        this.handleDeleteInput();
+      } else if (value === ' ' || value === 'Enter') {
+        this.setState({ welcomeMessage: "", hintMessage: 'Hover over the word to choose a synonym!' });
         this.handleSpaceInput();
       } else {
+        if (this.state.welcomeMessage === 'Start Typing!') {
+          setTimeout(function () {
+            _this3.setState({
+              welcomeMessage: "Hit Enter to Save Word!"
+            });
+          }, 300);
+        }
         this.handleLetterInput(value);
       }
+    }
+  }, {
+    key: 'handleDeleteInput',
+    value: function handleDeleteInput() {
+      this.setState(function (state) {
+        state.currentWord.pop();
+        return state;
+      });
     }
   }, {
     key: 'handleLetterInput',
@@ -23531,13 +23562,13 @@ var App = function (_React$Component) {
   }, {
     key: 'handleSpaceInput',
     value: function handleSpaceInput() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.setState(function (state) {
         var newWord = state.currentWord.join('');
         //kick off the async get synonym function... let it do it's thing in the background
 
-        _this3.getSynonym(newWord, _this3.state.keyWords.length);
+        _this4.getSynonym(newWord, _this4.state.keyWords.length);
         state.keyWords.push(newWord);
         state.currentWord = [];
         return state;
@@ -23561,7 +23592,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       return _react2.default.createElement(
         'div',
@@ -23574,42 +23605,45 @@ var App = function (_React$Component) {
             null,
             _react2.default.createElement(
               'div',
-              { ref: 'keyPressHandler', autoFocus: 'true', tabIndex: '0', onKeyPress: function onKeyPress(e) {
-                  _this4.handleKeyboardInput(e.key);
-                } },
-              'input field'
+              { className: hintMessage },
+              this.state.hintMessage
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: welcomeMessage },
+              this.state.welcomeMessage
             ),
             _react2.default.createElement(_SentenceRoller2.default, {
               handleSynonymClick: function handleSynonymClick() {
-                return _this4.handleSynonymClick.apply(_this4, arguments);
+                return _this5.handleSynonymClick.apply(_this5, arguments);
               },
               keyWords: this.state.keyWords,
               handleNewSentence: function handleNewSentence() {
-                return _this4.handleNewSentence.apply(_this4, arguments);
+                return _this5.handleNewSentence.apply(_this5, arguments);
               },
               synonyms: this.state.synonyms
-            })
+            }),
+            _react2.default.createElement(
+              'div',
+              {
+                className: input,
+                ref: 'keyPressHandler',
+                autoFocus: 'true',
+                tabIndex: '0',
+                onKeyDown: function onKeyDown(e) {
+                  if (e.key === "Backspace") {
+                    _this5.handleKeyboardInput(e.key);
+                  }
+                },
+                onKeyPress: function onKeyPress(e) {
+                  _this5.handleKeyboardInput(e.key);
+                }
+              },
+              this.state.currentWord.join('')
+            )
           )
         )
       );
-    }
-  }], [{
-    key: 'getSynonyms',
-    value: function getSynonyms(keyWords) {
-      console.log("this is keywords ", keyWords);
-      return new Promise(function (resolve, reject) {
-        var allRequestPromises = keyWords.map(function (keyword) {
-          return _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + keyword + '&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK', { timeout: 1500 }).catch(function () {
-            return undefined;
-          });
-        });
-        Promise.all(allRequestPromises).then(function (results) {
-          var formattedSynonyms = (0, _utilities.synonymsFormatter)(results);
-          resolve(formattedSynonyms);
-        }).catch(function (err) {
-          reject(err);
-        });
-      });
     }
   }]);
 
@@ -26272,6 +26306,8 @@ var SentenceRoller = function SentenceRoller(_ref) {
       _react2.default.createElement(
         'div',
         { className: textAlignCenter },
+        console.log("this is keywords ", keyWords),
+        console.log("this is  synonyms ", synonyms),
         keyWords.map(function (keyword, index) {
           return _react2.default.createElement(_DropDown2.default, {
             key: index,
@@ -26309,7 +26345,7 @@ SentenceRoller.propTypes = {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _templateObject = _taggedTemplateLiteral(["\n    display: none;\n    position: absolute;\n    background-color: inherit;\n    width: inherit;\n    transform: translate(-50%, 0); \n    box-shadow: 0.2rem 0.4rem 0.4rem rgb(0,0,0,.3);\n    overflow: scroll;\n    max-height: 30vh;    \n"], ["\n    display: none;\n    position: absolute;\n    background-color: inherit;\n    width: inherit;\n    transform: translate(-50%, 0); \n    box-shadow: 0.2rem 0.4rem 0.4rem rgb(0,0,0,.3);\n    overflow: scroll;\n    max-height: 30vh;    \n"]),
@@ -26335,57 +26371,56 @@ var dropDownContainer = (0, _reactEmotion.css)(_templateObject2, dropDownContent
 var noneFoundDropDownContainer = (0, _reactEmotion.css)(_templateObject3);
 
 var DropDown = function DropDown(_ref) {
-    var topItem = _ref.topItem,
-        topItemIndex = _ref.topItemIndex,
-        dropDownItems = _ref.dropDownItems,
-        _onClick = _ref.onClick;
+  var topItem = _ref.topItem,
+      topItemIndex = _ref.topItemIndex,
+      _ref$dropDownItems = _ref.dropDownItems,
+      dropDownItems = _ref$dropDownItems === undefined ? [] : _ref$dropDownItems,
+      _onClick = _ref.onClick;
 
 
-    if (!dropDownItems[0]) {
-        return _react2.default.createElement(
+  if (!dropDownItems[0]) {
+    return _react2.default.createElement(
+      "div",
+      { className: dropDownContainer + " " + noneFoundDropDownContainer },
+      _react2.default.createElement(
+        "div",
+        null,
+        topItem
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: dropDownContent },
+        dropDownItems.map(function (item, index) {
+          return _react2.default.createElement(
             "div",
-            { className: dropDownContainer + " " + noneFoundDropDownContainer },
-            _react2.default.createElement(
-                "div",
-                null,
-                topItem
-            ),
-            _react2.default.createElement(
-                "div",
-                { className: dropDownContent },
-                dropDownItems.map(function (item, index) {
-                    return _react2.default.createElement(
-                        "div",
-                        { key: index },
-                        "No Synonyms Found"
-                    );
-                })
-            )
-        );
-    } else {
+            { key: index },
+            "No Synonyms Found"
+          );
+        })
+      )
+    );
+  }return _react2.default.createElement(
+    "div",
+    { className: dropDownContainer },
+    _react2.default.createElement(
+      "div",
+      null,
+      topItem
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: dropDownContent },
+      dropDownItems.map(function (item, index) {
         return _react2.default.createElement(
-            "div",
-            { className: dropDownContainer },
-            _react2.default.createElement(
-                "div",
-                null,
-                topItem
-            ),
-            _react2.default.createElement(
-                "div",
-                { className: dropDownContent },
-                dropDownItems.map(function (item, index) {
-                    return _react2.default.createElement(
-                        "div",
-                        { key: index, onClick: function onClick() {
-                                _onClick(item, topItemIndex);
-                            } },
-                        item
-                    );
-                })
-            )
+          "div",
+          { key: index, onClick: function onClick() {
+              _onClick(item, topItemIndex);
+            } },
+          item
         );
-    }
+      })
+    )
+  );
 };
 
 exports.default = DropDown;

@@ -30,7 +30,10 @@ const SentenceRoller = ({ handleSynonymClick, keyWords, handleNewSentence, synon
   <div>
     <div className={centeredContainer}>
       <div className={textAlignCenter}>
-        {keyWords.map((keyword, index) => (
+        { console.log("this is keywords ", keyWords)}
+         {console.log("this is  synonyms ", synonyms )}
+         {
+          keyWords.map((keyword, index) => (
           <DropDown
             key={index}
             onClick={handleSynonymClick}
