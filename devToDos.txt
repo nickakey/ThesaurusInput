@@ -8,11 +8,19 @@ DONE - handle words without synonyms
 DONE - Have there just be one screen, and you type your words, they get added to the dom as grey, and 
 if there are no synonyms, they turn red, but if there ARE syonyms they turn green. That all happens
 asynchronously. 
+DONE - Change it to ONE input field, that splits everything
 
 * The new sentence button stopped working
 
 * CSS duh...
-* Change it to ONE input field, that splits everything
+  * Make the hint words fade in and out
+  * When a new synonym is chosen, have some sort of visual effect to show a Change
+  * Make the dropdowns look way better
+  * Make the first dropdown fade in 
+  
+
+
+
 
 * On click of a synonym 
     * the synonym field should dissapear

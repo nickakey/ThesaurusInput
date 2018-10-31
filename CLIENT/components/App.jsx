@@ -72,8 +72,8 @@ const welcomeMessage = css`
 
 const hintMessage = css`
   position: absolute;
-  top: 30%;
-  right: 23%;
+  top: 31%;
+  right: 28%;
   transform: translate(50%, 50%);
   height: 3.5rem;
   color: white;
