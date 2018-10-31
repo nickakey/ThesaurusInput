@@ -90,7 +90,7 @@ class App extends React.Component {
       synonyms: [],
       currentWord: [],
       welcomeMessage: "Start Typing!",
-      hintMessage: '',
+      hintMessage: ' ',
     };
   }
 
@@ -120,7 +120,8 @@ class App extends React.Component {
     if (value === 'Backspace') {
       this.handleDeleteInput();
     } else if (value === ' ' || value === 'Enter') {
-      this.setState({welcomeMessage: "", hintMessage: 'Hover over the word to choose a synonym!'})
+      this.setState({welcomeMessage: ""});
+      if(this.state.hintMessage === " "){this.setState({hintMessage: 'Hover over the word to choose a synonym!'})}
       this.handleSpaceInput();
     } else {
       if(this.state.welcomeMessage === 'Start Typing!') {
