@@ -23586,16 +23586,16 @@ var App = function (_React$Component) {
     value: function isFirstRender() {
       return this.state.keyWords.length === 0;
     }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      this.refs.keyPressHandler.focus();
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.refs.keyPressHandler.focus();
-    }
+
+    // componentDidUpdate(){
+    //   this.refs.keyPressHandler.focus();
+    // }
+
+    // componentDidMount(){
+    //   this.refs.keyPressHandler.focus();
+    // }
+
+
   }, {
     key: 'render',
     value: function render() {
@@ -28305,7 +28305,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  color: black;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n  font-size: 35px;\n'], ['\n  position: absolute;\n  background-color: white;\n  color: black;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n  font-size: 35px;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n'], ['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']);
 
 var _react = __webpack_require__(13);
 
@@ -28325,6 +28326,8 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var input = (0, _reactEmotion.css)(_templateObject);
 
+var character = (0, _reactEmotion.css)(_templateObject2);
+
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
 
@@ -28334,22 +28337,25 @@ var ThesaurusInput = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this));
 
     _this.state = {
-      characters: [
-      //The time complexity of this is going to be a little bad on insert / remove
-      //But since the input field is so small it shouldn't matter too much
-      { value: "H", cursorBefore: false }, { value: "e", cursorBefore: false }, { value: "y", cursorBefore: false }, { value: " ", cursorBefore: false }, { value: "END", cursorBefore: true }],
+      characters: [{ value: "H", cursorBefore: false }, { value: "e", cursorBefore: false }, { value: "y", cursorBefore: false }, { value: " ", cursorBefore: false }, { value: "END", cursorBefore: true }],
       words: [],
       cursorBefore: 1
     };
+    _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
     return _this;
   }
 
   _createClass(ThesaurusInput, [{
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
-      //These will obviously be in a set state....
-      this.state.characters.splice(cursorBefore - 1, 0, character);
-      this.state.cursorBefore += 1;
+      var _this2 = this;
+
+      console.log("we in here! ", character);
+      this.setState(function (state) {
+        state.characters.splice(_this2.state.cursorBefore - 1, 0, { value: character, cursorBefore: false });
+        state.cursorBefore += 1;
+        return state;
+      });
     }
   }, {
     key: 'handleSpaceBar',
@@ -28383,10 +28389,29 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       return _react2.default.createElement(
         'div',
-        { className: input },
-        'Hello I am thesarusus'
+        {
+          className: input,
+          autoFocus: 'true',
+          tabIndex: '0',
+          onKeyPress: function onKeyPress(e) {
+            _this3.handleKeyboardInput(e.key);
+          }
+        },
+        this.state.characters.map(function (charObj, i) {
+          return _react2.default.createElement(
+            'span',
+            {
+              className: character,
+              key: charObj.value + i
+
+            },
+            charObj.value
+          );
+        })
       );
     }
   }]);
@@ -28397,8 +28422,8 @@ var ThesaurusInput = function (_React$Component) {
 exports.default = ThesaurusInput;
 
 /*
-- I can type words and they will appear 
-  AND the cursor will appear after the last  character I typed
+- I can type letters and they will appear 
+- AND the cursor will appear after the last  character I typed
 - I can hit delete, and the character before my cursor will be deleted
 - I can press the arrow keys and my cursor will shift left and right
 - I can click on a character, and the cursor will appear on the left side of that character

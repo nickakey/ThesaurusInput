@@ -166,13 +166,13 @@ class App extends React.Component {
     return this.state.keyWords.length === 0;
   }
 
-  componentDidUpdate(){
-    this.refs.keyPressHandler.focus();
-  }
+  // componentDidUpdate(){
+  //   this.refs.keyPressHandler.focus();
+  // }
 
-  componentDidMount(){
-    this.refs.keyPressHandler.focus();
-  }
+  // componentDidMount(){
+  //   this.refs.keyPressHandler.focus();
+  // }
 
 
   render() {

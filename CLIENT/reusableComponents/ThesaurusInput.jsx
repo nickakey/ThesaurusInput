@@ -4,7 +4,6 @@ import { css } from 'react-emotion';
 const input = css`
   position: absolute;
   background-color: white;
-  color: black;
   display: block;
   position: absolute;
   top: 40%;
@@ -14,33 +13,40 @@ const input = css`
   width: 50%;
   text-align: left;
   border-radius: 5px;
-  font-size: 35px;
 `
+
+const character = css`
+  background-color: white;
+  font-size: 35px;
+  color: black;
+`
+
+
 
 class ThesaurusInput extends React.Component {
   constructor() {
     super();
     this.state = {
       characters: [
-        //The time complexity of this is going to be a little bad on insert / remove
-        //But since the input field is so small it shouldn't matter too much
         {value: "H", cursorBefore: false},
         {value: "e", cursorBefore: false}, 
         {value: "y", cursorBefore: false},
         {value: " ", cursorBefore: false},
         {value: "END", cursorBefore: true},
       ],
-      words: [
-        
-      ],
+      words: [],
       cursorBefore: 1, 
     };
+    this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
   handleKeyboardInput(character) {
-    //These will obviously be in a set state....
-    this.state.characters.splice( cursorBefore-1, 0, character );
-    this.state.cursorBefore += 1;
+    console.log("we in here! ", character)
+    this.setState((state) => {
+      state.characters.splice( this.state.cursorBefore-1, 0, {value: character, cursorBefore: false} );
+      state.cursorBefore += 1;
+      return state;
+    })
   }
 
   handleSpaceBar() {
@@ -71,8 +77,25 @@ class ThesaurusInput extends React.Component {
 
   render() {
     return (
-      <div className={input}>
-        Hello I am thesarusus
+      <div 
+        className={input}
+        autoFocus='true' 
+        tabIndex='0' 
+        onKeyPress={(e) => { this.handleKeyboardInput(e.key) }}
+      >
+
+        {this.state.characters.map((charObj, i) => (
+          <span
+            className={character}
+            key={charObj.value + i}
+            
+          >
+            {charObj.value}
+          </span>
+        ))}
+
+
+
       </div>
     );
   }
@@ -82,8 +105,8 @@ export default ThesaurusInput;
 
 
 /*
-- I can type words and they will appear 
-  AND the cursor will appear after the last  character I typed
+- I can type letters and they will appear 
+- AND the cursor will appear after the last  character I typed
 - I can hit delete, and the character before my cursor will be deleted
 - I can press the arrow keys and my cursor will shift left and right
 - I can click on a character, and the cursor will appear on the left side of that character
