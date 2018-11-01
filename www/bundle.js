@@ -28316,6 +28316,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactEmotion = __webpack_require__(18);
 
+var _ThesaurusLetter = __webpack_require__(236);
+
+var _ThesaurusLetter2 = _interopRequireDefault(_ThesaurusLetter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28343,9 +28347,9 @@ var ThesaurusInput = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this));
 
     _this.state = {
-      characters: [{ value: "H", cursorBefore: false }, { value: "e", cursorBefore: false }, { value: "y", cursorBefore: false }, { value: " ", cursorBefore: false }, { value: "END", cursorBefore: true }],
+      characters: [{ value: 'H', cursorAfter: false }, { value: 'e', cursorAfter: false }, { value: 'y', cursorAfter: true }],
       words: [],
-      cursorBefore: 1
+      cursorAfter: 3
     };
     _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
     return _this;
@@ -28356,18 +28360,17 @@ var ThesaurusInput = function (_React$Component) {
     value: function handleKeyboardInput(character) {
       var _this2 = this;
 
-      console.log("we in here! ", character);
       this.setState(function (state) {
-        state.characters.splice(_this2.state.cursorBefore - 1, 0, { value: character, cursorBefore: false });
-        state.cursorBefore += 1;
+        state.characters.splice(_this2.state.cursorAfter + 1, 0, { value: character, cursorBefore: false });
+        state.cursorAfter += 1;
         return state;
       });
     }
   }, {
     key: 'handleSpaceBar',
     value: function handleSpaceBar() {
-      this.state.characters.splice(cursorBefore - 1, 0, " ");
-      this.state.cursorBefore += 1;
+      this.state.characters.splice(cursorAfter + 1, 0, " ");
+      this.state.cursorAfter += 1;
       this.addWord();
     }
   }, {
@@ -28376,14 +28379,20 @@ var ThesaurusInput = function (_React$Component) {
       this.state.characters.splice(cursorBefore - 1, 1);
       this.state.cursorBefore + -1;
     }
+
+    // handleArrowKeys() {
+    //   //TODO
+    // }
+
+    // findSecondLastSpace(){}
+
   }, {
-    key: 'handleArrowKeys',
-    value: function handleArrowKeys() {
-      //TODO 
+    key: 'handleClick',
+    value: function handleClick(index) {
+      this.setState(function (state) {
+        state.characters[state.cursorAfter].cursorAfter = false;
+      });
     }
-  }, {
-    key: 'findSecondLastSpace',
-    value: function findSecondLastSpace() {}
   }, {
     key: 'addWord',
     value: function addWord() {
@@ -28408,27 +28417,12 @@ var ThesaurusInput = function (_React$Component) {
           }
         },
         this.state.characters.map(function (charObj, i) {
-
-          if (charObj.cursorBefore) {
-            return _react2.default.createElement(
-              'span',
-              {
-                className: character + ' ' + elementBeforeCursor,
-                key: charObj.value + i
-
-              },
-              charObj.value
-            );
-          }
-          return _react2.default.createElement(
-            'span',
-            {
-              className: character,
-              key: charObj.value + i
-
-            },
-            charObj.value
-          );
+          return _react2.default.createElement(_ThesaurusLetter2.default, {
+            key: charObj.value + i,
+            index: i,
+            charObj: charObj,
+            onClick: _this3.handleClick.bind(_this3)
+          });
         })
       );
     }
@@ -28441,17 +28435,75 @@ exports.default = ThesaurusInput;
 
 /*
 - I can type letters and they will appear 
-- AND the cursor will appear after the last  character I typed
-- I can hit delete, and the character before my cursor will be deleted
-- I can press the arrow keys and my cursor will shift left and right
 - I can click on a character, and the cursor will appear on the left side of that character
+- I can hit delete, and the character before my cursor will be deleted
+- I can press the arrow keys and my cursor will shift left and righ
 - I can hit space, and after the item behind the cursor, but before the cursor, will appear a space
+- AND the cursor will appear after the last  character I typed
 
 
 - Handle empty state
 - 
 
 */
+
+/***/ }),
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n'], ['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n'], ['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n']);
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(18);
+
+var _propTypes = __webpack_require__(35);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var character = (0, _reactEmotion.css)(_templateObject);
+
+var blink = (0, _reactEmotion.keyframes)(_templateObject2);
+
+var cursorAfterElement = (0, _reactEmotion.css)(_templateObject3, blink);
+var ThesaurusLetter = function ThesaurusLetter(_ref) {
+  var index = _ref.index,
+      charObj = _ref.charObj,
+      _onClick = _ref.onClick;
+  return _react2.default.createElement(
+    'span',
+    {
+      className: charObj.cursorAfter ? character + ' ' + cursorAfterElement : character,
+      onClick: function onClick() {
+        _onClick(index);
+      }
+    },
+    charObj.value
+  );
+};
+
+ThesaurusLetter.propTypes = {
+  index: _propTypes2.default.number.isRequired,
+  charObj: _propTypes2.default.object.isRequired,
+  onClick: _propTypes2.default.func.isRequired
+};
+
+exports.default = ThesaurusLetter;
 
 /***/ })
 /******/ ]);
