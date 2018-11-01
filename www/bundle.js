@@ -23429,7 +23429,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n'], ['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n']),
+var _templateObject = _taggedTemplateLiteral(['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n    background-color:black;\n  }\n'], ['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n    background-color:black;\n  }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  background-image: linear-gradient(\n      to right bottom,\n      rgba(220, 76, 76, 0.8),\n      rgba(190, 105, 60, 0.71)),\n      url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n  height: 100vh;\n  width: 100vw;\n  background-size: cover;\n  background-position: center;\n  clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n'], ['\n  background-image: linear-gradient(\n      to right bottom,\n      rgba(220, 76, 76, 0.8),\n      rgba(190, 105, 60, 0.71)),\n      url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n  height: 100vh;\n  width: 100vw;\n  background-size: cover;\n  background-position: center;\n  clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 72%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  background-color: white;\n  padding: 13px;\n  width: 15rem;\n  text-align: center;\n  border-radius: 6px;\n  border: solid grey 1.5px;\n  height: 3.5rem;\n  color: grey;\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n  }\n'], ['\n  position: absolute;\n  top: 72%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  background-color: white;\n  padding: 13px;\n  width: 15rem;\n  text-align: center;\n  border-radius: 6px;\n  border: solid grey 1.5px;\n  height: 3.5rem;\n  color: grey;\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n  }\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 32%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  /* background-color: white; */\n  /* padding: 13px; */\n  /* width: 15rem; */\n  /* text-align: center; */\n  /* border-radius: 6px; */\n  /* border: solid grey 1.5px; */\n  height: 3.5rem;\n  color: white;\n  font-size: 4.3rem;\n  width: 100%;\n  text-align: center;  \n'], ['\n  position: absolute;\n  top: 32%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  /* background-color: white; */\n  /* padding: 13px; */\n  /* width: 15rem; */\n  /* text-align: center; */\n  /* border-radius: 6px; */\n  /* border: solid grey 1.5px; */\n  height: 3.5rem;\n  color: white;\n  font-size: 4.3rem;\n  width: 100%;\n  text-align: center;  \n']),
@@ -23460,6 +23460,10 @@ var _KeyWordInputWindow2 = _interopRequireDefault(_KeyWordInputWindow);
 var _LoadingScreen = __webpack_require__(234);
 
 var _LoadingScreen2 = _interopRequireDefault(_LoadingScreen);
+
+var _ThesaurusInput = __webpack_require__(235);
+
+var _ThesaurusInput2 = _interopRequireDefault(_ThesaurusInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23595,58 +23599,33 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      return _react2.default.createElement(_ThesaurusInput2.default, null)
 
-      return _react2.default.createElement(
-        'div',
-        { className: background },
-        _react2.default.createElement(
-          'span',
-          null,
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: hintMessage },
-              this.state.hintMessage
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: welcomeMessage },
-              this.state.welcomeMessage
-            ),
-            _react2.default.createElement(_SentenceRoller2.default, {
-              handleSynonymClick: function handleSynonymClick() {
-                return _this5.handleSynonymClick.apply(_this5, arguments);
-              },
-              keyWords: this.state.keyWords,
-              handleNewSentence: function handleNewSentence() {
-                return _this5.handleNewSentence.apply(_this5, arguments);
-              },
-              synonyms: this.state.synonyms
-            }),
-            _react2.default.createElement(
-              'div',
-              {
-                className: input,
-                ref: 'keyPressHandler',
-                autoFocus: 'true',
-                tabIndex: '0',
-                onKeyDown: function onKeyDown(e) {
-                  if (e.key === "Backspace") {
-                    _this5.handleKeyboardInput(e.key);
-                  }
-                },
-                onKeyPress: function onKeyPress(e) {
-                  _this5.handleKeyboardInput(e.key);
-                }
-              },
-              this.state.currentWord.join('')
-            )
-          )
-        )
-      );
+      // <div className={background}>
+      //   <span>
+      //     <div>
+      //       <div className={hintMessage}>{this.state.hintMessage}</div>
+      //       <div className={welcomeMessage}>{this.state.welcomeMessage}</div>
+      //       <SentenceRoller
+      //         handleSynonymClick={(...args) => this.handleSynonymClick(...args)}
+      //         keyWords={this.state.keyWords}
+      //         handleNewSentence={(...args) => this.handleNewSentence(...args)}
+      //         synonyms={this.state.synonyms}
+      //       />
+      //       <div 
+      //         className={input} 
+      //         ref='keyPressHandler' 
+      //         autoFocus='true' 
+      //         tabIndex='0' 
+      //         onKeyDown={(e)=>{if(e.key === "Backspace"){this.handleKeyboardInput(e.key)}}}
+      //         onKeyPress={(e)=>{this.handleKeyboardInput(e.key)}}
+      //       >
+      //         {this.state.currentWord.join('')}
+      //       </div>  
+      //     </div>
+      //   </span>
+      // </div>
+      ;
     }
   }]);
 
@@ -28312,6 +28291,124 @@ var LoadingScreen = function LoadingScreen() {
 };
 
 exports.default = LoadingScreen;
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  color: black;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n  font-size: 35px;\n'], ['\n  position: absolute;\n  background-color: white;\n  color: black;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n  font-size: 35px;\n']);
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var input = (0, _reactEmotion.css)(_templateObject);
+
+var ThesaurusInput = function (_React$Component) {
+  _inherits(ThesaurusInput, _React$Component);
+
+  function ThesaurusInput() {
+    _classCallCheck(this, ThesaurusInput);
+
+    var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this));
+
+    _this.state = {
+      characters: [
+      //The time complexity of this is going to be a little bad on insert / remove
+      //But since the input field is so small it shouldn't matter too much
+      { value: "H", cursorBefore: false }, { value: "e", cursorBefore: false }, { value: "y", cursorBefore: false }, { value: " ", cursorBefore: false }, { value: "END", cursorBefore: true }],
+      words: [],
+      cursorBefore: 1
+    };
+    return _this;
+  }
+
+  _createClass(ThesaurusInput, [{
+    key: 'handleKeyboardInput',
+    value: function handleKeyboardInput(character) {
+      //These will obviously be in a set state....
+      this.state.characters.splice(cursorBefore - 1, 0, character);
+      this.state.cursorBefore += 1;
+    }
+  }, {
+    key: 'handleSpaceBar',
+    value: function handleSpaceBar() {
+      this.state.characters.splice(cursorBefore - 1, 0, " ");
+      this.state.cursorBefore += 1;
+      this.addWord();
+    }
+  }, {
+    key: 'handleDelete',
+    value: function handleDelete() {
+      this.state.characters.splice(cursorBefore - 1, 1);
+      this.state.cursorBefore + -1;
+    }
+  }, {
+    key: 'handleArrowKeys',
+    value: function handleArrowKeys() {
+      //TODO 
+    }
+  }, {
+    key: 'findSecondLastSpace',
+    value: function findSecondLastSpace() {}
+  }, {
+    key: 'addWord',
+    value: function addWord() {
+      //A word is the text between the last index, and the first space before it
+      var secondLastSpace = this.findSecondLastSpace();
+      var currentSpaceIndex = this.state.characters.length - 2;
+      var wordCoords = [++secondLastSpace, --currentSpaceIndex];
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: input },
+        'Hello I am thesarusus'
+      );
+    }
+  }]);
+
+  return ThesaurusInput;
+}(_react2.default.Component);
+
+exports.default = ThesaurusInput;
+
+/*
+- I can type words and they will appear 
+  AND the cursor will appear after the last  character I typed
+- I can hit delete, and the character before my cursor will be deleted
+- I can press the arrow keys and my cursor will shift left and right
+- I can click on a character, and the cursor will appear on the left side of that character
+- I can hit space, and after the item behind the cursor, but before the cursor, will appear a space
+
+
+- Handle empty state
+- 
+
+*/
 
 /***/ })
 /******/ ]);

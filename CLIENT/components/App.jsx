@@ -6,6 +6,7 @@ import { synonymsFormatter } from '../utilities';
 import SentenceRoller from './SentenceRoller';
 import KeyWordInputWindow from './KeyWordInputWindow';
 import LoadingScreen from './LoadingScreen';
+import ThesaurusInput from '../reusableComponents/ThesaurusInput';
 
 /* eslint-disable */
 injectGlobal`
@@ -16,6 +17,7 @@ injectGlobal`
     margin: 0px;
     padding: 0px;
     color: black;
+    background-color:black;
   }
 `
 /* eslint-enable */
@@ -175,30 +177,32 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className={background}>
-        <span>
-          <div>
-            <div className={hintMessage}>{this.state.hintMessage}</div>
-            <div className={welcomeMessage}>{this.state.welcomeMessage}</div>
-            <SentenceRoller
-              handleSynonymClick={(...args) => this.handleSynonymClick(...args)}
-              keyWords={this.state.keyWords}
-              handleNewSentence={(...args) => this.handleNewSentence(...args)}
-              synonyms={this.state.synonyms}
-            />
-            <div 
-              className={input} 
-              ref='keyPressHandler' 
-              autoFocus='true' 
-              tabIndex='0' 
-              onKeyDown={(e)=>{if(e.key === "Backspace"){this.handleKeyboardInput(e.key)}}}
-              onKeyPress={(e)=>{this.handleKeyboardInput(e.key)}}
-            >
-              {this.state.currentWord.join('')}
-            </div>  
-          </div>
-        </span>
-      </div>
+      <ThesaurusInput/>
+
+      // <div className={background}>
+      //   <span>
+      //     <div>
+      //       <div className={hintMessage}>{this.state.hintMessage}</div>
+      //       <div className={welcomeMessage}>{this.state.welcomeMessage}</div>
+      //       <SentenceRoller
+      //         handleSynonymClick={(...args) => this.handleSynonymClick(...args)}
+      //         keyWords={this.state.keyWords}
+      //         handleNewSentence={(...args) => this.handleNewSentence(...args)}
+      //         synonyms={this.state.synonyms}
+      //       />
+      //       <div 
+      //         className={input} 
+      //         ref='keyPressHandler' 
+      //         autoFocus='true' 
+      //         tabIndex='0' 
+      //         onKeyDown={(e)=>{if(e.key === "Backspace"){this.handleKeyboardInput(e.key)}}}
+      //         onKeyPress={(e)=>{this.handleKeyboardInput(e.key)}}
+      //       >
+      //         {this.state.currentWord.join('')}
+      //       </div>  
+      //     </div>
+      //   </span>
+      // </div>
     );
   }
 }
