@@ -28306,7 +28306,9 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n'], ['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 50%;\n  text-align: left;\n  border-radius: 5px;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']);
+    _templateObject2 = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n'], ['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n  \n'], ['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n  \n']);
 
 var _react = __webpack_require__(13);
 
@@ -28327,6 +28329,10 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var input = (0, _reactEmotion.css)(_templateObject);
 
 var character = (0, _reactEmotion.css)(_templateObject2);
+
+var blink = (0, _reactEmotion.keyframes)(_templateObject3);
+
+var elementBeforeCursor = (0, _reactEmotion.css)(_templateObject4, blink);
 
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
@@ -28402,6 +28408,18 @@ var ThesaurusInput = function (_React$Component) {
           }
         },
         this.state.characters.map(function (charObj, i) {
+
+          if (charObj.cursorBefore) {
+            return _react2.default.createElement(
+              'span',
+              {
+                className: character + ' ' + elementBeforeCursor,
+                key: charObj.value + i
+
+              },
+              charObj.value
+            );
+          }
           return _react2.default.createElement(
             'span',
             {

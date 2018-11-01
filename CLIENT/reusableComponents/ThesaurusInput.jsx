@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'react-emotion';
+import { css, keyframes } from 'react-emotion';
 
 const input = css`
   position: absolute;
@@ -20,6 +20,24 @@ const character = css`
   font-size: 35px;
   color: black;
 `
+
+const blink = keyframes`
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+`
+
+const elementBeforeCursor = css`
+  &::after {
+    content: "|";
+    animation: ${blink} 1s linear infinite;
+  };
+  
+`
+
 
 
 
@@ -84,15 +102,31 @@ class ThesaurusInput extends React.Component {
         onKeyPress={(e) => { this.handleKeyboardInput(e.key) }}
       >
 
-        {this.state.characters.map((charObj, i) => (
-          <span
-            className={character}
-            key={charObj.value + i}
-            
-          >
-            {charObj.value}
-          </span>
-        ))}
+        {this.state.characters.map((charObj, i) => {
+
+          if (charObj.cursorBefore) {
+            return (
+              <span
+              className={`${character} ${elementBeforeCursor}`}
+              key={charObj.value + i}
+              
+              >
+                {charObj.value}
+              </span>
+
+            )}
+          return (
+            <span
+              className={character}
+              key={charObj.value + i}
+              
+            >
+              {charObj.value}
+            </span>
+          )
+        }
+        )}
+
 
 
 
