@@ -19,8 +19,14 @@ const blink = keyframes`
 
 const cursorAfterElement = css`
   &::after {
-    content: "|";
+    content: "";
     animation: ${blink} 1s linear infinite;
+    padding: 0px;
+    width: 1px;
+    border: solid black 1px;
+    position: absolute;
+    height: 43px;
+    box-sizing: border-box;
   };
 `
 const ThesaurusLetter = ({ index, charObj, onClick }) => (

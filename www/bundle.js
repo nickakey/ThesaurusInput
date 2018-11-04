@@ -28305,10 +28305,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  overflow: scroll;\n'], ['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  overflow: scroll;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n'], ['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n  \n'], ['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n  \n']);
+var _templateObject = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  overflow: scroll;\n'], ['\n  position: absolute;\n  background-color: white;\n  display: block;\n  position: absolute;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  overflow: scroll;\n']);
 
 var _react = __webpack_require__(10);
 
@@ -28338,12 +28335,6 @@ function logState() {
 
 var input = (0, _reactEmotion.css)(_templateObject);
 
-var character = (0, _reactEmotion.css)(_templateObject2);
-
-var blink = (0, _reactEmotion.keyframes)(_templateObject3);
-
-var elementBeforeCursor = (0, _reactEmotion.css)(_templateObject4, blink);
-
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
 
@@ -28364,6 +28355,12 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
+
+      // this is because enter gets included for some reason
+      if (character.length > 1) {
+        return;
+      }
+
       this.setState(function (state) {
 
         // this adds in the new character
@@ -28511,7 +28508,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n'], ['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n'], ['\n  &::after {\n    content: "|";\n    animation: ', ' 1s linear infinite;\n  };\n']);
+    _templateObject3 = _taggedTemplateLiteral(['\n  &::after {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n'], ['\n  &::after {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n']);
 
 var _react = __webpack_require__(10);
 

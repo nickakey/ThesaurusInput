@@ -23,28 +23,7 @@ const input = css`
   overflow: scroll;
 `
 
-const character = css`
-  background-color: white;
-  font-size: 35px;
-  color: black;
-`
 
-const blink = keyframes`
-  0%{
-    opacity: 0;
-  }
-  100%{
-    opacity: 1;
-  }
-`
-
-const elementBeforeCursor = css`
-  &::after {
-    content: "|";
-    animation: ${blink} 1s linear infinite;
-  };
-  
-`
 
 class ThesaurusInput extends React.Component {
   constructor() {
@@ -62,6 +41,10 @@ class ThesaurusInput extends React.Component {
   }
 
   handleKeyboardInput(character) {
+
+    // this is because enter gets included for some reason
+    if(character.length > 1){return}
+
     this.setState((state) => {
 
       // this adds in the new character
