@@ -1,6 +1,12 @@
 import React from 'react';
 import { css, keyframes } from 'react-emotion';
 import ThesaurusLetter from './ThesaurusLetter';
+import { S_IFSOCK } from 'constants';
+
+function logState(){
+  console.log("this is the state ", this.state)
+
+}
 
 const input = css`
   position: absolute;
@@ -11,9 +17,10 @@ const input = css`
   left: 50%; 
   transform: translate(-50%, -50%);
   padding: 20px;
-  width: 50%;
+  width: 51%;
   text-align: left;
   border-radius: 5px;
+  overflow: scroll;
 `
 
 const character = css`
@@ -39,9 +46,6 @@ const elementBeforeCursor = css`
   
 `
 
-
-
-
 class ThesaurusInput extends React.Component {
   constructor() {
     super();
@@ -52,42 +56,76 @@ class ThesaurusInput extends React.Component {
         { value: 'y', cursorAfter: true },
       ],
       words: [],
-      cursorAfter: 3, 
+      cursorAfter: 2, 
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
   handleKeyboardInput(character) {
     this.setState((state) => {
-      state.characters.splice( this.state.cursorAfter+1, 0, {value: character, cursorBefore: false} );
+
+      // this adds in the new character
+      state.characters.splice(state.cursorAfter+1, 0, { value: character, cursorAfter: true } );
+
+      // this removes the cursor from the last character
+      state.characters[state.cursorAfter].cursorAfter = false;
+
       state.cursorAfter += 1;
+      
       return state;
     })
   }
 
   handleSpaceBar() {
-    this.state.characters.splice( cursorAfter+1, 0, " " );
-    this.state.cursorAfter += 1;
-    this.addWord();
+    this.stateState((state)=>{
+      state.characters.splice( cursorAfter+1, 0, ' ' );
+      state.cursorAfter += 1;
+      addWord();
+      return state;
+    });
   }
 
   handleDelete() {
-    this.state.characters.splice( cursorBefore-1, 1 );
-    this.state.cursorBefore +- 1;
+    this.setState((state) => {
+      state.characters.splice( state.cursorAfter, 1 );
+      state.characters[state.cursorAfter - 1].cursorAfter = true;
+      state.cursorAfter -= 1;
+      return state;
+    })
+
   } 
 
-  // handleArrowKeys() {
-  //   //TODO
-  // }
 
-  // findSecondLastSpace(){}
-
-  handleClick(index){
-    this.setState((state)=>{
-      state.characters[state.cursorAfter].cursorAfter = false;
-
-    })
+  handleArrows(direction) {
+    if(direction === 'Right') {
+      this.setState((state) => {
+        if(this.state.cursorAfter === this.state.characters.length - 1){return}
+        state.characters[state.cursorAfter].cursorAfter = false;
+        state.characters[state.cursorAfter + 1].cursorAfter = true;
+        state.cursorAfter += 1;
+        return state;
+      })
+    }    
     
+    if(direction === 'Left') {
+      this.setState((state) => {
+        if(this.state.cursorAfter === 0){return}
+        state.characters[state.cursorAfter].cursorAfter = false;
+        state.characters[state.cursorAfter - 1].cursorAfter = true;
+        state.cursorAfter -= 1;
+        return state;
+      })
+    }
+  } 
+  
+
+  handleClick(index) {
+    this.setState((state) => { 
+      state.characters[state.cursorAfter - 1].cursorAfter = false;
+      state.cursorAfter = index;
+      state.characters[index].cursorAfter = true;
+      return state;
+    })
   }
 
   addWord() {
@@ -106,6 +144,15 @@ class ThesaurusInput extends React.Component {
         autoFocus='true' 
         tabIndex='0' 
         onKeyPress={(e) => { this.handleKeyboardInput(e.key) }}
+        onKeyDown={(e)=>{
+          if(e.key === "Backspace"){         
+            this.handleDelete()
+          }
+          if(e.key.slice(0,5) === "Arrow"){         
+            this.handleArrows(e.key.slice(5))
+          }
+
+        }}
       >
 
         {this.state.characters.map((charObj, i) => (

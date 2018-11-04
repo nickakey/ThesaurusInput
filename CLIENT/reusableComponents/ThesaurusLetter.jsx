@@ -6,7 +6,7 @@ const character = css`
   background-color: white;
   font-size: 35px;
   color: black;
-`
+`;
 
 const blink = keyframes`
   0%{
@@ -15,7 +15,7 @@ const blink = keyframes`
   100%{
     opacity: 1;
   }
-`
+`;
 
 const cursorAfterElement = css`
   &::after {
