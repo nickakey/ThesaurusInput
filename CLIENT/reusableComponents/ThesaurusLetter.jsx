@@ -29,16 +29,26 @@ const cursorAfterElement = css`
     box-sizing: border-box;
   };
 `
-const ThesaurusLetter = ({ index, charObj, onClick }) => (
-
+const ThesaurusLetter = ({ index, charObj, onClick }) => {
+  if(charObj.value === " "){
+    return (
+      <span
+        className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
+        onClick={() => { onClick(index)}}
+      >
+        &nbsp;
+      </span>
+    )
+  }
+  return (
   <span
     className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
     onClick={() => { onClick(index)}}
   >
     {charObj.value}
   </span>
-
-)
+  )
+}
 
 ThesaurusLetter.propTypes = {
   index: PropTypes.number.isRequired,

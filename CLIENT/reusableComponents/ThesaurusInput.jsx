@@ -1,7 +1,6 @@
 import React from 'react';
 import { css, keyframes } from 'react-emotion';
 import ThesaurusLetter from './ThesaurusLetter';
-import { S_IFSOCK } from 'constants';
 
 function logState(){
   console.log("this is the state ", this.state)
@@ -22,9 +21,6 @@ const input = css`
   border-radius: 5px;
   overflow: scroll;
 `
-
-
-
 class ThesaurusInput extends React.Component {
   constructor() {
     super();
@@ -41,7 +37,7 @@ class ThesaurusInput extends React.Component {
   }
 
   handleKeyboardInput(character) {
-
+  
     // this is because enter gets included for some reason
     if(character.length > 1){return}
 
@@ -56,17 +52,9 @@ class ThesaurusInput extends React.Component {
       state.cursorAfter += 1;
       
       return state;
-    })
+    }, logState)
   }
 
-  handleSpaceBar() {
-    this.stateState((state)=>{
-      state.characters.splice( cursorAfter+1, 0, ' ' );
-      state.cursorAfter += 1;
-      addWord();
-      return state;
-    });
-  }
 
   handleDelete() {
     this.setState((state) => {
@@ -128,13 +116,12 @@ class ThesaurusInput extends React.Component {
         tabIndex='0' 
         onKeyPress={(e) => { this.handleKeyboardInput(e.key) }}
         onKeyDown={(e)=>{
-          if(e.key === "Backspace"){         
+          if(e.key === "Backspace"){
             this.handleDelete()
           }
-          if(e.key.slice(0,5) === "Arrow"){         
+          if(e.key.slice(0,5) === "Arrow"){
             this.handleArrows(e.key.slice(5))
           }
-
         }}
       >
 
@@ -156,6 +143,17 @@ class ThesaurusInput extends React.Component {
 }
 
 export default ThesaurusInput;
+
+/* 
+  A WORD
+  - the index of the first letter and the second letter
+  - The list of thesaurus words 
+  - Then, the word has a marker on it that's like "hasSynonyms : Yes"
+    - And if it's true that it does, then we render an extra element
+    _ And we figure out the position of that element by knowing how wide a single letter index is
+
+
+*/
 
 
 /*
