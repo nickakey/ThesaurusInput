@@ -3,7 +3,7 @@ import { css, keyframes } from 'react-emotion';
 import ThesaurusLetter from './ThesaurusLetter';
 
 function logState(){
-  console.log("this is the state ", this.state)
+  console.log('this is the state ', this.state)
 
 }
 
@@ -22,6 +22,25 @@ const input = css`
   overflow: scroll;
 `
 class ThesaurusInput extends React.Component {
+  static handleCursorMove(state, direction) {
+    const directionIncrement = direction === 'right' ? 1 : -1;
+    const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
+    const currentCharacter = words[wordIndex][characterIndex];
+    const adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
+    
+    if (!adjacentLetter) {
+      // case 1, if no adjacent letter, cursor should jump to adjacent word
+      currentCharacter.cursorAfter = false;
+      cursorAfter.wordIndex += directionIncrement;
+      cursorAfter.characterIndex = direction === 'right' ? 0 : words[wordIndex - 1].length - 1;
+    } else {
+      // case 2, else cursor should jump to just adjacent letter
+      adjacentLetter.cursorAfter = true;
+      currentCharacter.cursorAfter = false;
+      cursorAfter.characterIndex += directionIncrement;
+    }
+  }
+
   constructor() {
     super();
     this.state = {
@@ -47,66 +66,47 @@ class ThesaurusInput extends React.Component {
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
-  static handleCursorMove(state, direction) {
-    console.log("this is the state ", state)
-    const directionIncrement = direction === "right" ? 1 : -1;
-    const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
-    const prevCharacter =  words[wordIndex][characterIndex];
-    const nextLetter =  words[wordIndex][characterIndex+directionIncrement];
-    
-    if (!nextLetter) {
-      // case 1, if no next letter, cursor is at end of word
-      prevCharacter.cursorAfter = false;
-      cursorAfter.wordIndex += directionIncrement;
-      cursorAfter.characterIndex = direction === "right" ? 0 : words[wordIndex - 1].length - 1;
-    } else {
-      // case 2, else cursor is at middle of word
-      prevCharacter.cursorAfter = false;
-      cursorAfter.characterIndex += directionIncrement;
-    }
-  }
+
 
   handleSpaceBar() {
     this.setState((state) => {
-      const { words, cursorAfter: {wordIndex, characterIndex} } = state;
+      const { words, cursorAfter: { wordIndex, characterIndex } } = state;
       const prevCharacter =  words[wordIndex][characterIndex];
 
       // if the prev character is space, then just add to current word
-      if(prevCharacter === " ") {
+      if(prevCharacter === ' ') {
         words[wordIndex].push({ value: ' ', cursorAfter: true });
-        ThesaurusInput.handleCursorMove(state, "right");
+        ThesaurusInput.handleCursorMove(state, 'right');
         return state;
       } else {
         //If the prev character is a letter, start a new word
         words.push([{ value: ' ', cursorAfter: true }]);
-        ThesaurusInput.handleCursorMove(state, "right");
+        ThesaurusInput.handleCursorMove(state, 'right');
         return state;
       }
     }, logState);
   }
 
   handleKeyboardInput(character) {
-
-    if (character.length > 1){ return }
-    if (character === " "){ return this.handleSpaceBar(); } 
+    if (character.length > 1) { return; }
+    if (character === ' ' ) { return this.handleSpaceBar(); } 
 
     this.setState((state) => {    
       const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
-      const prevCharacter =  words[wordIndex][characterIndex];
-      const nextLetter =  words[wordIndex][characterIndex+1];
+      const prevCharacter = words[wordIndex][characterIndex];
+      const nextLetter = words[wordIndex][characterIndex+1];
 
-      if(prevCharacter.value === " ") {
-        //if prev character is space, start a new word
+      if (prevCharacter.value === ' ') {
+        // if prev character is space, start a new word
         words.splice(wordIndex + 1, 0, [{ value: character, cursorAfter: true }])
-        ThesaurusInput.handleCursorMove(state, "right");
+        ThesaurusInput.handleCursorMove(state, 'right');
         return state;
-      } else {
-        //else add to current word
-        words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true })
-        ThesaurusInput.handleCursorMove(state, "right");
-        return state;
-      }
-      
+      } 
+
+      // else add to current word
+      words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true })
+      ThesaurusInput.handleCursorMove(state, 'right');
+      return state;
     }, logState)
   }
 
@@ -144,25 +144,10 @@ class ThesaurusInput extends React.Component {
 
 
   handleArrows(direction) {
-    // if(direction === 'Right') {
-    //   this.setState((state) => {
-    //     if(this.state.cursorAfter === this.state.words.length - 1){return}
-    //     state.words[state.cursorAfter].cursorAfter = false;
-    //     state.words[state.cursorAfter + 1].cursorAfter = true;
-    //     state.cursorAfter += 1;
-    //     return state;
-    //   })
-    // }    
-    
-    // if(direction === 'Left') {
-    //   this.setState((state) => {
-    //     if(this.state.cursorAfter === 0){return}
-    //     state.words[state.cursorAfter].cursorAfter = false;
-    //     state.words[state.cursorAfter - 1].cursorAfter = true;
-    //     state.cursorAfter -= 1;
-    //     return state;
-    //   })
-    // }
+    this.setState((state)=>{
+      ThesaurusInput.handleCursorMove(state, direction);
+      return state;
+    })
   } 
   
 
@@ -192,10 +177,10 @@ class ThesaurusInput extends React.Component {
         tabIndex='0' 
         onKeyPress={(e) => { this.handleKeyboardInput(e.key); }}
         onKeyDown={(e) => {
-          if(e.key === "Backspace") {
+          if(e.key === 'Backspace') {
             this.handleDelete()
           }
-          if(e.key.slice(0,5) === "Arrow") {
+          if(e.key.slice(0,5) === 'Arrow') {
             this.handleArrows(e.key.slice(5));
           }
         }}
@@ -254,7 +239,7 @@ The state should match the following requirements
   A WORD
   - the index of the first letter and the second letter
   - The list of thesaurus words 
-  - Then, the word has a marker on it that's like "hasSynonyms : Yes"
+  - Then, the word has a marker on it that's like 'hasSynonyms : Yes'
     - And if it's true that it does, then we render an extra element
     _ And we figure out the position of that element by knowing how wide a single letter index is
 
