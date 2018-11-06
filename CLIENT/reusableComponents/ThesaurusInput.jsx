@@ -42,40 +42,44 @@ class ThesaurusInput extends React.Component {
           { value: 'e', cursorAfter: true },
         ],
       ],
-      cursorAfter: { wordIndex: 2, letterIndex: 3 }, 
+      cursorAfter: { wordIndex: 2, characterIndex: 3 }, 
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
-  advanceCursor(state) {
-    const { words, cursorAfter, cursorAfter: { wordIndex, letterIndex } } = state;
-    const currentLetter =  words[wordIndex][letterIndex];
-    const nextLetter =  words[wordIndex][letterIndex+1];
+  static handleCursorMove(state, direction) {
+    console.log("this is the state ", state)
+    const directionIncrement = direction === "right" ? 1 : -1;
+    const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
+    const prevCharacter =  words[wordIndex][characterIndex];
+    const nextLetter =  words[wordIndex][characterIndex+directionIncrement];
     
-    if(!nextLetter){
-      //case 1, if no next letter, cursor is at end of word
-      currentLetter.cursorAfter = false;
-      cursorAfter.wordIndex += 1;
-      cursorAfter.letterIndex = 0;
+    if (!nextLetter) {
+      // case 1, if no next letter, cursor is at end of word
+      prevCharacter.cursorAfter = false;
+      cursorAfter.wordIndex += directionIncrement;
+      cursorAfter.characterIndex = direction === "right" ? 0 : words[wordIndex - 1].length - 1;
     } else {
-      //case 2, else cursor is at middle of word
-      currentLetter.cursorAfter = false;
-      cursorAfter.letterIndex += 1;
+      // case 2, else cursor is at middle of word
+      prevCharacter.cursorAfter = false;
+      cursorAfter.characterIndex += directionIncrement;
     }
   }
 
   handleSpaceBar() {
     this.setState((state) => {
-      const { words, cursorAfter: {wordIndex, letterIndex} } = state;
-      // if the last character is spacebar, then just add to current word
-      if(words[wordIndex][letterIndex].value === " "){
+      const { words, cursorAfter: {wordIndex, characterIndex} } = state;
+      const prevCharacter =  words[wordIndex][characterIndex];
+
+      // if the prev character is space, then just add to current word
+      if(prevCharacter === " ") {
         words[wordIndex].push({ value: ' ', cursorAfter: true });
-        this.advanceCursor(state);
+        ThesaurusInput.handleCursorMove(state, "right");
         return state;
-      //If the last character is a letter, start a new word
       } else {
-        words.push([{ value: ' ', cursorAfter: true }])
-        this.advanceCursor(state);
+        //If the prev character is a letter, start a new word
+        words.push([{ value: ' ', cursorAfter: true }]);
+        ThesaurusInput.handleCursorMove(state, "right");
         return state;
       }
     }, logState);
@@ -87,20 +91,19 @@ class ThesaurusInput extends React.Component {
     if (character === " "){ return this.handleSpaceBar(); } 
 
     this.setState((state) => {    
-      const { words, cursorAfter, cursorAfter: { wordIndex, letterIndex } } = state;
-      const currentLetter =  words[wordIndex][letterIndex];
-      const nextLetter =  words[wordIndex][letterIndex+1];
+      const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
+      const prevCharacter =  words[wordIndex][characterIndex];
+      const nextLetter =  words[wordIndex][characterIndex+1];
 
-      if(currentLetter.value === " "){
-        console.log("we are in the if!")
-        //if current character is space, start a new word
+      if(prevCharacter.value === " ") {
+        //if prev character is space, start a new word
         words.splice(wordIndex + 1, 0, [{ value: character, cursorAfter: true }])
-        this.advanceCursor(state);
+        ThesaurusInput.handleCursorMove(state, "right");
         return state;
       } else {
         //else add to current word
-        words[wordIndex].splice(letterIndex + 1, 0, { value: character, cursorAfter: true })
-        this.advanceCursor(state);
+        words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true })
+        ThesaurusInput.handleCursorMove(state, "right");
         return state;
       }
       
@@ -109,12 +112,33 @@ class ThesaurusInput extends React.Component {
 
 
   handleDelete() {
-    // this.setState((state) => {
-    //   state.words.splice( state.cursorAfter, 1 );
-    //   state.words[state.cursorAfter - 1].cursorAfter = true;
-    //   state.cursorAfter -= 1;
-    //   return state;
-    // })
+    // TODO - I also have to handle the cursor
+    this.setState((state) => {
+      const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
+      const characterToDelete = words[wordIndex][characterIndex];
+      const currentWord = words[wordIndex];
+      const prevWord = words[wordIndex - 1];
+      const nextWord = words[wordIndex + 1];
+
+      if (characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord) {
+      // if character being deleted is the only space seperating 2 words,
+        // combine them into one word
+        ThesaurusInput.handleCursorMove(state, 'left')
+        const combinedWords = [...prevWord, ...nextWord];
+        words.splice(wordIndex - 1, 3, combinedWords);
+      } else if(currentWord.length === 1) {
+        // if character is only character in word, delete word
+        ThesaurusInput.handleCursorMove(state, 'left')
+        words.splice(wordIndex, 1);
+        
+      } else {
+        // if character has another character before it in the word, only delete that one character
+        ThesaurusInput.handleCursorMove(state, 'left')
+        words[wordIndex].splice(characterIndex, 1);
+        
+
+      }
+    })
 
   } 
 
