@@ -2,9 +2,8 @@ import React from 'react';
 import { css, keyframes } from 'react-emotion';
 import ThesaurusLetter from './ThesaurusLetter';
 
-function logState(){
+function logState() {
   console.log('this is the state ', this.state)
-
 }
 
 const input = css`
@@ -20,25 +19,30 @@ const input = css`
   text-align: left;
   border-radius: 5px;
   overflow: scroll;
-`
+`;
+
 class ThesaurusInput extends React.Component {
   static handleCursorMove(state, direction) {
-    const directionIncrement = direction === 'right' ? 1 : -1;
+    const directionIncrement = direction === 'Right' ? 1 : -1;
     const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
     const currentCharacter = words[wordIndex][characterIndex];
     const adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
-    
+
     if (!adjacentLetter) {
-      // case 1, if no adjacent letter, cursor should jump to adjacent word
+      // case 1, there is no adjacent letter, to jump to closet letter in adjacent word
+      const indexOfLetterInAdjacentWord = direction === 'Right' ? 0 : words[wordIndex - 1].length - 1;
       currentCharacter.cursorAfter = false;
       cursorAfter.wordIndex += directionIncrement;
-      cursorAfter.characterIndex = direction === 'right' ? 0 : words[wordIndex - 1].length - 1;
+      cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
+      words[cursorAfter.wordIndex][cursorAfter.characterIndex].cursorAfter = true;
     } else {
-      // case 2, else cursor should jump to just adjacent letter
+      
+      // case 2, else cursor should jump to adjacent letter
       adjacentLetter.cursorAfter = true;
       currentCharacter.cursorAfter = false;
       cursorAfter.characterIndex += directionIncrement;
     }
+    
   }
 
   constructor() {
@@ -66,8 +70,6 @@ class ThesaurusInput extends React.Component {
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
-
-
   handleSpaceBar() {
     this.setState((state) => {
       const { words, cursorAfter: { wordIndex, characterIndex } } = state;
@@ -76,14 +78,13 @@ class ThesaurusInput extends React.Component {
       // if the prev character is space, then just add to current word
       if(prevCharacter === ' ') {
         words[wordIndex].push({ value: ' ', cursorAfter: true });
-        ThesaurusInput.handleCursorMove(state, 'right');
+        ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      } else {
-        //If the prev character is a letter, start a new word
-        words.push([{ value: ' ', cursorAfter: true }]);
-        ThesaurusInput.handleCursorMove(state, 'right');
-        return state;
-      }
+      } 
+      // If the prev character is a letter, start a new word
+      words.push([{ value: ' ', cursorAfter: true }]);
+      ThesaurusInput.handleCursorMove(state, 'Right');
+      return state;
     }, logState);
   }
 
@@ -99,13 +100,13 @@ class ThesaurusInput extends React.Component {
       if (prevCharacter.value === ' ') {
         // if prev character is space, start a new word
         words.splice(wordIndex + 1, 0, [{ value: character, cursorAfter: true }])
-        ThesaurusInput.handleCursorMove(state, 'right');
+        ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
       } 
 
       // else add to current word
       words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true })
-      ThesaurusInput.handleCursorMove(state, 'right');
+      ThesaurusInput.handleCursorMove(state, 'Right');
       return state;
     }, logState)
   }
@@ -144,6 +145,7 @@ class ThesaurusInput extends React.Component {
 
 
   handleArrows(direction) {
+    console.log(direction)
     this.setState((state)=>{
       ThesaurusInput.handleCursorMove(state, direction);
       return state;

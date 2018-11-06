@@ -28341,7 +28341,7 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, null, [{
     key: 'handleCursorMove',
     value: function handleCursorMove(state, direction) {
-      var directionIncrement = direction === 'right' ? 1 : -1;
+      var directionIncrement = direction === 'Right' ? 1 : -1;
       var words = state.words,
           cursorAfter = state.cursorAfter,
           _state$cursorAfter = state.cursorAfter,
@@ -28352,12 +28352,15 @@ var ThesaurusInput = function (_React$Component) {
       var adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
 
       if (!adjacentLetter) {
-        // case 1, if no adjacent letter, cursor should jump to adjacent word
+        // case 1, there is no adjacent letter, to jump to closet letter in adjacent word
+        var indexOfLetterInAdjacentWord = direction === 'Right' ? 0 : words[wordIndex - 1].length - 1;
         currentCharacter.cursorAfter = false;
         cursorAfter.wordIndex += directionIncrement;
-        cursorAfter.characterIndex = direction === 'right' ? 0 : words[wordIndex - 1].length - 1;
+        cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
+        words[cursorAfter.wordIndex][cursorAfter.characterIndex].cursorAfter = true;
       } else {
-        // case 2, else cursor should jump to just adjacent letter
+
+        // case 2, else cursor should jump to adjacent letter
         adjacentLetter.cursorAfter = true;
         currentCharacter.cursorAfter = false;
         cursorAfter.characterIndex += directionIncrement;
@@ -28392,14 +28395,13 @@ var ThesaurusInput = function (_React$Component) {
         // if the prev character is space, then just add to current word
         if (prevCharacter === ' ') {
           words[wordIndex].push({ value: ' ', cursorAfter: true });
-          ThesaurusInput.handleCursorMove(state, 'right');
-          return state;
-        } else {
-          //If the prev character is a letter, start a new word
-          words.push([{ value: ' ', cursorAfter: true }]);
-          ThesaurusInput.handleCursorMove(state, 'right');
+          ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
+        // If the prev character is a letter, start a new word
+        words.push([{ value: ' ', cursorAfter: true }]);
+        ThesaurusInput.handleCursorMove(state, 'Right');
+        return state;
       }, logState);
     }
   }, {
@@ -28425,13 +28427,13 @@ var ThesaurusInput = function (_React$Component) {
         if (prevCharacter.value === ' ') {
           // if prev character is space, start a new word
           words.splice(wordIndex + 1, 0, [{ value: character, cursorAfter: true }]);
-          ThesaurusInput.handleCursorMove(state, 'right');
+          ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
 
         // else add to current word
         words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true });
-        ThesaurusInput.handleCursorMove(state, 'right');
+        ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
       }, logState);
     }
@@ -28471,6 +28473,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'handleArrows',
     value: function handleArrows(direction) {
+      console.log(direction);
       this.setState(function (state) {
         ThesaurusInput.handleCursorMove(state, direction);
         return state;
