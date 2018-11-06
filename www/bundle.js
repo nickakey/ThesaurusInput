@@ -28359,7 +28359,6 @@ var ThesaurusInput = function (_React$Component) {
         cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
         words[cursorAfter.wordIndex][cursorAfter.characterIndex].cursorAfter = true;
       } else {
-
         // case 2, else cursor should jump to adjacent letter
         adjacentLetter.cursorAfter = true;
         currentCharacter.cursorAfter = false;
@@ -28398,8 +28397,10 @@ var ThesaurusInput = function (_React$Component) {
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
-        // If the prev character is a letter, start a new word
-        words.push([{ value: ' ', cursorAfter: true }]);
+        // If the prev character is a letter, start a new word,
+        // and add to it all the letters on the right
+        var newWord = words[wordIndex].splice(characterIndex + 1);
+        words.splice(wordIndex + 1, 0, [{ value: ' ', cursorAfter: true }], newWord);
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
       }, logState);
@@ -28430,7 +28431,6 @@ var ThesaurusInput = function (_React$Component) {
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
-
         // else add to current word
         words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true });
         ThesaurusInput.handleCursorMove(state, 'Right');
@@ -28468,7 +28468,7 @@ var ThesaurusInput = function (_React$Component) {
           ThesaurusInput.handleCursorMove(state, 'left');
           words[wordIndex].splice(characterIndex, 1);
         }
-      });
+      }, logState);
     }
   }, {
     key: 'handleArrows',
@@ -28477,7 +28477,7 @@ var ThesaurusInput = function (_React$Component) {
       this.setState(function (state) {
         ThesaurusInput.handleCursorMove(state, direction);
         return state;
-      });
+      }, logState);
     }
   }, {
     key: 'handleClick',
