@@ -29,25 +29,91 @@ const cursorAfterElement = css`
     box-sizing: border-box;
   };
 `
-const ThesaurusLetter = ({ index, charObj, onClick }) => {
-  if(charObj.value === " "){
+
+const cursorBeforeElement = css`
+  &::before {
+    content: "";
+    animation: ${blink} 1s linear infinite;
+    padding: 0px;
+    width: 1px;
+    border: solid black 1px;
+    position: absolute;
+    height: 43px;
+    box-sizing: border-box;
+  };
+`
+
+function determineClass(charIndex, wordIndex, cursorIndex, leftCap) {
+  if (wordIndex === cursorIndex.wordIndex && 
+    charIndex === cursorIndex.characterIndex && 
+    leftCap) {
+    return `${character} ${cursorBeforeElement}`
+
+  }
+  if (wordIndex === cursorIndex.wordIndex && 
+    charIndex === cursorIndex.characterIndex) {
+    return `${character} ${cursorAfterElement}`;
+  }
+  return character;
+}
+
+
+const ThesaurusLetter = ({ index, charObj, onClick, wordIndex, cursorIndex, leftCap}) => {
+  // If the very first character is space
+  if (charObj.value === " ") {
     return (
       <span
-        className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
+        className={determineClass(index, wordIndex, cursorIndex, leftCap)}
         onClick={() => { onClick(index)}}
       >
         &nbsp;
       </span>
     )
   }
+
   return (
-  <span
-    className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
-    onClick={() => { onClick(index)}}
-  >
-    {charObj.value}
-  </span>
-  )
+    <span
+      className={determineClass(index, wordIndex, cursorIndex, leftCap)}
+      onClick={() => { onClick(index)}}
+    >
+      {charObj.value}
+    </span>
+  )  
+
+  // // If the very first character is space
+  //   // AND if the cursor is on the very first character  
+  // if (charObj.value === " " && shouldRenderCursorBefore) {
+  //   return (
+  //     <span
+  //       className={`${character} ${cursorAfterElement}`}
+  //       onClick={() => { onClick(index)}}
+  //     >
+  //       &nbsp;
+  //     </span>
+  //   )
+  // }
+
+  // //If the cursor is on the very first character
+  // if (shouldRenderCursorBefore) {
+  //   return (
+  //     <span
+  //       className={`${character} ${cursorBeforeElement}`}
+  //       onClick={() => { onClick(index)}}
+  //     >
+  //       {charObj.value}
+  //     </span>
+  //   )
+  // }
+  
+  // //if it's a normal character
+  // return (
+  //   <span
+  //     className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
+  //     onClick={() => { onClick(index)}}
+  //   >
+  //     {charObj.value}
+  //   </span>
+  // )
 }
 
 ThesaurusLetter.propTypes = {

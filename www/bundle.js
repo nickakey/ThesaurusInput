@@ -28351,17 +28351,19 @@ var ThesaurusInput = function (_React$Component) {
       var currentCharacter = words[wordIndex][characterIndex];
       var adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
 
-      if (!adjacentLetter) {
+      if (direction === 'Left' && wordIndex === 0 && characterIndex === 0) {
+        state.leftCap = true;
+      } else if (direction === 'Right' && state.leftCap) {
+        state.leftCap = false;
+      } else if (!adjacentLetter) {
         // case 1, there is no adjacent letter, to jump to closet letter in adjacent word
+        state.leftCap = false;
         var indexOfLetterInAdjacentWord = direction === 'Right' ? 0 : words[wordIndex - 1].length - 1;
-        currentCharacter.cursorAfter = false;
         cursorAfter.wordIndex += directionIncrement;
         cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
-        words[cursorAfter.wordIndex][cursorAfter.characterIndex].cursorAfter = true;
       } else {
         // case 2, else cursor should jump to adjacent letter
-        adjacentLetter.cursorAfter = true;
-        currentCharacter.cursorAfter = false;
+        state.leftCap = false;
         cursorAfter.characterIndex += directionIncrement;
       }
     }
@@ -28373,8 +28375,9 @@ var ThesaurusInput = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this));
 
     _this.state = {
-      words: [[{ value: 't', cursorAfter: false }, { value: 'y', cursorAfter: false }, { value: 'p', cursorAfter: false }, { value: 'e', cursorAfter: false }], [{ value: ' ', cursorAfter: false }], [{ value: 'H', cursorAfter: false }, { value: 'e', cursorAfter: false }, { value: 'r', cursorAfter: false }, { value: 'e', cursorAfter: true }]],
-      cursorAfter: { wordIndex: 2, characterIndex: 3 }
+      words: [[{ value: 't' }, { value: 'y' }, { value: 'p' }, { value: 'e' }], [{ value: ' ' }], [{ value: 'H' }, { value: 'e' }, { value: 'r' }, { value: 'e' }]],
+      cursorAfter: { wordIndex: 0, characterIndex: 0 },
+      leftCap: false
     };
     _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
     return _this;
@@ -28383,6 +28386,8 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'handleSpaceBar',
     value: function handleSpaceBar() {
+      // TODO - the current issue is that ...
+      //the leftcap space does not add to adjacent spaces
       this.setState(function (state) {
         var words = state.words,
             _state$cursorAfter2 = state.cursorAfter,
@@ -28392,9 +28397,29 @@ var ThesaurusInput = function (_React$Component) {
         var prevCharacter = words[wordIndex][characterIndex];
         var nextCharacter = words[wordIndex][characterIndex + 1];
 
+        if (state.leftCap && prevCharacter.value === " ") {
+          words[wordIndex].unshift({ value: ' ' });
+          ThesaurusInput.handleCursorMove(state, 'Right');
+          state.leftCap = false;
+          return state;
+        }
+
+        if (state.leftCap) {
+          words.unshift([{ value: ' ' }]);
+          ThesaurusInput.handleCursorMove(state, 'Right');
+          state.leftCap = false;
+          return state;
+        }
+
         // if the prev character is space, then just add to current word
         if (prevCharacter.value === ' ') {
-          words[wordIndex].push({ value: ' ', cursorAfter: true });
+          words[wordIndex].push({ value: ' ' });
+          ThesaurusInput.handleCursorMove(state, 'Right');
+          return state;
+        }
+        if (!nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ') {
+          console.log("we are in the right if");
+          words[wordIndex + 1].unshift({ value: ' ' });
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
@@ -28402,19 +28427,21 @@ var ThesaurusInput = function (_React$Component) {
           // Else If there is a next character,
           // take all the next characters and add them as a  word, 
           var newWord = words[wordIndex].splice(characterIndex + 1);
-          words.splice(wordIndex + 1, 0, [{ value: ' ', cursorAfter: true }], newWord);
+          words.splice(wordIndex + 1, 0, [{ value: ' ' }], newWord);
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
         // else just add a new word that's a space
-        words.splice(wordIndex + 1, 0, [{ value: ' ', cursorAfter: true }]);
+        words.splice(wordIndex + 1, 0, [{ value: ' ' }]);
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }, logState);
+      });
     }
   }, {
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
+      // TODO: Right now, characters are only being coupled by checking the LEFT SIDE
+      //So the code needs to check if the right side matches, and then handle that accordingly
       if (character.length > 1) {
         return;
       }
@@ -28423,6 +28450,10 @@ var ThesaurusInput = function (_React$Component) {
       }
 
       this.setState(function (state) {
+        if (state.leftCap) {
+          state.words.splice(0, 0, [{ value: character }]);
+          return ThesaurusInput.handleCursorMove(state, 'Right');
+        }
         var words = state.words,
             cursorAfter = state.cursorAfter,
             _state$cursorAfter3 = state.cursorAfter,
@@ -28430,25 +28461,41 @@ var ThesaurusInput = function (_React$Component) {
             characterIndex = _state$cursorAfter3.characterIndex;
 
         var prevCharacter = words[wordIndex][characterIndex];
-        var nextLetter = words[wordIndex][characterIndex + 1];
+        var nextCharacter = words[wordIndex][characterIndex + 1];
 
-        if (prevCharacter.value === ' ') {
-          // if prev character is space, start a new word
-          words.splice(wordIndex + 1, 0, [{ value: character, cursorAfter: true }]);
+        if (prevCharacter.value === ' ' && !nextCharacter && (!words[wordIndex + 1] || !words[wordIndex + 1][0])) {
+          // if prev character is space,
+          // and there is no next character in the word
+          //And the next adjacent character is a space or doesn't exist
+          //start a new word
+          words.splice(wordIndex + 1, 0, [{ value: character }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         }
+
+        if (prevCharacter.value === ' ' && words[wordIndex + 1] && words[wordIndex + 1][0]) {
+          //if prev character is space
+          //and next adjacent character exists and is a letter
+          //add this character to the beginning of the next adjacent word
+          words[wordIndex + 1].splice(0, 0, { value: character });
+          ThesaurusInput.handleCursorMove(state, 'Right');
+          return state;
+        }
+
         // else add to current word
-        words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true });
+        words[wordIndex].splice(characterIndex + 1, 0, { value: character });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      });
+      }, logState);
     }
   }, {
     key: 'handleDelete',
     value: function handleDelete() {
       // TODO - I also have to handle the cursor
       this.setState(function (state) {
+        if (state.leftCap) {
+          return;
+        }
         var words = state.words,
             cursorAfter = state.cursorAfter,
             _state$cursorAfter4 = state.cursorAfter,
@@ -28463,16 +28510,16 @@ var ThesaurusInput = function (_React$Component) {
         if (characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord) {
           // if character being deleted is the only space seperating 2 words,
           // combine them into one word
-          ThesaurusInput.handleCursorMove(state, 'left');
+          ThesaurusInput.handleCursorMove(state, 'Left');
           var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
           words.splice(wordIndex - 1, 3, combinedWords);
         } else if (currentWord.length === 1) {
           // if character is only character in word, delete word
-          ThesaurusInput.handleCursorMove(state, 'left');
+          ThesaurusInput.handleCursorMove(state, 'Left');
           words.splice(wordIndex, 1);
         } else {
           // if character has another character before it in the word, only delete that one character
-          ThesaurusInput.handleCursorMove(state, 'left');
+          ThesaurusInput.handleCursorMove(state, 'Left');
           words[wordIndex].splice(characterIndex, 1);
         }
       });
@@ -28481,7 +28528,6 @@ var ThesaurusInput = function (_React$Component) {
     key: 'handleArrows',
     value: function handleArrows(direction) {
       this.setState(function (state) {
-        console.log("this is the state before ", state);
         ThesaurusInput.handleCursorMove(state, direction);
         return state;
       }, logState);
@@ -28529,9 +28575,12 @@ var ThesaurusInput = function (_React$Component) {
             }
           }
         },
-        this.state.words.map(function (word, i) {
+        this.state.words.map(function (word, j) {
           return word.map(function (charObj, i) {
             return _react2.default.createElement(_ThesaurusLetter2.default, {
+              leftCap: _this2.state.leftCap,
+              cursorIndex: _this2.state.cursorAfter,
+              wordIndex: j,
               key: charObj.value + i,
               index: i,
               charObj: charObj,
@@ -28611,7 +28660,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n'], ['\n  background-color: white;\n  font-size: 35px;\n  color: black;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n'], ['\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  &::after {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n'], ['\n  &::after {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n']);
+    _templateObject3 = _taggedTemplateLiteral(['\n  &::after {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n'], ['\n  &::after {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  &::before {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n'], ['\n  &::before {\n    content: "";\n    animation: ', ' 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n']);
 
 var _react = __webpack_require__(10);
 
@@ -28632,16 +28682,33 @@ var character = (0, _reactEmotion.css)(_templateObject);
 var blink = (0, _reactEmotion.keyframes)(_templateObject2);
 
 var cursorAfterElement = (0, _reactEmotion.css)(_templateObject3, blink);
+
+var cursorBeforeElement = (0, _reactEmotion.css)(_templateObject4, blink);
+
+function determineClass(charIndex, wordIndex, cursorIndex, leftCap) {
+  if (wordIndex === cursorIndex.wordIndex && charIndex === cursorIndex.characterIndex && leftCap) {
+    return character + ' ' + cursorBeforeElement;
+  }
+  if (wordIndex === cursorIndex.wordIndex && charIndex === cursorIndex.characterIndex) {
+    return character + ' ' + cursorAfterElement;
+  }
+  return character;
+}
+
 var ThesaurusLetter = function ThesaurusLetter(_ref) {
   var index = _ref.index,
       charObj = _ref.charObj,
-      _onClick = _ref.onClick;
+      _onClick = _ref.onClick,
+      wordIndex = _ref.wordIndex,
+      cursorIndex = _ref.cursorIndex,
+      leftCap = _ref.leftCap;
 
+  // If the very first character is space
   if (charObj.value === " ") {
     return _react2.default.createElement(
       'span',
       {
-        className: charObj.cursorAfter ? character + ' ' + cursorAfterElement : character,
+        className: determineClass(index, wordIndex, cursorIndex, leftCap),
         onClick: function onClick() {
           _onClick(index);
         }
@@ -28649,16 +28716,52 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
       '\xA0'
     );
   }
+
   return _react2.default.createElement(
     'span',
     {
-      className: charObj.cursorAfter ? character + ' ' + cursorAfterElement : character,
+      className: determineClass(index, wordIndex, cursorIndex, leftCap),
       onClick: function onClick() {
         _onClick(index);
       }
     },
     charObj.value
   );
+
+  // // If the very first character is space
+  //   // AND if the cursor is on the very first character  
+  // if (charObj.value === " " && shouldRenderCursorBefore) {
+  //   return (
+  //     <span
+  //       className={`${character} ${cursorAfterElement}`}
+  //       onClick={() => { onClick(index)}}
+  //     >
+  //       &nbsp;
+  //     </span>
+  //   )
+  // }
+
+  // //If the cursor is on the very first character
+  // if (shouldRenderCursorBefore) {
+  //   return (
+  //     <span
+  //       className={`${character} ${cursorBeforeElement}`}
+  //       onClick={() => { onClick(index)}}
+  //     >
+  //       {charObj.value}
+  //     </span>
+  //   )
+  // }
+
+  // //if it's a normal character
+  // return (
+  //   <span
+  //     className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
+  //     onClick={() => { onClick(index)}}
+  //   >
+  //     {charObj.value}
+  //   </span>
+  // )
 };
 
 ThesaurusLetter.propTypes = {
