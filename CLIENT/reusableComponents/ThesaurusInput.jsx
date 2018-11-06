@@ -72,17 +72,24 @@ class ThesaurusInput extends React.Component {
     this.setState((state) => {
       const { words, cursorAfter: { wordIndex, characterIndex } } = state;
       const prevCharacter = words[wordIndex][characterIndex];
+      const nextCharacter = words[wordIndex][characterIndex + 1];
 
       // if the prev character is space, then just add to current word
-      if(prevCharacter === ' ') {
+      if (prevCharacter.value === ' ') {
         words[wordIndex].push({ value: ' ', cursorAfter: true });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      } 
-      // If the prev character is a letter, start a new word,
-      // and add to it all the letters on the right
-      const newWord = words[wordIndex].splice(characterIndex + 1)
-      words.splice(wordIndex + 1, 0, [{ value: ' ', cursorAfter: true }], newWord);
+      }
+      if (nextCharacter) {
+        // Else If there is a next character,
+        // take all the next characters and add them as a  word, 
+        const newWord = words[wordIndex].splice(characterIndex + 1)
+        words.splice(wordIndex + 1, 0, [{ value: ' ', cursorAfter: true }], newWord);
+        ThesaurusInput.handleCursorMove(state, 'Right');
+        return state;
+      }
+      // else just add a new word that's a space
+      words.splice(wordIndex + 1, 0, [{ value: ' ', cursorAfter: true }]);
       ThesaurusInput.handleCursorMove(state, 'Right');
       return state;
     }, logState);
@@ -107,7 +114,7 @@ class ThesaurusInput extends React.Component {
       words[wordIndex].splice(characterIndex + 1, 0, { value: character, cursorAfter: true })
       ThesaurusInput.handleCursorMove(state, 'Right');
       return state;
-    }, logState)
+    })
   }
 
 
@@ -135,14 +142,14 @@ class ThesaurusInput extends React.Component {
         ThesaurusInput.handleCursorMove(state, 'left')
         words[wordIndex].splice(characterIndex, 1);
       }
-    }, logState)
+    })
 
   } 
 
 
   handleArrows(direction) {
-    console.log(direction)
     this.setState((state)=>{
+      console.log("this is the state before ", state);
       ThesaurusInput.handleCursorMove(state, direction);
       return state;
     }, logState)
