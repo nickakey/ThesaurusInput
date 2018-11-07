@@ -11,4 +11,3 @@ function synonymsFormatter(synonyms) {
 }
 
 module.exports.synonymsFormatter = synonymsFormatter;
-
