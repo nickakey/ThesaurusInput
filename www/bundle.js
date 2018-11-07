@@ -28351,6 +28351,14 @@ var ThesaurusInput = function (_React$Component) {
       var currentCharacter = words[wordIndex][characterIndex];
       var adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
 
+      /* ok this is getting the false trigger when there is nothing on the screen, and then 
+      you type in one letter.... So what problem is this actually handling? 
+      I THINK it's handling going to the right infinitely... */
+
+      if (!adjacentLetter && !words[wordIndex + 1] && direction === "Right") {
+        return;
+      }
+
       if (direction === 'Left' && wordIndex === 0 && characterIndex === 0) {
         state.leftCap = true;
       } else if (direction === 'Right' && state.leftCap) {
@@ -28386,8 +28394,6 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'handleSpaceBar',
     value: function handleSpaceBar() {
-      // TODO - the current issue is that ...
-      //the leftcap space does not add to adjacent spaces
       this.setState(function (state) {
         var words = state.words,
             _state$cursorAfter2 = state.cursorAfter,
@@ -28397,7 +28403,7 @@ var ThesaurusInput = function (_React$Component) {
         var prevCharacter = words[wordIndex][characterIndex];
         var nextCharacter = words[wordIndex][characterIndex + 1];
 
-        if (state.leftCap && prevCharacter.value === " ") {
+        if (state.leftCap && prevCharacter.value === ' ') {
           words[wordIndex].unshift({ value: ' ' });
           ThesaurusInput.handleCursorMove(state, 'Right');
           state.leftCap = false;
@@ -28418,7 +28424,6 @@ var ThesaurusInput = function (_React$Component) {
           return state;
         }
         if (!nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ') {
-          console.log("we are in the right if");
           words[wordIndex + 1].unshift({ value: ' ' });
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
@@ -28451,9 +28456,18 @@ var ThesaurusInput = function (_React$Component) {
 
       this.setState(function (state) {
         if (state.leftCap) {
+          console.log("i think this is where the magic happens");
           state.words.splice(0, 0, [{ value: character }]);
-          return ThesaurusInput.handleCursorMove(state, 'Right');
+          state.leftCap = false;
+          ThesaurusInput.handleCursorMove(state, 'Right');
+          return state;
         }
+        // if(state.words.length === 0){
+        //   state.words.push([{ value: character}]);
+        //   ThesaurusInput.handleCursorMove(state, 'Right');
+        //   state.leftCap = false;
+        //   return state;
+        // }      
         var words = state.words,
             cursorAfter = state.cursorAfter,
             _state$cursorAfter3 = state.cursorAfter,
@@ -28462,7 +28476,6 @@ var ThesaurusInput = function (_React$Component) {
 
         var prevCharacter = words[wordIndex][characterIndex];
         var nextCharacter = words[wordIndex][characterIndex + 1];
-
         if (prevCharacter.value === ' ' && !nextCharacter && (!words[wordIndex + 1] || !words[wordIndex + 1][0])) {
           // if prev character is space,
           // and there is no next character in the word
@@ -28483,10 +28496,11 @@ var ThesaurusInput = function (_React$Component) {
         }
 
         // else add to current word
+
         words[wordIndex].splice(characterIndex + 1, 0, { value: character });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }, logState);
+      });
     }
   }, {
     key: 'handleDelete',
@@ -28513,16 +28527,19 @@ var ThesaurusInput = function (_React$Component) {
           ThesaurusInput.handleCursorMove(state, 'Left');
           var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
           words.splice(wordIndex - 1, 3, combinedWords);
+          return state;
         } else if (currentWord.length === 1) {
           // if character is only character in word, delete word
           ThesaurusInput.handleCursorMove(state, 'Left');
           words.splice(wordIndex, 1);
+          return state;
         } else {
           // if character has another character before it in the word, only delete that one character
           ThesaurusInput.handleCursorMove(state, 'Left');
           words[wordIndex].splice(characterIndex, 1);
+          return state;
         }
-      });
+      }, logState);
     }
   }, {
     key: 'handleArrows',
@@ -28530,7 +28547,7 @@ var ThesaurusInput = function (_React$Component) {
       this.setState(function (state) {
         ThesaurusInput.handleCursorMove(state, direction);
         return state;
-      }, logState);
+      });
     }
   }, {
     key: 'handleClick',
@@ -28644,6 +28661,26 @@ The state should match the following requirements
 
 - Handle empty state
 - 
+
+*/
+
+/* 
+TESTS: 
+
+SPACES
+pass - space on left side of existing space
+pass - Space on right side of existing space
+pass - space in middle of word
+pass - space on leftstop
+pass - space on right stop
+pass - Space if there is nothing in the field
+
+Letter on left stop
+Letter on right stop
+Letter in middle 
+
+Cursor
+FAIL - when I start a new word from scratch, the cursor ends up on the left side of the word
 
 */
 
