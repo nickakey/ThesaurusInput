@@ -28454,6 +28454,7 @@ var ThesaurusInput = function (_React$Component) {
       }
 
       this.setState(function (state) {
+
         var isAtMaxLeft = state.maxLeft;
         if (isAtMaxLeft) {
           state.words.splice(0, 0, [{ value: character }]);
@@ -28497,8 +28498,8 @@ var ThesaurusInput = function (_React$Component) {
         if (state.maxLeft) {
           return;
         }
+
         var words = state.words,
-            cursorAfter = state.cursorAfter,
             _state$cursorAfter4 = state.cursorAfter,
             wordIndex = _state$cursorAfter4.wordIndex,
             characterIndex = _state$cursorAfter4.characterIndex;
@@ -28508,24 +28509,26 @@ var ThesaurusInput = function (_React$Component) {
         var prevWord = words[wordIndex - 1];
         var nextWord = words[wordIndex + 1];
 
-        if (characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord) {
-          // if character being deleted is the only space seperating 2 words,
-          // combine them into one word
+        var deletingSingleSpaceBetweenTwoWords = characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord;
+        var deletingLastLetterInWord = currentWord.length === 1;
+
+        if (deletingSingleSpaceBetweenTwoWords) {
           ThesaurusInput.handleCursorMove(state, 'Left');
           var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
           words.splice(wordIndex - 1, 3, combinedWords);
           return state;
-        } else if (currentWord.length === 1) {
-          // if character is only character in word, delete word
+        }
+
+        if (deletingLastLetterInWord) {
           ThesaurusInput.handleCursorMove(state, 'Left');
           words.splice(wordIndex, 1);
           return state;
-        } else {
-          // if character has another character before it in the word, only delete that one character
-          ThesaurusInput.handleCursorMove(state, 'Left');
-          words[wordIndex].splice(characterIndex, 1);
-          return state;
         }
+
+        // if character has another character before it in the word, only delete that one character
+        ThesaurusInput.handleCursorMove(state, 'Left');
+        words[wordIndex].splice(characterIndex, 1);
+        return state;
       });
     }
   }, {
@@ -28535,26 +28538,6 @@ var ThesaurusInput = function (_React$Component) {
         ThesaurusInput.handleCursorMove(state, direction);
         return state;
       });
-    }
-  }, {
-    key: 'handleClick',
-    value: function handleClick(index) {
-      // this.setState((state) => { 
-      //   state.words[state.cursorAfter - 1].cursorAfter = false;
-      //   state.cursorAfter = index;
-      //   state.words[index].cursorAfter = true;
-      //   return state;
-      // })
-    }
-  }, {
-    key: 'addWord',
-    value: function addWord() {
-      //A word is the text between the last index, and the first space before it
-      // let secondLastSpace = this.findSecondLastSpace();
-      // let currentSpaceIndex = this.state.words.length - 2;
-      // const wordCoords = [++secondLastSpace, --currentSpaceIndex];
-
-
     }
   }, {
     key: 'render',
@@ -28587,8 +28570,7 @@ var ThesaurusInput = function (_React$Component) {
               wordIndex: j,
               key: charObj.value + i,
               index: i,
-              charObj: charObj,
-              onClick: _this2.handleClick.bind(_this2)
+              charObj: charObj
             });
           });
         })
@@ -28792,8 +28774,7 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
 
 ThesaurusLetter.propTypes = {
   index: _propTypes2.default.number.isRequired,
-  charObj: _propTypes2.default.object.isRequired,
-  onClick: _propTypes2.default.func.isRequired
+  charObj: _propTypes2.default.object.isRequired
 };
 
 exports.default = ThesaurusLetter;

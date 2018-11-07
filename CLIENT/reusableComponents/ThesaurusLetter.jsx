@@ -119,7 +119,6 @@ const ThesaurusLetter = ({ index, charObj, onClick, wordIndex, cursorIndex, maxL
 ThesaurusLetter.propTypes = {
   index: PropTypes.number.isRequired,
   charObj: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 

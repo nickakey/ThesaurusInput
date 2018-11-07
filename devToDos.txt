@@ -1,3 +1,18 @@
+Make the dom render so that every word is in a div!
+Make the thesaurus part actually work!
+Write a bunch of tests per that course 
+
+
+
+
+
+
+
+
+
+
+
+
 DONE -  When I open the synonym menu, I also want to be able to close it in case I don't like any of the words
 DONE - Error handle if the word is not a valid word... 
 DONE - When I click submit without any words, it shouldn't let me do anything
