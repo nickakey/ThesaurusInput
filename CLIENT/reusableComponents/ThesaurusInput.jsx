@@ -22,33 +22,52 @@ const input = css`
 `;
 
 class ThesaurusInput extends React.Component {
+  static pressingRightWhenAlreadyRight(adjacentLetter, words, wordIndex, direction) {
+    return !adjacentLetter && !words[wordIndex + 1] && direction === "Right";  
+  }
+
+  static pressingLeftWhenAlreadyLeft(direction, wordIndex, characterIndex) {
+    return direction === 'Left' && wordIndex === 0 && characterIndex === 0
+  }  
+  
+  static pressingRightWhenMaxLeft(direction, maxLeft) {
+    console.log("whts going on , ", direction, maxLeft)
+    return direction === 'Right' && maxLeft; 
+  } 
+  
+  static noMoreLettersInWord(adjacentLetter) {
+    return !adjacentLetter;
+  }
+
   static handleCursorMove(state, direction) {
     const directionIncrement = direction === 'Right' ? 1 : -1;
-    const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
-    const currentCharacter = words[wordIndex][characterIndex];
+    const { words, maxLeft, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
     const adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
 
-    /* ok this is getting the false trigger when there is nothing on the screen, and then 
-    you type in one letter.... So what problem is this actually handling? 
-    I THINK it's handling going to the right infinitely... */
+    if (ThesaurusInput.pressingRightWhenAlreadyRight(adjacentLetter, words, wordIndex, direction)) {
+      return;
+    }
 
-    if(!adjacentLetter && !words[wordIndex + 1] && direction === "Right"){return}
+    if (ThesaurusInput.pressingLeftWhenAlreadyLeft(direction, wordIndex, characterIndex)) {
+      state.maxLeft = true;
+      return;
+    }
 
-    if (direction === 'Left' && wordIndex === 0 && characterIndex === 0) {
-      state.leftCap = true;
-    } else if (direction === 'Right' && state.leftCap) {
-      state.leftCap = false;
-    } else if (!adjacentLetter) {
-      // case 1, there is no adjacent letter, to jump to closet letter in adjacent word
-      state.leftCap = false;
+    if (ThesaurusInput.pressingRightWhenMaxLeft(direction, maxLeft)) {
+      state.maxLeft = false;
+      return;
+    }
+
+    if (ThesaurusInput.noMoreLettersInWord(adjacentLetter)) {
+      state.maxLeft = false;
       const indexOfLetterInAdjacentWord = direction === 'Right' ? 0 : words[wordIndex - 1].length - 1;
       cursorAfter.wordIndex += directionIncrement;
       cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
-    } else { 
-      // case 2, else cursor should jump to adjacent letter
-      state.leftCap = false;
-      cursorAfter.characterIndex += directionIncrement;
-    } 
+      return;
+    }
+
+    state.maxLeft = false;
+    cursorAfter.characterIndex += directionIncrement;
   }
 
   constructor() {
@@ -72,7 +91,7 @@ class ThesaurusInput extends React.Component {
         ],
       ],
       cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
-      leftCap: false,
+      maxLeft: false,
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
@@ -84,17 +103,17 @@ class ThesaurusInput extends React.Component {
       const nextCharacter = words[wordIndex][characterIndex + 1];
 
 
-      if (state.leftCap && prevCharacter.value === ' ') {
+      if (state.maxLeft && prevCharacter.value === ' ') {
         words[wordIndex].unshift({ value: ' ' })
         ThesaurusInput.handleCursorMove(state, 'Right');
-        state.leftCap = false;
+        state.maxLeft = false;
         return state;
       }
       
-      if (state.leftCap) {
+      if (state.maxLeft) {
         words.unshift([{ value: ' ' }])
         ThesaurusInput.handleCursorMove(state, 'Right');
-        state.leftCap = false;
+        state.maxLeft = false;
         return state;
       }
 
@@ -125,25 +144,21 @@ class ThesaurusInput extends React.Component {
   }
 
   handleKeyboardInput(character) {
-    // TODO: Right now, characters are only being coupled by checking the LEFT SIDE
-    //So the code needs to check if the right side matches, and then handle that accordingly
+    // decompose all this to be like "Handle X , handleIfFirstInput"
     if (character.length > 1) { return; }
     if (character === ' ' ) { return this.handleSpaceBar(); } 
 
     this.setState((state) => {   
-      if (state.leftCap) {
+      // Or make the things in if statements functions, such that
+      // its more readable I LIKE THAT IDEA 🐮🐮🐮🐮🐮🐮🐮
+      // if its the first letter....
+      if (state.maxLeft) {
         console.log("i think this is where the magic happens")
         state.words.splice(0, 0, [{ value: character}])
-        state.leftCap = false;
+        state.maxLeft = false;
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }
-      // if(state.words.length === 0){
-      //   state.words.push([{ value: character}]);
-      //   ThesaurusInput.handleCursorMove(state, 'Right');
-      //   state.leftCap = false;
-      //   return state;
-      // }      
+      }  
       const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
       const prevCharacter = words[wordIndex][characterIndex];
       const nextCharacter = words[wordIndex][characterIndex + 1];
@@ -180,7 +195,7 @@ class ThesaurusInput extends React.Component {
   handleDelete() {
     // TODO - I also have to handle the cursor
     this.setState((state) => {
-      if (state.leftCap){ return }
+      if (state.maxLeft){ return }
       const { words, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
       const characterToDelete = words[wordIndex][characterIndex];
       const currentWord = words[wordIndex];
@@ -215,7 +230,7 @@ class ThesaurusInput extends React.Component {
     this.setState((state)=>{
       ThesaurusInput.handleCursorMove(state, direction);
       return state;
-    })
+    }, logState)
   } 
   
 
@@ -258,7 +273,7 @@ class ThesaurusInput extends React.Component {
           return word.map((charObj, i) => {
             return (
               <ThesaurusLetter
-                leftCap={this.state.leftCap}
+                maxLeft={this.state.maxLeft}
                 cursorIndex={this.state.cursorAfter}
                 wordIndex={j}
                 key={charObj.value + i}
@@ -352,6 +367,7 @@ Letter on right stop
 Letter in middle 
 
 Cursor
-FAIL - when I start a new word from scratch, the cursor ends up on the left side of the word
+🐛 - clear the input then try and go right...
+PASS - when I start a new word from scratch, the cursor ends up on the left side of the word
 
 */

@@ -43,10 +43,10 @@ const cursorBeforeElement = css`
   };
 `
 
-function determineClass(charIndex, wordIndex, cursorIndex, leftCap) {
+function determineClass(charIndex, wordIndex, cursorIndex, maxLeft) {
   if (wordIndex === cursorIndex.wordIndex && 
     charIndex === cursorIndex.characterIndex && 
-    leftCap) {
+    maxLeft) {
     return `${character} ${cursorBeforeElement}`
 
   }
@@ -58,12 +58,12 @@ function determineClass(charIndex, wordIndex, cursorIndex, leftCap) {
 }
 
 
-const ThesaurusLetter = ({ index, charObj, onClick, wordIndex, cursorIndex, leftCap}) => {
+const ThesaurusLetter = ({ index, charObj, onClick, wordIndex, cursorIndex, maxLeft}) => {
   // If the very first character is space
   if (charObj.value === " ") {
     return (
       <span
-        className={determineClass(index, wordIndex, cursorIndex, leftCap)}
+        className={determineClass(index, wordIndex, cursorIndex, maxLeft)}
         onClick={() => { onClick(index)}}
       >
         &nbsp;
@@ -73,7 +73,7 @@ const ThesaurusLetter = ({ index, charObj, onClick, wordIndex, cursorIndex, left
 
   return (
     <span
-      className={determineClass(index, wordIndex, cursorIndex, leftCap)}
+      className={determineClass(index, wordIndex, cursorIndex, maxLeft)}
       onClick={() => { onClick(index)}}
     >
       {charObj.value}
