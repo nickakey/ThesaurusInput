@@ -28413,6 +28413,7 @@ var ThesaurusInput = function (_React$Component) {
 
         var prevCharacter = words[wordIndex][characterIndex];
         var nextCharacter = words[wordIndex][characterIndex + 1];
+
         var prevCharacterIsSpace = prevCharacter.value === ' ';
         var firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ';
         var addingSpaceToMiddleOfWord = nextCharacter;
@@ -28469,6 +28470,7 @@ var ThesaurusInput = function (_React$Component) {
             characterIndex = _state$cursorAfter3.characterIndex;
 
         var prevCharacter = words[wordIndex][characterIndex];
+
         var spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && !words[wordIndex + 1];
         var spaceBeforeAndWordAfter = prevCharacter.value === ' ' && words[wordIndex + 1] && words[wordIndex + 1][0];
 
@@ -28706,7 +28708,6 @@ function determineClass(charIndex, wordIndex, cursorIndex, maxLeft) {
 var ThesaurusLetter = function ThesaurusLetter(_ref) {
   var index = _ref.index,
       charObj = _ref.charObj,
-      _onClick = _ref.onClick,
       wordIndex = _ref.wordIndex,
       cursorIndex = _ref.cursorIndex,
       maxLeft = _ref.maxLeft;
@@ -28717,9 +28718,19 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
       'span',
       {
         className: determineClass(index, wordIndex, cursorIndex, maxLeft),
-        onClick: function onClick() {
-          _onClick(index);
-        }
+        onClick: function (_onClick) {
+          function onClick() {
+            return _onClick.apply(this, arguments);
+          }
+
+          onClick.toString = function () {
+            return _onClick.toString();
+          };
+
+          return onClick;
+        }(function () {
+          onClick(index);
+        })
       },
       '\xA0'
     );
@@ -28729,9 +28740,19 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
     'span',
     {
       className: determineClass(index, wordIndex, cursorIndex, maxLeft),
-      onClick: function onClick() {
-        _onClick(index);
-      }
+      onClick: function (_onClick2) {
+        function onClick() {
+          return _onClick2.apply(this, arguments);
+        }
+
+        onClick.toString = function () {
+          return _onClick2.toString();
+        };
+
+        return onClick;
+      }(function () {
+        onClick(index);
+      })
     },
     charObj.value
   );

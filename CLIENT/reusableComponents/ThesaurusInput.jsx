@@ -95,6 +95,7 @@ class ThesaurusInput extends React.Component {
 
       const prevCharacter = words[wordIndex][characterIndex];
       const nextCharacter = words[wordIndex][characterIndex + 1];
+
       const prevCharacterIsSpace = prevCharacter.value === ' ';
       const firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ';
       const addingSpaceToMiddleOfWord = nextCharacter;
@@ -142,6 +143,7 @@ class ThesaurusInput extends React.Component {
 
       const { words, cursorAfter: { wordIndex, characterIndex } } = state;
       const prevCharacter = words[wordIndex][characterIndex];
+      
       const spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && (!words[wordIndex + 1]);
       const spaceBeforeAndWordAfter = prevCharacter.value === ' ' && (words[wordIndex + 1] && words[wordIndex + 1][0]);
 

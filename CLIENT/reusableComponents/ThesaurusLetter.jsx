@@ -58,7 +58,7 @@ function determineClass(charIndex, wordIndex, cursorIndex, maxLeft) {
 }
 
 
-const ThesaurusLetter = ({ index, charObj, onClick, wordIndex, cursorIndex, maxLeft}) => {
+const ThesaurusLetter = ({ index, charObj, wordIndex, cursorIndex, maxLeft}) => {
   // If the very first character is space
   if (charObj.value === " ") {
     return (
