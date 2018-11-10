@@ -17,7 +17,10 @@ injectGlobal`
     margin: 0px;
     padding: 0px;
     color: black;
-    background-color:black;
+  }
+
+  body {
+    background-color: black;
   }
 `
 /* eslint-enable */

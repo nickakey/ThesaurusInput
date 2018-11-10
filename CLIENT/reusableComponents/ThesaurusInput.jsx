@@ -1,16 +1,52 @@
 import React from 'react';
 import { css, keyframes } from 'react-emotion';
+import axios from 'axios-jsonp-pro';
 import ThesaurusLetter from './ThesaurusLetter';
 
 function logState() {
   console.log('this is the state ', this.state)
 }
 
+const dropDown = css`
+  display: none;
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  top: 55%;
+  transform: translate(-65%, 40%);
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+`
+
+const dropDownWrapper = css`
+background-color: black;
+`
+
+const wordCSS = css`
+  display: inline-block;
+  background-color: white;
+  &:hover {
+      .${dropDown} {
+          display: inline-block;
+      }
+  }  
+`
+
+
+const synonymCSS = css`
+  padding: 2px;
+  &:hover {
+    background-color: lightgray;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+`
+
 const input = css`
   position: absolute;
   background-color: white;
   display: block;
-  position: absolute;
   top: 40%;
   left: 50%; 
   transform: translate(-50%, -50%);
@@ -18,10 +54,26 @@ const input = css`
   width: 51%;
   text-align: left;
   border-radius: 5px;
-  overflow: scroll;
+  z-index: -5;
 `;
 
 class ThesaurusInput extends React.Component {
+
+
+
+  static synonymsFormatter(synonyms) {
+    console.log('is this being called');
+    
+    const formattedSynonyms = [];
+    if (!synonyms) { return formattedSynonyms.push([undefined]); }
+    synonyms.response.forEach(({ list: { synonyms: synonymsString }}) => {
+      synonymsString.split('|')
+        .forEach((synonym) => {
+          formattedSynonyms.push(synonym.split(' ')[0]);
+        });
+    })
+    return formattedSynonyms;
+  }
 
   static handleCursorMove(state, direction) {
     const directionIncrement = direction === 'Right' ? 1 : -1;
@@ -58,62 +110,86 @@ class ThesaurusInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      words: [
-        [
-          { value: 't' },
-          { value: 'y' },
-          { value: 'p' },
-          { value: 'e' },
-        ],
-      ],
-      cursorAfter: { wordIndex: 0, characterIndex: 3 }, 
-      maxLeft: false,
+      words: [],
+      synonyms: [],
+      cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
+      maxLeft: true,
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
-  handleSpaceBar() {
-    this.setState((state) => {
-      const { words, cursorAfter: { wordIndex, characterIndex } } = state;
-      const isAtMaxLeft = state.maxLeft;
+  getSynonyms(word, wordIndex) {    
+    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      { timeout: 3500 })
+      .then((result) => {
+        this.setState((state)=>{
+          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+        });
+      })
+      .catch((err)=>{
+        reject(err);
+      })    
+  }
 
-      if (isAtMaxLeft) {
-        words.unshift([{ value: ' ' }])
+
+  handleSpaceBar() {
+    const { words, cursorAfter: { wordIndex, characterIndex } } = this.state;
+    const isAtMaxLeft = this.state.maxLeft;
+
+    if (isAtMaxLeft) {
+      this.setState((state)=>{
+        state.word.unshift([{ value: ' ' }])
         ThesaurusInput.handleCursorMove(state, 'Right');
         state.maxLeft = false;
         return state;
-      }      
+      });
+    }      
 
-      const prevCharacter = words[wordIndex][characterIndex];
-      const nextCharacter = words[wordIndex][characterIndex + 1];
+    const prevCharacter = words[wordIndex][characterIndex];
+    const nextCharacter = words[wordIndex][characterIndex + 1];
 
-      const prevCharacterIsSpace = prevCharacter.value === ' ';
-      const firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ';
-      const addingSpaceToMiddleOfWord = nextCharacter;
+    const prevCharacterIsSpace = prevCharacter.value === ' ';
+    const firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ';
+    const addingSpaceToMiddleOfWord = nextCharacter;
 
-      if (prevCharacterIsSpace) {
-        words[wordIndex].push({ value: ' '});
+    if (prevCharacterIsSpace) {
+      this.setState((state)=>{
+        state.words[wordIndex].push({ value: ' ' });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }
-      if (firstCharacterInNextWordIsSpace) {
-        words[wordIndex + 1].unshift({ value: ' '});
+      });
+    }
+
+    if (firstCharacterInNextWordIsSpace) {
+      this.setState((state)=>{
+        state.words[wordIndex + 1].unshift({ value: ' ' });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }
-      if (addingSpaceToMiddleOfWord) {
-        const newWord = words[wordIndex].splice(characterIndex + 1)
-        words.splice(wordIndex + 1, 0, [{ value: ' '}], newWord);
-        ThesaurusInput.handleCursorMove(state, 'Right');
-        return state;
-      }
+      });
       
-      // else add a new word that's a space
-      words.splice(wordIndex + 1, 0, [{ value: ' '}]);
+
+    }
+    if (addingSpaceToMiddleOfWord) {
+      this.setState((state)=>{
+        const newWord = state.words[wordIndex].splice(characterIndex + 1)
+        state.words.splice(wordIndex + 1, 0, [{ value: ' ' }], newWord);
+        ThesaurusInput.handleCursorMove(state, 'Right');
+        return state;
+      });
+    }
+
+    this.setState((state)=>{
+      state.words.splice(wordIndex + 1, 0, [{ value: ' ' }]);
       ThesaurusInput.handleCursorMove(state, 'Right');
       return state;
     });
+    this.getSynonyms(words[wordIndex].reduce((acc, el) => (acc.concat(el.value)), ''), wordIndex);
+    
+
+
   }
+
+
 
   handleKeyboardInput(character) {
     this.props.keyboardCallback();
@@ -223,18 +299,34 @@ class ThesaurusInput extends React.Component {
       >
 
         {this.state.words.map((word, j) => {
-          return word.map((charObj, i) => {
-            return (
-              <ThesaurusLetter
-                maxLeft={this.state.maxLeft}
-                cursorIndex={this.state.cursorAfter}
-                wordIndex={j}
-                key={charObj.value + i}
-                index={i}
-                charObj={charObj}
-              />
-            )
-          })
+          return ( 
+            <span>  
+              <span className={wordCSS}>  
+                {word.map((charObj, i) => {
+                  return (
+                    <ThesaurusLetter
+                      maxLeft={this.state.maxLeft}
+                      cursorIndex={this.state.cursorAfter}
+                      wordIndex={j}
+                      key={charObj.value + i}
+                      index={i}
+                      charObj={charObj}
+                    />
+                  )
+                })}
+                <span className={dropDownWrapper}>
+                  <span className={dropDown}>
+                    { this.state.synonyms[j] ? 
+                      this.state.synonyms[j].map(synonym => (
+                        <div className={synonymCSS}>
+                          {synonym}
+                        </div>
+                      )) : <span></span>
+                    }
+                  </span>
+                </span>
+              </span>
+            </span>)
         })}
 
       </div>
@@ -243,84 +335,3 @@ class ThesaurusInput extends React.Component {
 }
 
 export default ThesaurusInput;
-
- 
-/*
-The state should match the following requirements
-   * it should organize letters together into words
-   * It should allow multiple spaces to be typed in a row
-   * It should allow the cursor to be moved 
-*/
-
-
-
-/*
-1: one letter existing
-  a: space
-  b: another character
-
-2: one space existing
-  a: space 
-  b: another character
-
-*/ 
-
-
-//on space,
-  //if the last element of the last word ends in ' ' 
-    //it adds that space to the end of the last word
-  //else 
-    //create a new word
-
-
-
-
-/* 
-  A WORD
-  - the index of the first letter and the second letter
-  - The list of thesaurus words 
-  - Then, the word has a marker on it that's like 'hasSynonyms : Yes'
-    - And if it's true that it does, then we render an extra element
-    _ And we figure out the position of that element by knowing how wide a single letter index is
-
-
-*/
-
-
-/*
-- I can type letters and they will appear 
-- I can click on a character, and the cursor will appear on the left side of that character
-- I can hit delete, and the character before my cursor will be deleted
-- I can press the arrow keys and my cursor will shift left and righ
-- I can hit space, and after the item behind the cursor, but before the cursor, will appear a space
-- AND the cursor will appear after the last  character I typed
-
-
-- Handle empty state
-- 
-
-*/
-
-
-
-/* 
-TESTS: 
-
-SPACES
-pass - space on left side of existing space
-pass - Space on right side of existing space
-pass - space in middle of word
-pass - space on leftstop
-pass - space on right stop
-pass - Space if there is nothing in the field
-
-Letter on left stop
-Letter on right stop
-Letter in middle 
-
-Cursor
-🐛 - clear the input and try and space bar...
-🐛 - clear the input then try and go right...
-PASS - when I start a new word from scratch, the cursor ends up on the left side of the word
-
-*/
