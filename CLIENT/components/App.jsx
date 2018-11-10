@@ -177,7 +177,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <ThesaurusInput/>
+      <ThesaurusInput keyboardCallback={()=>{console.log("yo!")}}/>
 
       // <div className={background}>
       //   <span>

@@ -55,8 +55,8 @@ class ThesaurusInput extends React.Component {
     cursorAfter.characterIndex += directionIncrement;
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       words: [
         [
@@ -65,17 +65,8 @@ class ThesaurusInput extends React.Component {
           { value: 'p' },
           { value: 'e' },
         ],
-        [
-          { value: ' ' },
-        ],
-        [
-          { value: 'H' },
-          { value: 'e' },
-          { value: 'r' },
-          { value: 'e' },
-        ],
       ],
-      cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
+      cursorAfter: { wordIndex: 0, characterIndex: 3 }, 
       maxLeft: false,
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
@@ -125,6 +116,7 @@ class ThesaurusInput extends React.Component {
   }
 
   handleKeyboardInput(character) {
+    this.props.keyboardCallback();
     const isNonCharacterInput = character.length > 1;
     const isSpaceBar = character === ' ';
     
@@ -213,17 +205,19 @@ class ThesaurusInput extends React.Component {
 
   render() {
     return (
-      <div 
+      <div
+        id="input"
+        data-testid="input"
         className={input}
-        autoFocus='true' 
-        tabIndex='0' 
-        onKeyPress={(e) => { this.handleKeyboardInput(e.key); }}
+        autoFocus="true"
+        tabIndex="0"
         onKeyDown={(e) => {
-          if(e.key === 'Backspace') {
+          if (e.key === 'Backspace') {
             this.handleDelete()
-          }
-          if(e.key.slice(0,5) === 'Arrow') {
+          } else if (e.key.slice(0,5) === 'Arrow') {
             this.handleArrows(e.key.slice(5));
+          } else {
+            this.handleKeyboardInput(e.key);
           }
         }}
       >

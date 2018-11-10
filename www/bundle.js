@@ -23599,7 +23599,9 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_ThesaurusInput2.default, null)
+      return _react2.default.createElement(_ThesaurusInput2.default, { keyboardCallback: function keyboardCallback() {
+          console.log("yo!");
+        } })
 
       // <div className={background}>
       //   <span>
@@ -28379,14 +28381,14 @@ var ThesaurusInput = function (_React$Component) {
     }
   }]);
 
-  function ThesaurusInput() {
+  function ThesaurusInput(props) {
     _classCallCheck(this, ThesaurusInput);
 
-    var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this));
+    var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this, props));
 
     _this.state = {
-      words: [[{ value: 't' }, { value: 'y' }, { value: 'p' }, { value: 'e' }], [{ value: ' ' }], [{ value: 'H' }, { value: 'e' }, { value: 'r' }, { value: 'e' }]],
-      cursorAfter: { wordIndex: 0, characterIndex: 0 },
+      words: [[{ value: 't' }, { value: 'y' }, { value: 'p' }, { value: 'e' }]],
+      cursorAfter: { wordIndex: 0, characterIndex: 3 },
       maxLeft: false
     };
     _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
@@ -28444,6 +28446,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
+      this.props.keyboardCallback();
       var isNonCharacterInput = character.length > 1;
       var isSpaceBar = character === ' ';
 
@@ -28549,18 +28552,18 @@ var ThesaurusInput = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         {
+          id: 'input',
+          'data-testid': 'input',
           className: input,
           autoFocus: 'true',
           tabIndex: '0',
-          onKeyPress: function onKeyPress(e) {
-            _this2.handleKeyboardInput(e.key);
-          },
           onKeyDown: function onKeyDown(e) {
             if (e.key === 'Backspace') {
               _this2.handleDelete();
-            }
-            if (e.key.slice(0, 5) === 'Arrow') {
+            } else if (e.key.slice(0, 5) === 'Arrow') {
               _this2.handleArrows(e.key.slice(5));
+            } else {
+              _this2.handleKeyboardInput(e.key);
             }
           }
         },
