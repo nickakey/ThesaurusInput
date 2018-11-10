@@ -28455,7 +28455,7 @@ var ThesaurusInput = function (_React$Component) {
       var isAtMaxLeft = this.state.maxLeft;
 
       if (isAtMaxLeft) {
-        this.setState(function (state) {
+        return this.setState(function (state) {
           state.word.unshift([{ value: ' ' }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
           state.maxLeft = false;
@@ -28471,7 +28471,7 @@ var ThesaurusInput = function (_React$Component) {
       var addingSpaceToMiddleOfWord = nextCharacter;
 
       if (prevCharacterIsSpace) {
-        this.setState(function (state) {
+        return this.setState(function (state) {
           state.words[wordIndex].push({ value: ' ' });
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
@@ -28479,14 +28479,14 @@ var ThesaurusInput = function (_React$Component) {
       }
 
       if (firstCharacterInNextWordIsSpace) {
-        this.setState(function (state) {
+        return this.setState(function (state) {
           state.words[wordIndex + 1].unshift({ value: ' ' });
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
         });
       }
       if (addingSpaceToMiddleOfWord) {
-        this.setState(function (state) {
+        return this.setState(function (state) {
           var newWord = state.words[wordIndex].splice(characterIndex + 1);
           state.words.splice(wordIndex + 1, 0, [{ value: ' ' }], newWord);
           ThesaurusInput.handleCursorMove(state, 'Right');
@@ -28517,40 +28517,47 @@ var ThesaurusInput = function (_React$Component) {
         return this.handleSpaceBar();
       }
 
-      this.setState(function (state) {
+      var isAtMaxLeft = this.state.maxLeft;
 
-        var isAtMaxLeft = state.maxLeft;
-        if (isAtMaxLeft) {
+      if (isAtMaxLeft) {
+        return this.setState(function (state) {
           state.words.splice(0, 0, [{ value: character }]);
           state.maxLeft = false;
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
-        }
+        });
+      }
 
-        var words = state.words,
-            _state$cursorAfter3 = state.cursorAfter,
-            wordIndex = _state$cursorAfter3.wordIndex,
-            characterIndex = _state$cursorAfter3.characterIndex;
+      var _state2 = this.state,
+          words = _state2.words,
+          _state2$cursorAfter = _state2.cursorAfter,
+          wordIndex = _state2$cursorAfter.wordIndex,
+          characterIndex = _state2$cursorAfter.characterIndex;
 
-        var prevCharacter = words[wordIndex][characterIndex];
+      var prevCharacter = words[wordIndex][characterIndex];
 
-        var spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && !words[wordIndex + 1];
-        var spaceBeforeAndWordAfter = prevCharacter.value === ' ' && words[wordIndex + 1] && words[wordIndex + 1][0];
+      var spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && !words[wordIndex + 1];
+      var spaceBeforeAndWordAfter = prevCharacter.value === ' ' && words[wordIndex + 1] && words[wordIndex + 1][0];
 
-        if (spaceBeforeAndNoWordAfter) {
-          words.splice(wordIndex + 1, 0, [{ value: character }]);
+      if (spaceBeforeAndNoWordAfter) {
+        return this.setState(function (state) {
+          state.words.splice(wordIndex + 1, 0, [{ value: character }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
-        }
+        });
+      }
 
-        if (spaceBeforeAndWordAfter) {
-          words[wordIndex + 1].splice(0, 0, { value: character });
+      if (spaceBeforeAndWordAfter) {
+        return this.setState(function (state) {
+          state.words[wordIndex + 1].splice(0, 0, { value: character });
           ThesaurusInput.handleCursorMove(state, 'Right');
           return state;
-        }
+        });
+      }
 
-        // else add to current word
-        words[wordIndex].splice(characterIndex + 1, 0, { value: character });
+      // else add to current word
+      this.setState(function (state) {
+        state.words[wordIndex].splice(characterIndex + 1, 0, { value: character });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
       });
@@ -28559,40 +28566,46 @@ var ThesaurusInput = function (_React$Component) {
     key: 'handleDelete',
     value: function handleDelete() {
       // TODO - I also have to handle the cursor
-      this.setState(function (state) {
-        if (state.maxLeft) {
-          return;
-        }
 
-        var words = state.words,
-            _state$cursorAfter4 = state.cursorAfter,
-            wordIndex = _state$cursorAfter4.wordIndex,
-            characterIndex = _state$cursorAfter4.characterIndex;
+      if (this.state.maxLeft) {
+        return;
+      }
 
-        var characterToDelete = words[wordIndex][characterIndex];
-        var currentWord = words[wordIndex];
-        var prevWord = words[wordIndex - 1];
-        var nextWord = words[wordIndex + 1];
+      var _state3 = this.state,
+          words = _state3.words,
+          _state3$cursorAfter = _state3.cursorAfter,
+          wordIndex = _state3$cursorAfter.wordIndex,
+          characterIndex = _state3$cursorAfter.characterIndex;
 
-        var deletingSingleSpaceBetweenTwoWords = characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord;
-        var deletingLastLetterInWord = currentWord.length === 1;
+      var characterToDelete = words[wordIndex][characterIndex];
+      var currentWord = words[wordIndex];
+      var prevWord = words[wordIndex - 1];
+      var nextWord = words[wordIndex + 1];
 
-        if (deletingSingleSpaceBetweenTwoWords) {
+      var deletingSingleSpaceBetweenTwoWords = characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord;
+      var deletingLastLetterInWord = currentWord.length === 1;
+
+      if (deletingSingleSpaceBetweenTwoWords) {
+        return this.setState(function (state) {
           ThesaurusInput.handleCursorMove(state, 'Left');
           var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
-          words.splice(wordIndex - 1, 3, combinedWords);
+          state.words.splice(wordIndex - 1, 3, combinedWords);
           return state;
-        }
+        });
+      }
 
-        if (deletingLastLetterInWord) {
+      if (deletingLastLetterInWord) {
+        return this.setState(function (state) {
           ThesaurusInput.handleCursorMove(state, 'Left');
-          words.splice(wordIndex, 1);
+          state.words.splice(wordIndex, 1);
           return state;
-        }
+        });
+      }
 
-        // if character has another character before it in the word, only delete that one character
+      // if character has another character before it in the word, only delete that one character
+      this.setState(function (state) {
         ThesaurusInput.handleCursorMove(state, 'Left');
-        words[wordIndex].splice(characterIndex, 1);
+        state.words[wordIndex].splice(characterIndex, 1);
         return state;
       });
     }

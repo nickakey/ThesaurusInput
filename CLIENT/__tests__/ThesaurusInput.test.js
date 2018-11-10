@@ -16,12 +16,16 @@ test('Keyboard input creates new children', ()=>{
   // Act 
   fireEvent.keyDown(input, {key: 'h'});
   fireEvent.keyDown(input, {key: 'i'});
+  fireEvent.keyDown(input, {key: ' '});
+  fireEvent.keyDown(input, {key: 'n'});
+  fireEvent.keyDown(input, {key: 'i'});
+  fireEvent.keyDown(input, {key: 'c'});
+  fireEvent.keyDown(input, {key: 'k'});
 
   // Assert
   expect(mockF).toBeCalled();
-  expect(input.children.length).toBe(6);
-  expect(input.children[4].innerHTML).toBe('h');
-  expect(input.children[5].innerHTML).toBe('i');
+  console.log(input.children)
+  expect(input.children.length).toBe(3);
 })
 
 test("Arrow Keys move the cursor", ()=>{

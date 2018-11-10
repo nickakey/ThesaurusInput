@@ -137,7 +137,7 @@ class ThesaurusInput extends React.Component {
     const isAtMaxLeft = this.state.maxLeft;
 
     if (isAtMaxLeft) {
-      this.setState((state)=>{
+      return this.setState((state)=>{
         state.word.unshift([{ value: ' ' }])
         ThesaurusInput.handleCursorMove(state, 'Right');
         state.maxLeft = false;
@@ -153,7 +153,7 @@ class ThesaurusInput extends React.Component {
     const addingSpaceToMiddleOfWord = nextCharacter;
 
     if (prevCharacterIsSpace) {
-      this.setState((state)=>{
+      return this.setState((state)=>{
         state.words[wordIndex].push({ value: ' ' });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
@@ -161,7 +161,7 @@ class ThesaurusInput extends React.Component {
     }
 
     if (firstCharacterInNextWordIsSpace) {
-      this.setState((state)=>{
+      return this.setState((state)=>{
         state.words[wordIndex + 1].unshift({ value: ' ' });
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
@@ -170,7 +170,7 @@ class ThesaurusInput extends React.Component {
 
     }
     if (addingSpaceToMiddleOfWord) {
-      this.setState((state)=>{
+      return this.setState((state)=>{
         const newWord = state.words[wordIndex].splice(characterIndex + 1)
         state.words.splice(wordIndex + 1, 0, [{ value: ' ' }], newWord);
         ThesaurusInput.handleCursorMove(state, 'Right');
@@ -184,9 +184,6 @@ class ThesaurusInput extends React.Component {
       return state;
     });
     this.getSynonyms(words[wordIndex].reduce((acc, el) => (acc.concat(el.value)), ''), wordIndex);
-    
-
-
   }
 
 
@@ -199,75 +196,85 @@ class ThesaurusInput extends React.Component {
     if (isNonCharacterInput) { return; }
     if (isSpaceBar) { return this.handleSpaceBar(); } 
 
-    this.setState((state) => {
+    const isAtMaxLeft = this.state.maxLeft;
 
-      const isAtMaxLeft = state.maxLeft;
-      if (isAtMaxLeft) {
+    if (isAtMaxLeft) {
+      return this.setState((state)=>{
         state.words.splice(0, 0, [{ value: character }]);
         state.maxLeft = false;
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }  
+      });
+    }  
 
-      const { words, cursorAfter: { wordIndex, characterIndex } } = state;
-      const prevCharacter = words[wordIndex][characterIndex];
-      
-      const spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && (!words[wordIndex + 1]);
-      const spaceBeforeAndWordAfter = prevCharacter.value === ' ' && (words[wordIndex + 1] && words[wordIndex + 1][0]);
+    const { words, cursorAfter: { wordIndex, characterIndex } } = this.state;
+    const prevCharacter = words[wordIndex][characterIndex];
+    
+    const spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && (!words[wordIndex + 1]);
+    const spaceBeforeAndWordAfter = prevCharacter.value === ' ' && (words[wordIndex + 1] && words[wordIndex + 1][0]);
 
-      if (spaceBeforeAndNoWordAfter) {
-        words.splice(wordIndex + 1, 0, [{ value: character }])
+    if (spaceBeforeAndNoWordAfter) {
+      return this.setState((state)=>{
+        state.words.splice(wordIndex + 1, 0, [{ value: character }])
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      } 
+      });
+    } 
 
-      if (spaceBeforeAndWordAfter) {
-        words[wordIndex + 1].splice(0, 0, { value: character })
+    if (spaceBeforeAndWordAfter) {
+      return this.setState((state)=>{
+        state.words[wordIndex + 1].splice(0, 0, { value: character })
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
-      }
+      });
+    }
 
-      // else add to current word
-      words[wordIndex].splice(characterIndex + 1, 0, { value: character })
+    // else add to current word
+    this.setState((state)=>{              
+      state.words[wordIndex].splice(characterIndex + 1, 0, { value: character })
       ThesaurusInput.handleCursorMove(state, 'Right');
       return state;
-    })
+    });
   }
 
 
   handleDelete() {
     // TODO - I also have to handle the cursor
-    this.setState((state) => {
-      if (state.maxLeft){ return }
 
-      const { words,  cursorAfter: { wordIndex, characterIndex } } = state;
-      const characterToDelete = words[wordIndex][characterIndex];
-      const currentWord = words[wordIndex];
-      const prevWord = words[wordIndex - 1];
-      const nextWord = words[wordIndex + 1];
+    if (this.state.maxLeft){ return }
 
-      const deletingSingleSpaceBetweenTwoWords = characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord;
-      const deletingLastLetterInWord = currentWord.length === 1;
+    const { words, cursorAfter: { wordIndex, characterIndex } } = this.state;
+    const characterToDelete = words[wordIndex][characterIndex];
+    const currentWord = words[wordIndex];
+    const prevWord = words[wordIndex - 1];
+    const nextWord = words[wordIndex + 1];
 
-      if (deletingSingleSpaceBetweenTwoWords) {
+    const deletingSingleSpaceBetweenTwoWords = characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord;
+    const deletingLastLetterInWord = currentWord.length === 1;
+
+    if (deletingSingleSpaceBetweenTwoWords) {
+      return this.setState((state)=>{
         ThesaurusInput.handleCursorMove(state, 'Left')
         const combinedWords = [...prevWord, ...nextWord];
-        words.splice(wordIndex - 1, 3, combinedWords);
+        state.words.splice(wordIndex - 1, 3, combinedWords);
         return state;
-      } 
+      });
+    } 
 
-      if (deletingLastLetterInWord) {
+    if (deletingLastLetterInWord) {
+      return this.setState((state)=>{
         ThesaurusInput.handleCursorMove(state, 'Left')
-        words.splice(wordIndex, 1);
+        state.words.splice(wordIndex, 1);
         return state;
-      }
+      });
+    }
 
-      // if character has another character before it in the word, only delete that one character
+    // if character has another character before it in the word, only delete that one character
+    this.setState((state)=>{
       ThesaurusInput.handleCursorMove(state, 'Left')
-      words[wordIndex].splice(characterIndex, 1);
+      state.words[wordIndex].splice(characterIndex, 1);
       return state;
-    })
-
+    });
   } 
 
 
