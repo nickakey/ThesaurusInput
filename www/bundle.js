@@ -28307,11 +28307,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 55%;\n  transform: translate(-65%, 40%);\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 55%;\n  transform: translate(-65%, 40%);\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n']),
+var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\nbackground-color: black;\n'], ['\nbackground-color: black;\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  display: inline-block;\n  background-color: white;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n'], ['\n  display: inline-block;\n  background-color: white;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  padding: 10px;\n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n'], ['\n  padding: 10px;\n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n']),
     _templateObject4 = _taggedTemplateLiteral(['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n'], ['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n']),
-    _templateObject5 = _taggedTemplateLiteral(['\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n'], ['\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  padding: 20px;\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n']);
+    _templateObject5 = _taggedTemplateLiteral(['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n'], ['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n']);
 
 var _react = __webpack_require__(10);
 
@@ -28421,8 +28421,8 @@ var ThesaurusInput = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this, props));
 
     _this.state = {
-      words: [],
-      synonyms: [],
+      words: [[{ value: "h" }, { value: "e" }, { value: "y" }], [{ value: " " }], [{ value: "f" }, { value: "r" }, { value: "i" }, { value: "e" }, { value: "n" }, { value: "d" }]],
+      synonyms: [['hulloo', 'hi', 'howdy'], [], ['pal', 'buddy', 'companion']],
       cursorAfter: { wordIndex: 0, characterIndex: 0 },
       maxLeft: true
     };
@@ -28433,15 +28433,16 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'getSynonyms',
     value: function getSynonyms(word, wordIndex) {
-      var _this2 = this;
-
-      _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + word + '&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK', { timeout: 3500 }).then(function (result) {
-        _this2.setState(function (state) {
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-        });
-      }).catch(function (err) {
-        reject(err);
-      });
+      // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      //   { timeout: 3500 })
+      //   .then((result) => {
+      //     this.setState((state)=>{
+      //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+      //     });
+      //   })
+      //   .catch((err)=>{
+      //     reject(err);
+      //   })    
     }
   }, {
     key: 'handleSpaceBar',
@@ -28620,7 +28621,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -28632,46 +28633,38 @@ var ThesaurusInput = function (_React$Component) {
           tabIndex: '0',
           onKeyDown: function onKeyDown(e) {
             if (e.key === 'Backspace') {
-              _this3.handleDelete();
+              _this2.handleDelete();
             } else if (e.key.slice(0, 5) === 'Arrow') {
-              _this3.handleArrows(e.key.slice(5));
+              _this2.handleArrows(e.key.slice(5));
             } else {
-              _this3.handleKeyboardInput(e.key);
+              _this2.handleKeyboardInput(e.key);
             }
           }
         },
         this.state.words.map(function (word, j) {
           return _react2.default.createElement(
             'span',
-            null,
+            { className: wordCSS },
+            word.map(function (charObj, i) {
+              return _react2.default.createElement(_ThesaurusLetter2.default, {
+                maxLeft: _this2.state.maxLeft,
+                cursorIndex: _this2.state.cursorAfter,
+                wordIndex: j,
+                key: charObj.value + i,
+                index: i,
+                charObj: charObj
+              });
+            }),
             _react2.default.createElement(
               'span',
-              { className: wordCSS },
-              word.map(function (charObj, i) {
-                return _react2.default.createElement(_ThesaurusLetter2.default, {
-                  maxLeft: _this3.state.maxLeft,
-                  cursorIndex: _this3.state.cursorAfter,
-                  wordIndex: j,
-                  key: charObj.value + i,
-                  index: i,
-                  charObj: charObj
-                });
-              }),
-              _react2.default.createElement(
-                'span',
-                { className: dropDownWrapper },
-                _react2.default.createElement(
-                  'span',
-                  { className: dropDown },
-                  _this3.state.synonyms[j] ? _this3.state.synonyms[j].map(function (synonym) {
-                    return _react2.default.createElement(
-                      'div',
-                      { className: synonymCSS },
-                      synonym
-                    );
-                  }) : _react2.default.createElement('span', null)
-                )
-              )
+              { className: dropDown },
+              _this2.state.synonyms[j] ? _this2.state.synonyms[j].map(function (synonym) {
+                return _react2.default.createElement(
+                  'div',
+                  { className: synonymCSS },
+                  synonym
+                );
+              }) : _react2.default.createElement('span', null)
             )
           );
         })

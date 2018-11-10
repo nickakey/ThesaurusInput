@@ -12,8 +12,8 @@ const dropDown = css`
   position: absolute;
   z-index: 5;
   background-color: white;
-  top: 55%;
-  transform: translate(-65%, 40%);
+  top: 100%;
+  left: 0;
   padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
@@ -24,8 +24,9 @@ background-color: black;
 `
 
 const wordCSS = css`
+  padding: 10px;
   display: inline-block;
-  background-color: white;
+  position: relative;
   &:hover {
       .${dropDown} {
           display: inline-block;
@@ -44,13 +45,13 @@ const synonymCSS = css`
 `
 
 const input = css`
+  height: 4rem;
   position: absolute;
   background-color: white;
   display: block;
   top: 40%;
   left: 50%; 
   transform: translate(-50%, -50%);
-  padding: 20px;
   width: 51%;
   text-align: left;
   border-radius: 5px;
@@ -110,8 +111,12 @@ class ThesaurusInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      words: [],
-      synonyms: [],
+      words: [
+        [{value: "h"}, {value: "e"}, {value: "y"}],
+        [{value: " "}],
+        [{value: "f"}, {value: "r"}, {value: "i"}, {value: "e"}, {value: "n"}, {value: "d"}],
+      ],
+      synonyms: [['hulloo', 'hi', 'howdy'], [], ['pal', 'buddy', 'companion']],
       cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
       maxLeft: true,
     };
@@ -119,16 +124,16 @@ class ThesaurusInput extends React.Component {
   }
 
   getSynonyms(word, wordIndex) {    
-    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-      { timeout: 3500 })
-      .then((result) => {
-        this.setState((state)=>{
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-        });
-      })
-      .catch((err)=>{
-        reject(err);
-      })    
+    // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+    //   { timeout: 3500 })
+    //   .then((result) => {
+    //     this.setState((state)=>{
+    //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+    //     });
+    //   })
+    //   .catch((err)=>{
+    //     reject(err);
+    //   })    
   }
 
 
@@ -307,7 +312,6 @@ class ThesaurusInput extends React.Component {
 
         {this.state.words.map((word, j) => {
           return ( 
-            <span>  
               <span className={wordCSS}>  
                 {word.map((charObj, i) => {
                   return (
@@ -321,19 +325,16 @@ class ThesaurusInput extends React.Component {
                     />
                   )
                 })}
-                <span className={dropDownWrapper}>
-                  <span className={dropDown}>
-                    { this.state.synonyms[j] ? 
-                      this.state.synonyms[j].map(synonym => (
-                        <div className={synonymCSS}>
-                          {synonym}
-                        </div>
-                      )) : <span></span>
-                    }
-                  </span>
+                <span className={dropDown}>
+                  { this.state.synonyms[j] ? 
+                    this.state.synonyms[j].map(synonym => (
+                      <div className={synonymCSS}>
+                        {synonym}
+                      </div>
+                    )) : <span></span>
+                  }
                 </span>
-              </span>
-            </span>)
+              </span>)
         })}
 
       </div>
