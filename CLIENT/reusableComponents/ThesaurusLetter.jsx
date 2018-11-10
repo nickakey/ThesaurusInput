@@ -43,6 +43,7 @@ const cursorBeforeElement = css`
   };
 `
 
+
 function determineClass(charIndex, wordIndex, cursorIndex, maxLeft) {
   if (wordIndex === cursorIndex.wordIndex && 
     charIndex === cursorIndex.characterIndex && 

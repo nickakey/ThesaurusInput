@@ -19,12 +19,18 @@ const dropDown = css`
   border-radius: 10px;
 `
 
+const spaceCSS = css`
+  padding: 10px 0px 10px 0px; 
+  height: 42px;
+  display: inline-block;
+`
+
 const dropDownWrapper = css`
 background-color: black;
 `
 
 const wordCSS = css`
-  padding: 10px;
+  padding: 10px 0px 10px 0px; 
   display: inline-block;
   position: relative;
   &:hover {
@@ -56,6 +62,7 @@ const input = css`
   text-align: left;
   border-radius: 5px;
   z-index: -5;
+  padding-left: 10px;
 `;
 
 class ThesaurusInput extends React.Component {
@@ -117,8 +124,8 @@ class ThesaurusInput extends React.Component {
         [{value: "f"}, {value: "r"}, {value: "i"}, {value: "e"}, {value: "n"}, {value: "d"}],
       ],
       synonyms: [['hulloo', 'hi', 'howdy'], [], ['pal', 'buddy', 'companion']],
-      cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
-      maxLeft: true,
+      cursorAfter: { wordIndex: 2, characterIndex: 5 }, 
+      maxLeft: false,
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
@@ -311,7 +318,7 @@ class ThesaurusInput extends React.Component {
       >
 
         {this.state.words.map((word, j) => {
-          return ( 
+          return word[0].value !== " " ? ( 
               <span className={wordCSS}>  
                 {word.map((charObj, i) => {
                   return (
@@ -334,7 +341,22 @@ class ThesaurusInput extends React.Component {
                     )) : <span></span>
                   }
                 </span>
-              </span>)
+              </span> ) : (
+              <span className={spaceCSS}>  
+                {word.map((charObj, i) => {
+                  return (
+                    <ThesaurusLetter
+                      maxLeft={this.state.maxLeft}
+                      cursorIndex={this.state.cursorAfter}
+                      wordIndex={j}
+                      key={charObj.value + i}
+                      index={i}
+                      charObj={charObj}
+                    />
+                  )
+                })}
+              </span>
+              )
         })}
 
       </div>

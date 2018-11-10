@@ -28308,10 +28308,11 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\nbackground-color: black;\n'], ['\nbackground-color: black;\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  padding: 10px;\n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n'], ['\n  padding: 10px;\n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n'], ['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n']),
-    _templateObject5 = _taggedTemplateLiteral(['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n'], ['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n']);
+    _templateObject2 = _taggedTemplateLiteral(['\n  padding: 10px 0px 10px 0px; \n  height: 42px;\n  display: inline-block;\n'], ['\n  padding: 10px 0px 10px 0px; \n  height: 42px;\n  display: inline-block;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\nbackground-color: black;\n'], ['\nbackground-color: black;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  padding: 10px 0px 10px 0px; \n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n'], ['\n  padding: 10px 0px 10px 0px; \n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n'], ['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n']),
+    _templateObject6 = _taggedTemplateLiteral(['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n'], ['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n']);
 
 var _react = __webpack_require__(10);
 
@@ -28345,13 +28346,15 @@ function logState() {
 
 var dropDown = (0, _reactEmotion.css)(_templateObject);
 
-var dropDownWrapper = (0, _reactEmotion.css)(_templateObject2);
+var spaceCSS = (0, _reactEmotion.css)(_templateObject2);
 
-var wordCSS = (0, _reactEmotion.css)(_templateObject3, dropDown);
+var dropDownWrapper = (0, _reactEmotion.css)(_templateObject3);
 
-var synonymCSS = (0, _reactEmotion.css)(_templateObject4);
+var wordCSS = (0, _reactEmotion.css)(_templateObject4, dropDown);
 
-var input = (0, _reactEmotion.css)(_templateObject5);
+var synonymCSS = (0, _reactEmotion.css)(_templateObject5);
+
+var input = (0, _reactEmotion.css)(_templateObject6);
 
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
@@ -28423,8 +28426,8 @@ var ThesaurusInput = function (_React$Component) {
     _this.state = {
       words: [[{ value: "h" }, { value: "e" }, { value: "y" }], [{ value: " " }], [{ value: "f" }, { value: "r" }, { value: "i" }, { value: "e" }, { value: "n" }, { value: "d" }]],
       synonyms: [['hulloo', 'hi', 'howdy'], [], ['pal', 'buddy', 'companion']],
-      cursorAfter: { wordIndex: 0, characterIndex: 0 },
-      maxLeft: true
+      cursorAfter: { wordIndex: 2, characterIndex: 5 },
+      maxLeft: false
     };
     _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
     return _this;
@@ -28642,7 +28645,7 @@ var ThesaurusInput = function (_React$Component) {
           }
         },
         this.state.words.map(function (word, j) {
-          return _react2.default.createElement(
+          return word[0].value !== " " ? _react2.default.createElement(
             'span',
             { className: wordCSS },
             word.map(function (charObj, i) {
@@ -28666,6 +28669,19 @@ var ThesaurusInput = function (_React$Component) {
                 );
               }) : _react2.default.createElement('span', null)
             )
+          ) : _react2.default.createElement(
+            'span',
+            { className: spaceCSS },
+            word.map(function (charObj, i) {
+              return _react2.default.createElement(_ThesaurusLetter2.default, {
+                maxLeft: _this2.state.maxLeft,
+                cursorIndex: _this2.state.cursorAfter,
+                wordIndex: j,
+                key: charObj.value + i,
+                index: i,
+                charObj: charObj
+              });
+            })
           );
         })
       );
