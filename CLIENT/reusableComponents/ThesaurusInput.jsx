@@ -67,7 +67,12 @@ const input = css`
 
 class ThesaurusInput extends React.Component {
 
-
+  static splitStringIntoLettersArray(string) {
+    return string.split('').reduce((acc, el, i) => {
+      acc.push({ value: el });
+      return acc;
+    }, [])
+  }
 
   static synonymsFormatter(synonyms) {
     console.log('is this being called');
@@ -143,6 +148,13 @@ class ThesaurusInput extends React.Component {
     //   })    
   }
 
+  handleSynonymClick(synonym, wordIndex) {
+    console.log(synonym, wordIndex);
+    this.setState((state)=>{
+      state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
+      return state;
+    });
+  }
 
   handleSpaceBar() {
     const { words, cursorAfter: { wordIndex, characterIndex } } = this.state;
@@ -323,6 +335,7 @@ class ThesaurusInput extends React.Component {
                 {word.map((charObj, i) => {
                   return (
                     <ThesaurusLetter
+                      onClick={this.handleSynonymClick}
                       maxLeft={this.state.maxLeft}
                       cursorIndex={this.state.cursorAfter}
                       wordIndex={j}
@@ -335,7 +348,9 @@ class ThesaurusInput extends React.Component {
                 <span className={dropDown}>
                   { this.state.synonyms[j] ? 
                     this.state.synonyms[j].map(synonym => (
-                      <div className={synonymCSS}>
+                      <div 
+                        onClick={()=>{this.handleSynonymClick(synonym, j)}}
+                        className={synonymCSS}>
                         {synonym}
                       </div>
                     )) : <span></span>

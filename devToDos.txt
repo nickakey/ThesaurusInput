@@ -1,18 +1,15 @@
-Make the dom render so that every word is in a div!
-Make the thesaurus part actually work!
+* When a synonym is chosen, 
+  the cursor still needs to be there
+  the cursor needs to move to the end of the word
+  the synonym list needs to update to match the new word
+
+
+
+
+
+DONE - Make the dom render so that every word is in a div!
+DONE - Make the thesaurus part actually work!
 Write a bunch of tests per that course 
-
-
-
-
-
-
-
-
-
-
-
-
 DONE -  When I open the synonym menu, I also want to be able to close it in case I don't like any of the words
 DONE - Error handle if the word is not a valid word... 
 DONE - When I click submit without any words, it shouldn't let me do anything

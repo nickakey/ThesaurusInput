@@ -28360,6 +28360,14 @@ var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
 
   _createClass(ThesaurusInput, null, [{
+    key: 'splitStringIntoLettersArray',
+    value: function splitStringIntoLettersArray(string) {
+      return string.split('').reduce(function (acc, el, i) {
+        acc.push({ value: el });
+        return acc;
+      }, []);
+    }
+  }, {
     key: 'synonymsFormatter',
     value: function synonymsFormatter(synonyms) {
       console.log('is this being called');
@@ -28446,6 +28454,15 @@ var ThesaurusInput = function (_React$Component) {
       //   .catch((err)=>{
       //     reject(err);
       //   })    
+    }
+  }, {
+    key: 'handleSynonymClick',
+    value: function handleSynonymClick(synonym, wordIndex) {
+      console.log(synonym, wordIndex);
+      this.setState(function (state) {
+        state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
+        return state;
+      });
     }
   }, {
     key: 'handleSpaceBar',
@@ -28650,6 +28667,7 @@ var ThesaurusInput = function (_React$Component) {
             { className: wordCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
+                onClick: _this2.handleSynonymClick,
                 maxLeft: _this2.state.maxLeft,
                 cursorIndex: _this2.state.cursorAfter,
                 wordIndex: j,
@@ -28664,7 +28682,11 @@ var ThesaurusInput = function (_React$Component) {
               _this2.state.synonyms[j] ? _this2.state.synonyms[j].map(function (synonym) {
                 return _react2.default.createElement(
                   'div',
-                  { className: synonymCSS },
+                  {
+                    onClick: function onClick() {
+                      _this2.handleSynonymClick(synonym, j);
+                    },
+                    className: synonymCSS },
                   synonym
                 );
               }) : _react2.default.createElement('span', null)
@@ -28749,24 +28771,11 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
       maxLeft = _ref.maxLeft;
 
   // If the very first character is space
-  if (charObj.value === " ") {
+  if (charObj.value === ' ') {
     return _react2.default.createElement(
       'span',
       {
-        className: determineClass(index, wordIndex, cursorIndex, maxLeft),
-        onClick: function (_onClick) {
-          function onClick() {
-            return _onClick.apply(this, arguments);
-          }
-
-          onClick.toString = function () {
-            return _onClick.toString();
-          };
-
-          return onClick;
-        }(function () {
-          onClick(index);
-        })
+        className: determineClass(index, wordIndex, cursorIndex, maxLeft)
       },
       '\xA0'
     );
@@ -28775,58 +28784,10 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
   return _react2.default.createElement(
     'span',
     {
-      className: determineClass(index, wordIndex, cursorIndex, maxLeft),
-      onClick: function (_onClick2) {
-        function onClick() {
-          return _onClick2.apply(this, arguments);
-        }
-
-        onClick.toString = function () {
-          return _onClick2.toString();
-        };
-
-        return onClick;
-      }(function () {
-        onClick(index);
-      })
+      className: determineClass(index, wordIndex, cursorIndex, maxLeft)
     },
     charObj.value
   );
-
-  // // If the very first character is space
-  //   // AND if the cursor is on the very first character  
-  // if (charObj.value === " " && shouldRenderCursorBefore) {
-  //   return (
-  //     <span
-  //       className={`${character} ${cursorAfterElement}`}
-  //       onClick={() => { onClick(index)}}
-  //     >
-  //       &nbsp;
-  //     </span>
-  //   )
-  // }
-
-  // //If the cursor is on the very first character
-  // if (shouldRenderCursorBefore) {
-  //   return (
-  //     <span
-  //       className={`${character} ${cursorBeforeElement}`}
-  //       onClick={() => { onClick(index)}}
-  //     >
-  //       {charObj.value}
-  //     </span>
-  //   )
-  // }
-
-  // //if it's a normal character
-  // return (
-  //   <span
-  //     className={charObj.cursorAfter ? `${character} ${cursorAfterElement}` : character}
-  //     onClick={() => { onClick(index)}}
-  //   >
-  //     {charObj.value}
-  //   </span>
-  // )
 };
 
 ThesaurusLetter.propTypes = {
