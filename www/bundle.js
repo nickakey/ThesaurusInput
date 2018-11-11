@@ -28360,6 +28360,13 @@ var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
 
   _createClass(ThesaurusInput, null, [{
+    key: 'convertWordArrayIntoString',
+    value: function convertWordArrayIntoString(word) {
+      return word.reduce(function (acc, el) {
+        return acc.concat(el.value);
+      }, '');
+    }
+  }, {
     key: 'splitStringIntoLettersArray',
     value: function splitStringIntoLettersArray(string) {
       return string.split('').reduce(function (acc, el, i) {
@@ -28442,40 +28449,49 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'getSynonyms',
     value: function getSynonyms(word, wordIndex) {
+      var _this2 = this;
+
+      // if(window.testNum === undefined){window.testNum = 0}
+
+      // this.setState((state)=>{
+      //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
+      // });    
+
+      // window.testNum += 1;
+
       console.log('GET SYNONYMS IS BEING CALLED!!! ', word);
-      // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-      //   { timeout: 3500 })
-      //   .then((result) => {
-      //     this.setState((state)=>{
-      //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-      //     });
-      //   })
-      //   .catch((err)=>{
-      //     reject(err);
-      //   })    
+      _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + word + '&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK', { timeout: 3500 }).then(function (result) {
+        _this2.setState(function (state) {
+          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+        });
+      }).catch(function (err) {
+        reject(err);
+      });
     }
   }, {
     key: 'handleWordUpdate',
     value: function handleWordUpdate() {
-      var _this2 = this;
+      var _this3 = this;
 
-      console.log(' HANDLE WORD UPDATE IS BEING CALLED ');
-      var word = this.state.words[this.state.cursorAfter.wordIndex];
-      var wordIndex = this.state.cursorAfter.wordIndex;
+      var wordIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.state.cursorAfter.wordIndex;
 
+      var word = this.state.words[wordIndex];
       clearTimeout(window['word' + wordIndex]);
       window['word' + wordIndex] = setTimeout(function () {
-        _this2.getSynonyms(word, wordIndex);
-      }, 3000);
+        _this3.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex);
+      }, 1000);
     }
   }, {
     key: 'handleSynonymClick',
     value: function handleSynonymClick(synonym, wordIndex) {
+      var _this4 = this;
+
       this.setState(function (state) {
         state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
         if (state.cursorAfter.wordIndex === wordIndex) {
           state.cursorAfter.characterIndex = synonym.length - 1;
         }
+        _this4.handleWordUpdate(wordIndex);
         return state;
       });
     }
@@ -28535,14 +28551,12 @@ var ThesaurusInput = function (_React$Component) {
         ThesaurusInput.handleCursorMove(state, 'Right');
         return state;
       });
-      this.getSynonyms(words[wordIndex].reduce(function (acc, el) {
-        return acc.concat(el.value);
-      }, ''), wordIndex);
+      // this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(words[wordIndex]), wordIndex);
     }
   }, {
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
-      var _this3 = this;
+      var _this5 = this;
 
       this.props.keyboardCallback();
       var isNonCharacterInput = character.length > 1;
@@ -28562,7 +28576,7 @@ var ThesaurusInput = function (_React$Component) {
           state.words.splice(0, 0, [{ value: character }]);
           state.maxLeft = false;
           ThesaurusInput.handleCursorMove(state, 'Right');
-          _this3.handleWordUpdate();
+          _this5.handleWordUpdate();
           return state;
         });
       }
@@ -28582,7 +28596,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words.splice(wordIndex + 1, 0, [{ value: character }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
-          _this3.handleWordUpdate();
+          _this5.handleWordUpdate();
           return state;
         });
       }
@@ -28591,7 +28605,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words[wordIndex + 1].splice(0, 0, { value: character });
           ThesaurusInput.handleCursorMove(state, 'Right');
-          _this3.handleWordUpdate();
+          _this5.handleWordUpdate();
           return state;
         });
       }
@@ -28600,7 +28614,7 @@ var ThesaurusInput = function (_React$Component) {
       this.setState(function (state) {
         state.words[wordIndex].splice(characterIndex + 1, 0, { value: character });
         ThesaurusInput.handleCursorMove(state, 'Right');
-        _this3.handleWordUpdate();
+        _this5.handleWordUpdate();
         return state;
       });
     }
@@ -28662,7 +28676,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this6 = this;
 
       return _react2.default.createElement(
         'div',
@@ -28674,11 +28688,11 @@ var ThesaurusInput = function (_React$Component) {
           tabIndex: '0',
           onKeyDown: function onKeyDown(e) {
             if (e.key === 'Backspace') {
-              _this4.handleDelete();
+              _this6.handleDelete();
             } else if (e.key.slice(0, 5) === 'Arrow') {
-              _this4.handleArrows(e.key.slice(5));
+              _this6.handleArrows(e.key.slice(5));
             } else {
-              _this4.handleKeyboardInput(e.key);
+              _this6.handleKeyboardInput(e.key);
             }
           }
         },
@@ -28688,9 +28702,9 @@ var ThesaurusInput = function (_React$Component) {
             { className: wordCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
-                onClick: _this4.handleSynonymClick,
-                maxLeft: _this4.state.maxLeft,
-                cursorIndex: _this4.state.cursorAfter,
+                onClick: _this6.handleSynonymClick,
+                maxLeft: _this6.state.maxLeft,
+                cursorIndex: _this6.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,
@@ -28700,12 +28714,12 @@ var ThesaurusInput = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { className: dropDown },
-              _this4.state.synonyms[j] ? _this4.state.synonyms[j].map(function (synonym) {
+              _this6.state.synonyms[j] ? _this6.state.synonyms[j].map(function (synonym) {
                 return _react2.default.createElement(
                   'div',
                   {
                     onClick: function onClick() {
-                      _this4.handleSynonymClick(synonym, j);
+                      _this6.handleSynonymClick(synonym, j);
                     },
                     className: synonymCSS },
                   synonym
@@ -28717,8 +28731,8 @@ var ThesaurusInput = function (_React$Component) {
             { className: spaceCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
-                maxLeft: _this4.state.maxLeft,
-                cursorIndex: _this4.state.cursorAfter,
+                maxLeft: _this6.state.maxLeft,
+                cursorIndex: _this6.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,

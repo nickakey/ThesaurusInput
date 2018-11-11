@@ -67,6 +67,10 @@ const input = css`
 
 class ThesaurusInput extends React.Component {
 
+  static convertWordArrayIntoString(word) {
+    return word.reduce((acc, el) => (acc.concat(el.value)), '');
+  }
+
   static splitStringIntoLettersArray(string) {
     return string.split('').reduce((acc, el, i) => {
       acc.push({ value: el });
@@ -134,27 +138,33 @@ class ThesaurusInput extends React.Component {
   }
 
   getSynonyms(word, wordIndex) {  
+    // if(window.testNum === undefined){window.testNum = 0}
+
+    // this.setState((state)=>{
+    //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
+    // });    
+
+    // window.testNum += 1;
+
     console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
-    // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-    //   { timeout: 3500 })
-    //   .then((result) => {
-    //     this.setState((state)=>{
-    //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-    //     });
-    //   })
-    //   .catch((err)=>{
-    //     reject(err);
-    //   })    
+    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      { timeout: 3500 })
+      .then((result) => {
+        this.setState((state)=>{
+          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+        });
+      })
+      .catch((err)=>{
+        reject(err);
+      })    
   }
 
-  handleWordUpdate() {
-    console.log(' HANDLE WORD UPDATE IS BEING CALLED ')
-    const word = this.state.words[this.state.cursorAfter.wordIndex];
-    const { wordIndex } = this.state.cursorAfter;
+  handleWordUpdate(wordIndex = this.state.cursorAfter.wordIndex) {
+    const word = this.state.words[wordIndex];
     clearTimeout(window['word' + wordIndex]);
     window['word' + wordIndex] = setTimeout(() => {
-      this.getSynonyms(word, wordIndex)
-    }, 3000)
+      this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex)
+    }, 1000)
   }
 
 
@@ -165,6 +175,7 @@ class ThesaurusInput extends React.Component {
       if (state.cursorAfter.wordIndex === wordIndex) {
         state.cursorAfter.characterIndex = synonym.length - 1;
       }
+      this.handleWordUpdate(wordIndex);
       return state;
     });
   }
@@ -220,7 +231,7 @@ class ThesaurusInput extends React.Component {
       ThesaurusInput.handleCursorMove(state, 'Right');
       return state;
     });
-    this.getSynonyms(words[wordIndex].reduce((acc, el) => (acc.concat(el.value)), ''), wordIndex);
+    // this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(words[wordIndex]), wordIndex);
   }
 
 
