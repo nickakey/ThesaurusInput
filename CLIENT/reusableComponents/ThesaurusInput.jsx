@@ -133,7 +133,8 @@ class ThesaurusInput extends React.Component {
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
-  getSynonyms(word, wordIndex) {    
+  getSynonyms(word, wordIndex) {  
+    console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
     // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
     //   { timeout: 3500 })
     //   .then((result) => {
@@ -145,6 +146,18 @@ class ThesaurusInput extends React.Component {
     //     reject(err);
     //   })    
   }
+
+  handleWordUpdate() {
+    console.log(' HANDLE WORD UPDATE IS BEING CALLED ')
+    const word = this.state.words[this.state.cursorAfter.wordIndex];
+    const { wordIndex } = this.state.cursorAfter;
+    clearTimeout(window['word' + wordIndex]);
+    window['word' + wordIndex] = setTimeout(() => {
+      this.getSynonyms(word, wordIndex)
+    }, 3000)
+  }
+
+
 
   handleSynonymClick(synonym, wordIndex) {
     this.setState((state)=>{
@@ -219,14 +232,16 @@ class ThesaurusInput extends React.Component {
     
     if (isNonCharacterInput) { return; }
     if (isSpaceBar) { return this.handleSpaceBar(); } 
+    
 
     const isAtMaxLeft = this.state.maxLeft;
 
     if (isAtMaxLeft) {
-      return this.setState((state)=>{
+      return this.setState((state) => {
         state.words.splice(0, 0, [{ value: character }]);
         state.maxLeft = false;
         ThesaurusInput.handleCursorMove(state, 'Right');
+        this.handleWordUpdate()
         return state;
       });
     }  
@@ -241,6 +256,7 @@ class ThesaurusInput extends React.Component {
       return this.setState((state)=>{
         state.words.splice(wordIndex + 1, 0, [{ value: character }])
         ThesaurusInput.handleCursorMove(state, 'Right');
+        this.handleWordUpdate()
         return state;
       });
     } 
@@ -249,6 +265,7 @@ class ThesaurusInput extends React.Component {
       return this.setState((state)=>{
         state.words[wordIndex + 1].splice(0, 0, { value: character })
         ThesaurusInput.handleCursorMove(state, 'Right');
+        this.handleWordUpdate()
         return state;
       });
     }
@@ -257,6 +274,7 @@ class ThesaurusInput extends React.Component {
     this.setState((state)=>{              
       state.words[wordIndex].splice(characterIndex + 1, 0, { value: character })
       ThesaurusInput.handleCursorMove(state, 'Right');
+      this.handleWordUpdate();
       return state;
     });
   }

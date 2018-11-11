@@ -28442,6 +28442,7 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'getSynonyms',
     value: function getSynonyms(word, wordIndex) {
+      console.log('GET SYNONYMS IS BEING CALLED!!! ', word);
       // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
       //   { timeout: 3500 })
       //   .then((result) => {
@@ -28452,6 +28453,20 @@ var ThesaurusInput = function (_React$Component) {
       //   .catch((err)=>{
       //     reject(err);
       //   })    
+    }
+  }, {
+    key: 'handleWordUpdate',
+    value: function handleWordUpdate() {
+      var _this2 = this;
+
+      console.log(' HANDLE WORD UPDATE IS BEING CALLED ');
+      var word = this.state.words[this.state.cursorAfter.wordIndex];
+      var wordIndex = this.state.cursorAfter.wordIndex;
+
+      clearTimeout(window['word' + wordIndex]);
+      window['word' + wordIndex] = setTimeout(function () {
+        _this2.getSynonyms(word, wordIndex);
+      }, 3000);
     }
   }, {
     key: 'handleSynonymClick',
@@ -28527,6 +28542,8 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
+      var _this3 = this;
+
       this.props.keyboardCallback();
       var isNonCharacterInput = character.length > 1;
       var isSpaceBar = character === ' ';
@@ -28545,6 +28562,7 @@ var ThesaurusInput = function (_React$Component) {
           state.words.splice(0, 0, [{ value: character }]);
           state.maxLeft = false;
           ThesaurusInput.handleCursorMove(state, 'Right');
+          _this3.handleWordUpdate();
           return state;
         });
       }
@@ -28564,6 +28582,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words.splice(wordIndex + 1, 0, [{ value: character }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
+          _this3.handleWordUpdate();
           return state;
         });
       }
@@ -28572,6 +28591,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words[wordIndex + 1].splice(0, 0, { value: character });
           ThesaurusInput.handleCursorMove(state, 'Right');
+          _this3.handleWordUpdate();
           return state;
         });
       }
@@ -28580,6 +28600,7 @@ var ThesaurusInput = function (_React$Component) {
       this.setState(function (state) {
         state.words[wordIndex].splice(characterIndex + 1, 0, { value: character });
         ThesaurusInput.handleCursorMove(state, 'Right');
+        _this3.handleWordUpdate();
         return state;
       });
     }
@@ -28641,7 +28662,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'div',
@@ -28653,11 +28674,11 @@ var ThesaurusInput = function (_React$Component) {
           tabIndex: '0',
           onKeyDown: function onKeyDown(e) {
             if (e.key === 'Backspace') {
-              _this2.handleDelete();
+              _this4.handleDelete();
             } else if (e.key.slice(0, 5) === 'Arrow') {
-              _this2.handleArrows(e.key.slice(5));
+              _this4.handleArrows(e.key.slice(5));
             } else {
-              _this2.handleKeyboardInput(e.key);
+              _this4.handleKeyboardInput(e.key);
             }
           }
         },
@@ -28667,9 +28688,9 @@ var ThesaurusInput = function (_React$Component) {
             { className: wordCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
-                onClick: _this2.handleSynonymClick,
-                maxLeft: _this2.state.maxLeft,
-                cursorIndex: _this2.state.cursorAfter,
+                onClick: _this4.handleSynonymClick,
+                maxLeft: _this4.state.maxLeft,
+                cursorIndex: _this4.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,
@@ -28679,12 +28700,12 @@ var ThesaurusInput = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { className: dropDown },
-              _this2.state.synonyms[j] ? _this2.state.synonyms[j].map(function (synonym) {
+              _this4.state.synonyms[j] ? _this4.state.synonyms[j].map(function (synonym) {
                 return _react2.default.createElement(
                   'div',
                   {
                     onClick: function onClick() {
-                      _this2.handleSynonymClick(synonym, j);
+                      _this4.handleSynonymClick(synonym, j);
                     },
                     className: synonymCSS },
                   synonym
@@ -28696,8 +28717,8 @@ var ThesaurusInput = function (_React$Component) {
             { className: spaceCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
-                maxLeft: _this2.state.maxLeft,
-                cursorIndex: _this2.state.cursorAfter,
+                maxLeft: _this4.state.maxLeft,
+                cursorIndex: _this4.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,

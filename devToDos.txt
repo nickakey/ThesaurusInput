@@ -1,11 +1,24 @@
 * When a synonym is chosen, 
-  the cursor still needs to be there
-  the cursor needs to move to the end of the word
+  DONE - the cursor still needs to be there
+  DONE - the cursor needs to move to the end of the word 
   the synonym list needs to update to match the new word
   
 * If you write a new word in the back of other words, how do the synonyms get updated?
 
 * Make a word with synonyms light up green!
+
+* BUG - when I have 2 words and replace the first word with a synonym, then move the cursor all the way back and delete that word, then RETYPE - a mysterious space appears. 
+
+* When I modify a word, its current synonym list needs to dissapear, and it needs to make a new request for synonyms. I think after some set timeout, like after 1 second?
+
+* Let click placement of cursor work (Just not drag)
+
+
+NEW SYSTEM
+After a word is modified or created,
+Wait 1 second - then make thesaurus request
+(Note - settimeouts can be canceled by modifying the word again before the second timer )
+
 
 
 
