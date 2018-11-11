@@ -75,8 +75,6 @@ class ThesaurusInput extends React.Component {
   }
 
   static synonymsFormatter(synonyms) {
-    console.log('is this being called');
-    
     const formattedSynonyms = [];
     if (!synonyms) { return formattedSynonyms.push([undefined]); }
     synonyms.response.forEach(({ list: { synonyms: synonymsString }}) => {
@@ -124,9 +122,9 @@ class ThesaurusInput extends React.Component {
     super(props);
     this.state = {
       words: [
-        [{value: "h"}, {value: "e"}, {value: "y"}],
-        [{value: " "}],
-        [{value: "f"}, {value: "r"}, {value: "i"}, {value: "e"}, {value: "n"}, {value: "d"}],
+        [{ value: 'h' }, { value: 'e' }, { value: 'y' }],
+        [{ value: ' ' }],
+        [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }],
       ],
       synonyms: [['hulloo', 'hi', 'howdy'], [], ['pal', 'buddy', 'companion']],
       cursorAfter: { wordIndex: 2, characterIndex: 5 }, 
@@ -149,9 +147,11 @@ class ThesaurusInput extends React.Component {
   }
 
   handleSynonymClick(synonym, wordIndex) {
-    console.log(synonym, wordIndex);
     this.setState((state)=>{
       state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
+      if (state.cursorAfter.wordIndex === wordIndex) {
+        state.cursorAfter.characterIndex = synonym.length - 1;
+      }
       return state;
     });
   }

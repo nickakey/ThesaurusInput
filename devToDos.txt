@@ -2,6 +2,13 @@
   the cursor still needs to be there
   the cursor needs to move to the end of the word
   the synonym list needs to update to match the new word
+  
+* If you write a new word in the back of other words, how do the synonyms get updated?
+
+* Make a word with synonyms light up green!
+
+
+
 
 
 
