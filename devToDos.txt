@@ -1,6 +1,6 @@
-* When a word is modified, the synonym list needs to immediately dissapear
+ * * * * When a word is modified, the synonym list needs to immediately dissapear
 
-* Make a word with synonyms light up green!
+DONE - * Make a word with synonyms light up green!
 
 * BUG - when I have 2 words and replace the first word with a synonym, then move the cursor all the way back and delete that word, then RETYPE - a mysterious space appears. 
 
