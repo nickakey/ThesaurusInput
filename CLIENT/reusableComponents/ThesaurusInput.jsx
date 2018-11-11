@@ -130,7 +130,7 @@ class ThesaurusInput extends React.Component {
         [{ value: ' ' }],
         [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }],
       ],
-      synonyms: [['hulloo', 'hi', 'howdy'], [], ['pal', 'buddy', 'companion']],
+      synonyms: [[], [], ['pal', 'buddy', 'companion']],
       cursorAfter: { wordIndex: 2, characterIndex: 5 }, 
       maxLeft: false,
     };
@@ -138,28 +138,29 @@ class ThesaurusInput extends React.Component {
   }
 
   getSynonyms(word, wordIndex) {  
-    // if(window.testNum === undefined){window.testNum = 0}
+    if(window.testNum === undefined){window.testNum = 0}
 
-    // this.setState((state)=>{
-    //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-    // });    
+    this.setState((state)=>{
+      state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
+    });    
 
-    // window.testNum += 1;
+    window.testNum += 1;
 
-    console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
-    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-      { timeout: 3500 })
-      .then((result) => {
-        this.setState((state)=>{
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-        });
-      })
-      .catch((err)=>{
-        reject(err);
-      })    
+    // console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
+    // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+    //   { timeout: 3500 })
+    //   .then((result) => {
+    //     this.setState((state)=>{
+    //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+    //     });
+    //   })
+    //   .catch((err)=>{
+    //     reject(err);
+    //   })    
   }
 
   handleWordUpdate(wordIndex = this.state.cursorAfter.wordIndex) {
+    this.setState((state)=>{ state.synonyms[wordIndex] = []; return state; },  logState);
     const word = this.state.words[wordIndex];
     clearTimeout(window['word' + wordIndex]);
     window['word' + wordIndex] = setTimeout(() => {
@@ -374,17 +375,31 @@ class ThesaurusInput extends React.Component {
                     />
                   )
                 })}
-                <span className={dropDown}>
-                  { this.state.synonyms[j] ? 
-                    this.state.synonyms[j].map(synonym => (
-                      <div 
-                        onClick={()=>{this.handleSynonymClick(synonym, j)}}
-                        className={synonymCSS}>
-                        {synonym}
-                      </div>
-                    )) : <span></span>
-                  }
-                </span>
+
+
+
+
+
+                {this.state.synonyms[j].length > 0 ? (
+                  <span className={dropDown}>
+                      {this.state.synonyms[j].map(synonym => (
+                        <div 
+                          onClick={()=>{this.handleSynonymClick(synonym, j)}}
+                          className={synonymCSS}>
+                          {synonym}
+                        </div>
+                      ))} 
+                  </span>) 
+                  : <span></span>
+                }
+
+
+
+
+
+
+
+
               </span> ) : (
               <span className={spaceCSS}>  
                 {word.map((charObj, i) => {
