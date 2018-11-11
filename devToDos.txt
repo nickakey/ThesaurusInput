@@ -1,6 +1,3 @@
-* When there are no thesaurus words there should be no menu
-  instead of a weird little empty one
-
 * When a word is modified, the synonym list needs to immediately dissapear
 
 * Make a word with synonyms light up green!
@@ -8,6 +5,9 @@
 * BUG - when I have 2 words and replace the first word with a synonym, then move the cursor all the way back and delete that word, then RETYPE - a mysterious space appears. 
 
 * Let click placement of cursor work (Just not drag)
+
+DONE * When there are no thesaurus words there should be no menu
+  instead of a weird little empty one
 
 DONE - * When a new synonym is chosen, the synonym list needs to update to match the new word
 

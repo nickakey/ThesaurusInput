@@ -3,7 +3,6 @@ import { css, keyframes } from 'react-emotion';
 import PropTypes from 'prop-types';
 
 const character = css`
-  background-color: white;
   font-size: 35px;
   color: black;
 `;
