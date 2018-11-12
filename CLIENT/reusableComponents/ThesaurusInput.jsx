@@ -21,7 +21,8 @@ const dropDown = css`
 `
 
 const spaceCSS = css`
-  padding: 10px 0px 10px 0px; 
+  margin: 5px 0px 5px 0px;
+  padding: 5px 3px 5px 3px;
   height: 42px;
   display: inline-block;
 `
@@ -31,8 +32,8 @@ const dropDownWrapper = css`
 `
 
 const wordCSS = css`
-  /* padding: 10px 0px 10px 0px;  */
-  padding: 3px;
+  margin: 5px 0px 5px 0px;
+  padding: 5px 3px 5px 3px;
   border-radius: 10px;
   display: inline-block;
   position: relative;
@@ -174,8 +175,6 @@ class ThesaurusInput extends React.Component {
   }
 
   handleLetterClick(characterIndex, wordIndex) {
-    console.log(characterIndex, wordIndex);
-    
     this.setState((state) => {
       state.cursorAfter.wordIndex = wordIndex;
       state.cursorAfter.characterIndex = characterIndex;
@@ -184,7 +183,7 @@ class ThesaurusInput extends React.Component {
   }
 
   determineClassName(wordIndex) {
-    if(!this.state.synonyms[wordIndex]){
+    if(!this.state.synonyms[wordIndex]) {
       return wordCSS;
     }
     if(this.state.synonyms[wordIndex].length > 0) {

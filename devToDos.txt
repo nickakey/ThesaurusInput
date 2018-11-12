@@ -6,7 +6,7 @@
 
 * BUG - when I have 2 words and replace the first word with a synonym, then move the cursor all the way back and delete that word, then RETYPE - a mysterious space appears. 
 
-* Make left click placement of cursor work (Just not drag)
+DONE * Make left click placement of cursor work (Just not drag)
 
 DONE - * Make a word with synonyms light up green!
 
