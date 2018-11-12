@@ -17,6 +17,7 @@ const dropDown = css`
   padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
+  transition: opacity .5s;
 `
 
 const spaceCSS = css`
@@ -26,7 +27,7 @@ const spaceCSS = css`
 `
 
 const dropDownWrapper = css`
-background-color: black;
+  background-color: black;
 `
 
 const wordCSS = css`
@@ -35,9 +36,11 @@ const wordCSS = css`
   border-radius: 10px;
   display: inline-block;
   position: relative;
+  background-color: white;
+  transition: background-color .2s;
   &:hover {
       .${dropDown} {
-          display: inline-block;
+        display: inline-block;
       }
   }  
 `
@@ -135,13 +138,13 @@ class ThesaurusInput extends React.Component {
     super(props);
     this.state = {
       words: [
-        [{ value: 'h' }, { value: 'e' }, { value: 'y' }],
-        [{ value: ' ' }],
-        [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }],
+        // [{ value: 'h' }, { value: 'e' }, { value: 'y' }],
+        // [{ value: ' ' }],
+        // [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }],
       ],
-      synonyms: [['hello', 'hi', 'hey'], [], ['pal', 'buddy', 'companion']],
-      cursorAfter: { wordIndex: 2, characterIndex: 5 }, 
-      maxLeft: false,
+      synonyms: [/*['hello', 'hi', 'hey'], [], ['pal', 'buddy', 'companion']*/],
+      cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
+      maxLeft: true,
     };
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
@@ -168,6 +171,16 @@ class ThesaurusInput extends React.Component {
     //   .catch((err)=>{
     //     reject(err);
     //   })    
+  }
+
+  handleLetterClick(characterIndex, wordIndex) {
+    console.log(characterIndex, wordIndex);
+    
+    this.setState((state) => {
+      state.cursorAfter.wordIndex = wordIndex;
+      state.cursorAfter.characterIndex = characterIndex;
+      return state;
+    });
   }
 
   determineClassName(wordIndex) {
@@ -387,7 +400,7 @@ class ThesaurusInput extends React.Component {
               {word.map((charObj, i) => {
                 return (
                   <ThesaurusLetter
-                    onClick={this.handleSynonymClick}
+                    onClick={(...args) => {this.handleLetterClick(...args)}}
                     maxLeft={this.state.maxLeft}
                     cursorIndex={this.state.cursorAfter}
                     wordIndex={j}
@@ -414,6 +427,7 @@ class ThesaurusInput extends React.Component {
                 {word.map((charObj, i) => {
                   return (
                     <ThesaurusLetter
+                      onClick={(...args) => {this.handleLetterClick(...args)}}
                       maxLeft={this.state.maxLeft}
                       cursorIndex={this.state.cursorAfter}
                       wordIndex={j}

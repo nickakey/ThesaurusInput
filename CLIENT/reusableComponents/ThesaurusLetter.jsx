@@ -54,12 +54,13 @@ function determineClass(charIndex, wordIndex, cursorIndex, maxLeft) {
   return character;
 }
 
-const ThesaurusLetter = ({ index, charObj, wordIndex, cursorIndex, maxLeft }) => {
+const ThesaurusLetter = ({ index, charObj, wordIndex, cursorIndex, maxLeft, onClick }) => {
   // If the very first character is space
   if (charObj.value === ' ') {
     return (
       <span
         className={determineClass(index, wordIndex, cursorIndex, maxLeft)}
+        onClick={()=>{onClick(index, wordIndex)}}
       >
         &nbsp;
       </span>
@@ -69,6 +70,7 @@ const ThesaurusLetter = ({ index, charObj, wordIndex, cursorIndex, maxLeft }) =>
   return (
     <span
       className={determineClass(index, wordIndex, cursorIndex, maxLeft)}
+      onClick={()=>{onClick(index, wordIndex)}}
     >
       {charObj.value}
     </span>

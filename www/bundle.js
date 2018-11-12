@@ -28307,10 +28307,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n']),
+var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  padding: 10px 0px 10px 0px; \n  height: 42px;\n  display: inline-block;\n'], ['\n  padding: 10px 0px 10px 0px; \n  height: 42px;\n  display: inline-block;\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\nbackground-color: black;\n'], ['\nbackground-color: black;\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  /* padding: 10px 0px 10px 0px;  */\n  padding: 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n'], ['\n  /* padding: 10px 0px 10px 0px;  */\n  padding: 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  &:hover {\n      .', ' {\n          display: inline-block;\n      }\n  }  \n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  background-color: black;\n'], ['\n  background-color: black;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  /* padding: 10px 0px 10px 0px;  */\n  padding: 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .', ' {\n        display: inline-block;\n      }\n  }  \n'], ['\n  /* padding: 10px 0px 10px 0px;  */\n  padding: 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .', ' {\n        display: inline-block;\n      }\n  }  \n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  background-color: #7bd68f6e;\n  transition: all .4s;\n'], ['\n  background-color: #7bd68f6e;\n  transition: all .4s;\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n'], ['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n']),
     _templateObject7 = _taggedTemplateLiteral(['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n'], ['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n']);
@@ -28440,10 +28440,14 @@ var ThesaurusInput = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ThesaurusInput.__proto__ || Object.getPrototypeOf(ThesaurusInput)).call(this, props));
 
     _this.state = {
-      words: [[{ value: 'h' }, { value: 'e' }, { value: 'y' }], [{ value: ' ' }], [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }]],
-      synonyms: [['hello', 'hi', 'hey'], [], ['pal', 'buddy', 'companion']],
-      cursorAfter: { wordIndex: 2, characterIndex: 5 },
-      maxLeft: false
+      words: [
+        // [{ value: 'h' }, { value: 'e' }, { value: 'y' }],
+        // [{ value: ' ' }],
+        // [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }],
+      ],
+      synonyms: [/*['hello', 'hi', 'hey'], [], ['pal', 'buddy', 'companion']*/],
+      cursorAfter: { wordIndex: 0, characterIndex: 0 },
+      maxLeft: true
     };
     _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
     return _this;
@@ -28473,6 +28477,17 @@ var ThesaurusInput = function (_React$Component) {
       //   .catch((err)=>{
       //     reject(err);
       //   })    
+    }
+  }, {
+    key: 'handleLetterClick',
+    value: function handleLetterClick(characterIndex, wordIndex) {
+      console.log(characterIndex, wordIndex);
+
+      this.setState(function (state) {
+        state.cursorAfter.wordIndex = wordIndex;
+        state.cursorAfter.characterIndex = characterIndex;
+        return state;
+      });
     }
   }, {
     key: 'determineClassName',
@@ -28721,7 +28736,9 @@ var ThesaurusInput = function (_React$Component) {
             { className: _this5.determineClassName(j) },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
-                onClick: _this5.handleSynonymClick,
+                onClick: function onClick() {
+                  _this5.handleLetterClick.apply(_this5, arguments);
+                },
                 maxLeft: _this5.state.maxLeft,
                 cursorIndex: _this5.state.cursorAfter,
                 wordIndex: j,
@@ -28750,6 +28767,9 @@ var ThesaurusInput = function (_React$Component) {
             { className: spaceCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
+                onClick: function onClick() {
+                  _this5.handleLetterClick.apply(_this5, arguments);
+                },
                 maxLeft: _this5.state.maxLeft,
                 cursorIndex: _this5.state.cursorAfter,
                 wordIndex: j,
@@ -28822,14 +28842,18 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
       charObj = _ref.charObj,
       wordIndex = _ref.wordIndex,
       cursorIndex = _ref.cursorIndex,
-      maxLeft = _ref.maxLeft;
+      maxLeft = _ref.maxLeft,
+      _onClick = _ref.onClick;
 
   // If the very first character is space
   if (charObj.value === ' ') {
     return _react2.default.createElement(
       'span',
       {
-        className: determineClass(index, wordIndex, cursorIndex, maxLeft)
+        className: determineClass(index, wordIndex, cursorIndex, maxLeft),
+        onClick: function onClick() {
+          _onClick(index, wordIndex);
+        }
       },
       '\xA0'
     );
@@ -28838,7 +28862,10 @@ var ThesaurusLetter = function ThesaurusLetter(_ref) {
   return _react2.default.createElement(
     'span',
     {
-      className: determineClass(index, wordIndex, cursorIndex, maxLeft)
+      className: determineClass(index, wordIndex, cursorIndex, maxLeft),
+      onClick: function onClick() {
+        _onClick(index, wordIndex);
+      }
     },
     charObj.value
   );
