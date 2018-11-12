@@ -1,10 +1,7 @@
-* The padding is a little funky
-
-* Sometimes there is a space that appears at the end of words
-
-* BUG - there is some weird padding thing sometimes...
 
 * BUG - when I have 2 words and replace the first word with a synonym, then move the cursor all the way back and delete that word, then RETYPE - a mysterious space appears. 
+
+DONE - * The padding is a little funky
 
 DONE * Make left click placement of cursor work (Just not drag)
 

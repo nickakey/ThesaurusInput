@@ -22,7 +22,7 @@ const dropDown = css`
 
 const spaceCSS = css`
   margin: 5px 0px 5px 0px;
-  padding: 5px 3px 5px 3px;
+  padding: 5px 0px 5px 0px;
   height: 42px;
   display: inline-block;
 `
@@ -153,25 +153,25 @@ class ThesaurusInput extends React.Component {
 
 
   getSynonyms(word, wordIndex) {  
-    if(window.testNum === undefined){window.testNum = 0}
+    // if(window.testNum === undefined){window.testNum = 0}
 
-    this.setState((state)=>{
-      state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-    });    
+    // this.setState((state)=>{
+    //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
+    // });    
 
-    window.testNum += 1;
+    // window.testNum += 1;
 
-    // console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
-    // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-    //   { timeout: 3500 })
-    //   .then((result) => {
-    //     this.setState((state)=>{
-    //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-    //     });
-    //   })
-    //   .catch((err)=>{
-    //     reject(err);
-    //   })    
+    console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
+    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      { timeout: 3500 })
+      .then((result) => {
+        this.setState((state)=>{
+          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+        });
+      })
+      .catch((err)=>{
+        reject(err);
+      })    
   }
 
   handleLetterClick(characterIndex, wordIndex) {
