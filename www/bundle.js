@@ -28307,13 +28307,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n']),
+var _templateObject = _taggedTemplateLiteral(['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n'], ['\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n'], ['\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  background-color: black;\n'], ['\n  background-color: black;\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .', ' {\n        display: inline-block;\n      }\n  }  \n'], ['\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .', ' {\n        display: inline-block;\n      }\n  }  \n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  background-color: #7bd68f6e;\n  transition: all .4s;\n'], ['\n  background-color: #7bd68f6e;\n  transition: all .4s;\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n'], ['\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n']),
-    _templateObject7 = _taggedTemplateLiteral(['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n'], ['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n']);
+    _templateObject7 = _taggedTemplateLiteral(['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n'], ['\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n']);
 
 var _react = __webpack_require__(10);
 
@@ -28456,24 +28456,27 @@ var ThesaurusInput = function (_React$Component) {
   _createClass(ThesaurusInput, [{
     key: 'getSynonyms',
     value: function getSynonyms(word, wordIndex) {
-      var _this2 = this;
+      if (window.testNum === undefined) {
+        window.testNum = 0;
+      }
 
-      // if(window.testNum === undefined){window.testNum = 0}
-
-      // this.setState((state)=>{
-      //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-      // });    
-
-      // window.testNum += 1;
-
-      console.log('GET SYNONYMS IS BEING CALLED!!! ', word);
-      _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + word + '&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK', { timeout: 3500 }).then(function (result) {
-        _this2.setState(function (state) {
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-        });
-      }).catch(function (err) {
-        reject(err);
+      this.setState(function (state) {
+        state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
       });
+
+      window.testNum += 1;
+
+      // console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
+      // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      //   { timeout: 3500 })
+      //   .then((result) => {
+      //     this.setState((state)=>{
+      //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+      //     });
+      //   })
+      //   .catch((err)=>{
+      //     reject(err);
+      //   })    
     }
   }, {
     key: 'handleLetterClick',
@@ -28499,7 +28502,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'handleWordUpdate',
     value: function handleWordUpdate(state) {
-      var _this3 = this;
+      var _this2 = this;
 
       var wordIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state.cursorAfter.wordIndex;
 
@@ -28507,20 +28510,20 @@ var ThesaurusInput = function (_React$Component) {
       var word = this.state.words[wordIndex];
       clearTimeout(window['word' + wordIndex]);
       window['word' + wordIndex] = setTimeout(function () {
-        _this3.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex);
+        _this2.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex);
       }, 1000);
     }
   }, {
     key: 'handleSynonymClick',
     value: function handleSynonymClick(synonym, wordIndex) {
-      var _this4 = this;
+      var _this3 = this;
 
       this.setState(function (state) {
         state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
         if (state.cursorAfter.wordIndex === wordIndex) {
           state.cursorAfter.characterIndex = synonym.length - 1;
         }
-        _this4.handleWordUpdate(state, wordIndex);
+        _this3.handleWordUpdate(state, wordIndex);
         return state;
       });
     }
@@ -28537,7 +28540,7 @@ var ThesaurusInput = function (_React$Component) {
 
       if (isAtMaxLeft) {
         return this.setState(function (state) {
-          state.word.unshift([{ value: ' ' }]);
+          state.words.unshift([{ value: ' ' }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
           state.maxLeft = false;
           return state;
@@ -28585,7 +28588,7 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
-      var _this5 = this;
+      var _this4 = this;
 
       this.props.keyboardCallback();
       var isNonCharacterInput = character.length > 1;
@@ -28605,7 +28608,7 @@ var ThesaurusInput = function (_React$Component) {
           state.words.splice(0, 0, [{ value: character }]);
           state.maxLeft = false;
           ThesaurusInput.handleCursorMove(state, 'Right');
-          _this5.handleWordUpdate(state);
+          _this4.handleWordUpdate(state);
           return state;
         });
       }
@@ -28625,7 +28628,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words.splice(wordIndex + 1, 0, [{ value: character }]);
           ThesaurusInput.handleCursorMove(state, 'Right');
-          _this5.handleWordUpdate(state);
+          _this4.handleWordUpdate(state);
           return state;
         });
       }
@@ -28634,7 +28637,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words[wordIndex + 1].splice(0, 0, { value: character });
           ThesaurusInput.handleCursorMove(state, 'Right');
-          _this5.handleWordUpdate(state);
+          _this4.handleWordUpdate(state);
           return state;
         });
       }
@@ -28643,7 +28646,7 @@ var ThesaurusInput = function (_React$Component) {
       this.setState(function (state) {
         state.words[wordIndex].splice(characterIndex + 1, 0, { value: character });
         ThesaurusInput.handleCursorMove(state, 'Right');
-        _this5.handleWordUpdate(state);
+        _this4.handleWordUpdate(state);
         return state;
       });
     }
@@ -28697,15 +28700,20 @@ var ThesaurusInput = function (_React$Component) {
   }, {
     key: 'handleArrows',
     value: function handleArrows(direction) {
-      this.setState(function (state) {
-        ThesaurusInput.handleCursorMove(state, direction);
-        return state;
-      });
+      if (direction === "Left" || direction === "Right") {
+        if (this.state.words.length === 0) {
+          return;
+        }
+        this.setState(function (state) {
+          ThesaurusInput.handleCursorMove(state, direction);
+          return state;
+        });
+      }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
+      var _this5 = this;
 
       return _react2.default.createElement(
         'div',
@@ -28717,56 +28725,56 @@ var ThesaurusInput = function (_React$Component) {
           tabIndex: '0',
           onKeyDown: function onKeyDown(e) {
             if (e.key === 'Backspace') {
-              _this6.handleDelete();
+              _this5.handleDelete();
             } else if (e.key.slice(0, 5) === 'Arrow') {
-              _this6.handleArrows(e.key.slice(5));
+              _this5.handleArrows(e.key.slice(5));
             } else {
-              _this6.handleKeyboardInput(e.key);
+              _this5.handleKeyboardInput(e.key);
             }
           }
         },
         this.state.words.map(function (word, j) {
           return word[0].value !== " " ? _react2.default.createElement(
             'span',
-            { className: _this6.determineClassName(j) },
+            { className: _this5.determineClassName(j) },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
                 onClick: function onClick() {
-                  _this6.handleLetterClick.apply(_this6, arguments);
+                  _this5.handleLetterClick.apply(_this5, arguments);
                 },
-                maxLeft: _this6.state.maxLeft,
-                cursorIndex: _this6.state.cursorAfter,
+                maxLeft: _this5.state.maxLeft,
+                cursorIndex: _this5.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,
                 charObj: charObj
               });
             }),
-            _this6.state.synonyms[j] && _this6.state.synonyms[j].length > 0 ? _react2.default.createElement(
+            _this5.state.synonyms[j] && _this5.state.synonyms[j].length > 0 ? _react2.default.createElement(
               'span',
               { className: dropDown },
-              _this6.state.synonyms[j].map(function (synonym) {
+              _this5.state.synonyms[j].map(function (synonym) {
                 return _react2.default.createElement(
                   'div',
                   {
                     onClick: function onClick() {
-                      _this6.handleSynonymClick(synonym, j);
+                      _this5.handleSynonymClick(synonym, j);
                     },
                     className: synonymCSS },
                   synonym
                 );
               })
-            ) : _react2.default.createElement('span', null)
+            ) : null
           ) : _react2.default.createElement(
             'span',
             { className: spaceCSS },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
                 onClick: function onClick() {
-                  _this6.handleLetterClick.apply(_this6, arguments);
+                  _this5.handleLetterClick.apply(_this5, arguments);
                 },
-                maxLeft: _this6.state.maxLeft,
-                cursorIndex: _this6.state.cursorAfter,
+                maxLeft: _this5.state.maxLeft,
+                cursorIndex: _this5.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,

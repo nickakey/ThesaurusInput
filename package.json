@@ -42,6 +42,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
+    "random-letter": "^1.0.1",
     "react-testing-library": "^5.2.3"
   }
 }

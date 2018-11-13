@@ -1,5 +1,13 @@
+* Do all the escape characters
 
-* BUG - when I have 2 words and replace the first word with a synonym, then move the cursor all the way back and delete that word, then RETYPE - a mysterious space appears. 
+* Talk to Phillip about how to contribute to an open source library
+
+* Make sure that the on change and everything works. 
+  https://material-ui.com/api/input/
+
+* WRITE TESTS
+
+* Make the blinking curosor appear even without words 
 
 DONE - * The padding is a little funky
 

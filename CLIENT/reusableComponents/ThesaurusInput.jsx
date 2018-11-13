@@ -18,6 +18,9 @@ const dropDown = css`
   border: 1px solid black;
   border-radius: 10px;
   transition: opacity .5s;
+  &:focus {
+    outline :0;
+  }   
 `
 
 const spaceCSS = css`
@@ -74,6 +77,9 @@ const input = css`
   border-radius: 5px;
   z-index: -5;
   padding-left: 10px;
+  &:focus {
+    outline :0;
+  }  
 `;
 
 class ThesaurusInput extends React.Component {
@@ -153,25 +159,25 @@ class ThesaurusInput extends React.Component {
 
 
   getSynonyms(word, wordIndex) {  
-    // if(window.testNum === undefined){window.testNum = 0}
+    if(window.testNum === undefined){window.testNum = 0}
 
-    // this.setState((state)=>{
-    //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-    // });    
+    this.setState((state)=>{
+      state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
+    });    
 
-    // window.testNum += 1;
+    window.testNum += 1;
 
-    console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
-    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-      { timeout: 3500 })
-      .then((result) => {
-        this.setState((state)=>{
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-        });
-      })
-      .catch((err)=>{
-        reject(err);
-      })    
+    // console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
+    // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+    //   { timeout: 3500 })
+    //   .then((result) => {
+    //     this.setState((state)=>{
+    //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+    //     });
+    //   })
+    //   .catch((err)=>{
+    //     reject(err);
+    //   })    
   }
 
   handleLetterClick(characterIndex, wordIndex) {
@@ -221,7 +227,7 @@ class ThesaurusInput extends React.Component {
 
     if (isAtMaxLeft) {
       return this.setState((state)=>{
-        state.word.unshift([{ value: ' ' }])
+        state.words.unshift([{ value: ' ' }])
         ThesaurusInput.handleCursorMove(state, 'Right');
         state.maxLeft = false;
         return state;
@@ -367,10 +373,14 @@ class ThesaurusInput extends React.Component {
 
 
   handleArrows(direction) {
-    this.setState((state)=>{
-      ThesaurusInput.handleCursorMove(state, direction);
-      return state;
-    })
+    if(direction === "Left" || direction === "Right") {
+      if (this.state.words.length === 0) { return; }
+      this.setState((state) => {
+        ThesaurusInput.handleCursorMove(state, direction);
+        return state;
+      })
+    }
+
   } 
 
 
@@ -419,7 +429,7 @@ class ThesaurusInput extends React.Component {
                     </div>
                   ))} 
                 </span>) 
-                : <span></span>
+                : null
               }
             </span> ) : (
               <span className={spaceCSS}>  
