@@ -28,6 +28,7 @@
     "body-parser": "1.18.3",
     "emotion": "^9.2.12",
     "eslint": "^5.8.0",
+    "eslint-plugin-jest": "^22.0.0",
     "prop-types": "^15.6.2",
     "react": "15.6.1",
     "react-dom": "15.6.1",
