@@ -1,13 +1,29 @@
-* Do all the escape characters
+* Add in instructions on how to get an API key
 
-* Talk to Phillip about how to contribute to an open source library
+* Add in an API key instantiator
 
 * Make sure that the on change and everything works. 
   https://material-ui.com/api/input/
 
-* WRITE TESTS
+    PROPS TO ADD AND HANDLE
+    - onChange
+    - autofocus
+    - classes
+    https://material-ui.com/customization/overrides/#overriding-with-classes
+    - className
+    - disabled
+    - id
+    - name
+    - placeholder
 
-* Make the blinking curosor appear even without words 
+
+* Make the blinking cursor appear even without words 
+
+DONE - Escape characters (react does this automagically)
+
+DONE - WRITE TESTS
+
+DONE - Set up CircleCI
 
 DONE - * The padding is a little funky
 

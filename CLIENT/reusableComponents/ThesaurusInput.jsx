@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { css, keyframes } from "react-emotion";
 import axios from "axios-jsonp-pro";
@@ -28,10 +29,6 @@ const spaceCSS = css`
   padding: 5px 0px 5px 0px;
   height: 42px;
   display: inline-block;
-`
-
-const dropDownWrapper = css`
-  background-color: black;
 `
 
 const wordCSS = css`
@@ -83,8 +80,12 @@ const input = css`
 `;
 
 class ThesaurusInput extends React.Component {
+  static convertWordsStateIntoString(words){
+    return words.reduce((wordsString, word) => (wordsString.concat(ThesaurusInput.convertWordArrayIntoString(word))), "");
+  }
+
   static convertWordArrayIntoString(word) {
-    return word.reduce((acc, el) => (acc.concat(el.value)), "");
+    return word.reduce((wordString, letter) => (wordString.concat(letter.value)), "");
   }
 
   static splitStringIntoLettersArray(string) {
@@ -150,6 +151,9 @@ class ThesaurusInput extends React.Component {
   }
 
 
+  handleOnChangeCallback(){
+    this.props.onChange(ThesaurusInput.convertWordsStateIntoString(this.state.words));
+  }
 
   getSynonyms(word, wordIndex) {  
     // if(window.testNum === undefined){window.testNum = 0}
@@ -219,7 +223,7 @@ class ThesaurusInput extends React.Component {
         ThesaurusInput.handleCursorMove(state, "Right");
         state.maxLeft = false;
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }      
 
     const prevCharacter = words[wordIndex][characterIndex];
@@ -234,7 +238,7 @@ class ThesaurusInput extends React.Component {
         state.words[wordIndex].push({ value: " " });
         ThesaurusInput.handleCursorMove(state, "Right");
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }
 
     if (firstCharacterInNextWordIsSpace) {
@@ -242,7 +246,7 @@ class ThesaurusInput extends React.Component {
         state.words[wordIndex + 1].unshift({ value: " " });
         ThesaurusInput.handleCursorMove(state, "Right");
         return state;
-      });
+      }, this.handleOnChangeCallback);
       
 
     }
@@ -255,21 +259,20 @@ class ThesaurusInput extends React.Component {
         this.handleWordUpdate(state, this.state.cursorAfter.wordIndex + 1)
         this.handleWordUpdate(state, this.state.cursorAfter.wordIndex - 1)
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }
 
     this.setState((state)=>{
       state.words.splice(wordIndex + 1, 0, [{ value: " " }]);
       ThesaurusInput.handleCursorMove(state, "Right");
       return state;
-    });
+    }, this.handleOnChangeCallback);
     // this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(words[wordIndex]), wordIndex);
   }
 
 
 
   handleKeyboardInput(character) {
-    this.props.keyboardCallback();
     const isNonCharacterInput = character.length > 1;
     const isSpaceBar = character === " ";
     
@@ -284,9 +287,9 @@ class ThesaurusInput extends React.Component {
         state.words.splice(0, 0, [{ value: character }]);
         state.maxLeft = false;
         ThesaurusInput.handleCursorMove(state, "Right");
-        this.handleWordUpdate(state)
+        this.handleWordUpdate(state);
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }  
 
     const { words, cursorAfter: { wordIndex, characterIndex } } = this.state;
@@ -301,7 +304,7 @@ class ThesaurusInput extends React.Component {
         ThesaurusInput.handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
-      });
+      }, this.handleOnChangeCallback);
     } 
 
     if (spaceBeforeAndWordAfter) {
@@ -310,7 +313,7 @@ class ThesaurusInput extends React.Component {
         ThesaurusInput.handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }
 
     // else add to current word
@@ -319,7 +322,7 @@ class ThesaurusInput extends React.Component {
       ThesaurusInput.handleCursorMove(state, "Right");
       this.handleWordUpdate(state);
       return state;
-    });
+    }, this.handleOnChangeCallback);
   }
 
 
@@ -344,7 +347,7 @@ class ThesaurusInput extends React.Component {
         state.words.splice(wordIndex - 1, 3, combinedWords);
         this.handleWordUpdate(state)
         return state;
-      });
+      }, this.handleOnChangeCallback);
     } 
 
     if (deletingLastLetterInWord) {
@@ -353,7 +356,7 @@ class ThesaurusInput extends React.Component {
         state.words.splice(wordIndex, 1);
         this.handleWordUpdate(state)
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }
 
     // if character has another character before it in the word, only delete that one character
@@ -362,7 +365,7 @@ class ThesaurusInput extends React.Component {
       state.words[wordIndex].splice(characterIndex, 1);
       this.handleWordUpdate(state)
       return state;
-    });
+    }, this.handleOnChangeCallback);
   } 
 
 
