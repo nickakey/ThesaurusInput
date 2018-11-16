@@ -14,11 +14,21 @@ const mockThesaurusResponseData = {
   }]
 }
 
-let mockFunction;
+let onChange;
 let input;
 
 function generateURL(word){return `http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`}
-function numOfWords() { return input.children.length; }
+function numOfWords() {
+  const words = input.children;
+  let count = 0;
+  for (let i = 0; i < words.length; i+=1) {
+    if(words[i].id !== "placeHolder"){
+      count +=1;
+    }
+  }
+  return count;
+}
+
 function numOfCharacters(wordIndex = 0) { return input.children[wordIndex].children.length; }
 
 function getCharacter(wordIndex, letterIndex) {
@@ -50,8 +60,9 @@ function arrowRight() { typeCharacter("ArrowRight"); }
 function typeBackspace() { typeCharacter("Backspace"); }
 
 beforeEach(() => {
+  onChange = jest.fn();
   const { getByTestId } = render(
-    <ThesaurusInput keyboardCallback={_=>_} />,
+    <ThesaurusInput onChange={onChange} />,
   );
   input = getByTestId("input");  
   axios.jsonp.mockImplementation(() => {

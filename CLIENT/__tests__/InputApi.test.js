@@ -18,7 +18,17 @@ let onChange;
 let input;
 
 function generateURL(word){return `http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`}
-function numOfWords() { return input.children.length; }
+function numOfWords() {
+  const words = input.children;
+  let count = 0;
+  for (let i = 0; i < words.length; i+=1) {
+    if(words[i].id !== "placeHolder"){
+      count +=1;
+    }
+  }
+  return count;
+}
+
 function numOfCharacters(wordIndex = 0) { return input.children[wordIndex].children.length; }
 
 function getCharacter(wordIndex, letterIndex) {
@@ -51,8 +61,14 @@ function typeBackspace() { typeCharacter("Backspace"); }
 
 beforeEach(() => {
   onChange = jest.fn();
-  const { getByTestId } = render(
-    <ThesaurusInput onChange={onChange} />,
+  var { getByTestId } = render(
+    <ThesaurusInput 
+      className="someClassName" 
+      onChange={onChange} 
+      id="someID"
+      placeHolder="some placeholder text"
+      autofocus="false"
+    />,
   );
   input = getByTestId("input");  
   axios.jsonp.mockImplementation(() => {
@@ -80,7 +96,7 @@ test("when characters are typed, onchange is called", () => {
   const someLetter2 = randomLetter();
   typeCharacter(someLetter2);
   expect(onChange).toBeCalledTimes(2);
-  expect(onChange).toHaveBeenLastCalledWith(someLetter2);
+  expect(onChange).toHaveBeenLastCalledWith(someLetter + someLetter2);
 
 })
 
@@ -114,32 +130,22 @@ test("when a synonym is chosen, onchange is called", () => {
   }, 50);
 })
 
+test("When prop className included, className of outer div matches prop", () => {
+  expect(input.className).toBe("someClassName");
+})
 
+test("When prop id included, id of outer div matches prop", () => {
+  expect(input.id).toBe("someID");
+})
 
-//className
-//when invoked with custom class name
-//outer most div contains that className
-
-//ID
-//when invoked with id prop
-//the id of the outermost container matches the arg id
-
-//PLACEHOLDER
-//When invoked with placeholder text
-//there is an element in the html with that placeholder text 
-//the placeholder texts dissapears as soon as any letter is written
-//and reappears when no letters are written
-
-//AUTOFOCUS
-//when invoked with autofocus true
-//the autofocus of the element with click handling is set to true
+test("When prop placeholder included, placeholder text matches prop", () => {
+  const placeHolderText = getNodeText(input.children[0])
+  expect(placeHolderText).toBe("some placeholder text");
+})
 
 //THESAURUS (bool)
 //when "off" 
 //no thesaurus requests get made
-
-//DISABLE
-//if true, the input will be disabled
 
 /*
   CLASSES object

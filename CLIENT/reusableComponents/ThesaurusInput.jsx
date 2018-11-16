@@ -8,6 +8,18 @@ function logState() {
   console.log("this is the state ", this.state);
 }
 
+const placeHolderText = css`
+  margin: 5px 0px 5px 0px;
+  padding: 5px 3px 5px 3px;
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
+  background-color: white;
+  font-size: 35px;
+  color: black;
+  opacity: .4;
+`
+
 const dropDown = css`
   display: none;
   position: absolute;
@@ -156,14 +168,6 @@ class ThesaurusInput extends React.Component {
   }
 
   getSynonyms(word, wordIndex) {  
-    // if(window.testNum === undefined){window.testNum = 0}
-
-    // this.setState((state)=>{
-    //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-    // });    
-
-    // window.testNum += 1;
-
     axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
       { timeout: 3500 })
       .then((result) => {
@@ -384,10 +388,10 @@ class ThesaurusInput extends React.Component {
   render() {
     return (
       <div
-        id="input"
+        id={this.props.id ? this.props.id : input}
         data-testid="input"
-        className={input}
-        autoFocus="true"
+        className={this.props.className ? this.props.className : input}
+        autoFocus={this.props.autofocus ? this.props.autofocus : "true"}
         tabIndex="0"
         onKeyDown={(e) => {
           if (e.key === "Backspace") {
@@ -399,6 +403,11 @@ class ThesaurusInput extends React.Component {
           }
         }}
       >
+      {this.state.words.length === 0 ? (
+        <div id="placeHolder" className={placeHolderText}>
+          {this.props.placeHolder ? this.props.placeHolder : "Start typing..."}
+        </div>
+      ) : null}
 
         {this.state.words.map((word, j) => {
           return word[0].value !== " " ? ( 

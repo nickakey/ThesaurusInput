@@ -3,9 +3,20 @@ import { render, fireEvent, cleanup } from "react-testing-library";
 import randomLetter from "random-letter";
 import ThesaurusInput from "../reusableComponents/ThesaurusInput.jsx";
 
-let mockFunction;
+let onChange;
 let input;
-function numOfWords() { return input.children.length; }
+
+function numOfWords() {
+  const words = input.children;
+  let count = 0;
+  for (let i = 0; i < words.length; i+=1) {
+    if(words[i].id !== "placeHolder"){
+      count +=1;
+    }
+  }
+  return count;
+}
+
 function numOfCharacters(wordIndex = 0) { return input.children[wordIndex].children.length; }
 
 function getCharacter(wordIndex, letterIndex) {
@@ -30,9 +41,9 @@ function typeBackspace() { typeCharacter("Backspace"); }
 
 
 beforeEach(() => {
-  mockFunction = jest.fn();
+  onChange = jest.fn();
   const { getByTestId } = render(
-    <ThesaurusInput keyboardCallback={mockFunction} />,
+    <ThesaurusInput onChange={onChange} />,
   );
   input = getByTestId("input");
 });

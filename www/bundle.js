@@ -23367,27 +23367,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _templateObject = _taggedTemplateLiteral(['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n\n  body {\n    background-color: black;\n  }\n'], ['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n\n  body {\n    background-color: black;\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  background-image: linear-gradient(\n      to right bottom,\n      rgba(220, 76, 76, 0.8),\n      rgba(190, 105, 60, 0.71)),\n      url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n  height: 100vh;\n  width: 100vw;\n  background-size: cover;\n  background-position: center;\n  clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n'], ['\n  background-image: linear-gradient(\n      to right bottom,\n      rgba(220, 76, 76, 0.8),\n      rgba(190, 105, 60, 0.71)),\n      url("https://images.pexels.com/photos/264635/pexels-photo-264635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");\n  height: 100vh;\n  width: 100vw;\n  background-size: cover;\n  background-position: center;\n  clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90% );\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 72%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  background-color: white;\n  padding: 13px;\n  width: 15rem;\n  text-align: center;\n  border-radius: 6px;\n  border: solid grey 1.5px;\n  height: 3.5rem;\n  color: grey;\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n  }\n'], ['\n  position: absolute;\n  top: 72%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  background-color: white;\n  padding: 13px;\n  width: 15rem;\n  text-align: center;\n  border-radius: 6px;\n  border: solid grey 1.5px;\n  height: 3.5rem;\n  color: grey;\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5pt 3pt rgb(0, 0, 0, .3);\n  }\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 32%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  /* background-color: white; */\n  /* padding: 13px; */\n  /* width: 15rem; */\n  /* text-align: center; */\n  /* border-radius: 6px; */\n  /* border: solid grey 1.5px; */\n  height: 3.5rem;\n  color: white;\n  font-size: 4.3rem;\n  width: 100%;\n  text-align: center;  \n'], ['\n  position: absolute;\n  top: 32%;\n  right: 50%;\n  transform: translate(50%, 50%);\n  /* background-color: white; */\n  /* padding: 13px; */\n  /* width: 15rem; */\n  /* text-align: center; */\n  /* border-radius: 6px; */\n  /* border: solid grey 1.5px; */\n  height: 3.5rem;\n  color: white;\n  font-size: 4.3rem;\n  width: 100%;\n  text-align: center;  \n']),
-    _templateObject5 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 31%;\n  right: 28%;\n  transform: translate(50%, 50%);\n  height: 3.5rem;\n  color: white;\n  font-size: 1.6rem;\n  width: 28%;\n  text-align: center;  \n'], ['\n  position: absolute;\n  top: 31%;\n  right: 28%;\n  transform: translate(50%, 50%);\n  height: 3.5rem;\n  color: white;\n  font-size: 1.6rem;\n  width: 28%;\n  text-align: center;  \n']);
+var _templateObject = _taggedTemplateLiteral(['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n\n  body {\n    background-color: black;\n  }\n'], ['\n  * {\n    @import url(\'https://fonts.googleapis.com/css?family=Work+Sans\');\n    font-family: \'Work Sans\', sans-serif;\n    box-sizing: border-box;    \n    margin: 0px;\n    padding: 0px;\n    color: black;\n  }\n\n  body {\n    background-color: black;\n  }\n']);
 
 var _react = __webpack_require__(21);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactEmotion = __webpack_require__(52);
-
 var _emotion = __webpack_require__(53);
-
-var _axiosJsonpPro = __webpack_require__(89);
-
-var _axiosJsonpPro2 = _interopRequireDefault(_axiosJsonpPro);
-
-var _utilities = __webpack_require__(226);
 
 var _ThesaurusInput = __webpack_require__(227);
 
@@ -23395,172 +23381,16 @@ var _ThesaurusInput2 = _interopRequireDefault(_ThesaurusInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 /* eslint-disable */
 (0, _emotion.injectGlobal)(_templateObject);
-/* eslint-enable */
 
-var background = (0, _reactEmotion.css)(_templateObject2);
-
-var input = (0, _reactEmotion.css)(_templateObject3);
-
-var welcomeMessage = (0, _reactEmotion.css)(_templateObject4);
-
-var hintMessage = (0, _reactEmotion.css)(_templateObject5);
-
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
-
-    _this.state = {
-      keyWords: [],
-      synonyms: [],
-      currentWord: [],
-      welcomeMessage: "Start Typing!",
-      hintMessage: ' '
-    };
-    return _this;
-  }
-
-  _createClass(App, [{
-    key: 'getSynonym',
-    value: function getSynonym(keyword, index) {
-      var _this2 = this;
-
-      _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + keyword + '&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK', { timeout: 1500 }).then(function (result) {
-        _this2.setState(function (state) {
-          state.synonyms[index] = (0, _utilities.synonymsFormatter)(result);
-        });
-      }).catch(function (err) {});
-    }
-  }, {
-    key: 'handleSynonymClick',
-    value: function handleSynonymClick(synonym, selectedKeyWordIndex) {
-      this.setState(function (state) {
-        var newState = Object.assign({}, state);
-        newState.hintMessage = "";
-        newState.keyWords[selectedKeyWordIndex] = synonym;
-        return newState;
-      });
-    }
-  }, {
-    key: 'handleKeyboardInput',
-    value: function handleKeyboardInput(value) {
-      var _this3 = this;
-
-      if (value === 'Backspace') {
-        this.handleDeleteInput();
-      } else if (value === ' ' || value === 'Enter') {
-        this.setState({ welcomeMessage: "" });
-        if (this.state.hintMessage === " ") {
-          this.setState({ hintMessage: 'Hover over the word to choose a synonym!' });
-        }
-        this.handleSpaceInput();
-      } else {
-        if (this.state.welcomeMessage === 'Start Typing!') {
-          setTimeout(function () {
-            _this3.setState({
-              welcomeMessage: "Hit Enter to Save Word!"
-            });
-          }, 300);
-        }
-        this.handleLetterInput(value);
-      }
-    }
-  }, {
-    key: 'handleDeleteInput',
-    value: function handleDeleteInput() {
-      this.setState(function (state) {
-        state.currentWord.pop();
-        return state;
-      });
-    }
-  }, {
-    key: 'handleLetterInput',
-    value: function handleLetterInput(letter) {
-      this.setState(function (state) {
-        state.currentWord.push(letter);
-        return state;
-      });
-    }
-  }, {
-    key: 'handleSpaceInput',
-    value: function handleSpaceInput() {
-      var _this4 = this;
-
-      this.setState(function (state) {
-        var newWord = state.currentWord.join('');
-        //kick off the async get synonym function... let it do it's thing in the background
-
-        _this4.getSynonym(newWord, _this4.state.keyWords.length);
-        state.keyWords.push(newWord);
-        state.currentWord = [];
-        return state;
-      });
-    }
-  }, {
-    key: 'isFirstRender',
-    value: function isFirstRender() {
-      return this.state.keyWords.length === 0;
-    }
-
-    // componentDidUpdate(){
-    //   this.refs.keyPressHandler.focus();
-    // }
-
-    // componentDidMount(){
-    //   this.refs.keyPressHandler.focus();
-    // }
-
-
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(_ThesaurusInput2.default, { keyboardCallback: function keyboardCallback() {
-          console.log("yo!");
-        } })
-
-      // <div className={background}>
-      //   <span>
-      //     <div>
-      //       <div className={hintMessage}>{this.state.hintMessage}</div>
-      //       <div className={welcomeMessage}>{this.state.welcomeMessage}</div>
-      //       <SentenceRoller
-      //         handleSynonymClick={(...args) => this.handleSynonymClick(...args)}
-      //         keyWords={this.state.keyWords}
-      //         handleNewSentence={(...args) => this.handleNewSentence(...args)}
-      //         synonyms={this.state.synonyms}
-      //       />
-      //       <div 
-      //         className={input} 
-      //         ref='keyPressHandler' 
-      //         autoFocus='true' 
-      //         tabIndex='0' 
-      //         onKeyDown={(e)=>{if(e.key === "Backspace"){this.handleKeyboardInput(e.key)}}}
-      //         onKeyPress={(e)=>{this.handleKeyboardInput(e.key)}}
-      //       >
-      //         {this.state.currentWord.join('')}
-      //       </div>  
-      //     </div>
-      //   </span>
-      // </div>
-      ;
-    }
-  }]);
-
-  return App;
-}(_react2.default.Component);
+var App = function App() {
+  return _react2.default.createElement(_ThesaurusInput2.default, { onChange: function onChange(text) {
+      console.log(text);
+    } });
+};
 
 exports.default = App;
 
@@ -26158,30 +25988,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function synonymsFormatter(synonyms) {
-  var formattedSynonyms = [];
-  if (!synonyms) {
-    return formattedSynonyms.push([undefined]);
-  }
-  synonyms.response.forEach(function (_ref) {
-    var synonymsString = _ref.list.synonyms;
-
-    synonymsString.split('|').forEach(function (synonym) {
-      formattedSynonyms.push(synonym.split(' ')[0]);
-    });
-  });
-  return formattedSynonyms;
-}
-
-module.exports.synonymsFormatter = synonymsFormatter;
-
-/***/ }),
+/* 226 */,
 /* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26194,12 +26001,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"], ["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"]),
-    _templateObject4 = _taggedTemplateLiteral(["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"], ["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"]),
-    _templateObject5 = _taggedTemplateLiteral(["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"], ["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"]),
-    _templateObject6 = _taggedTemplateLiteral(["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"], ["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"]);
+var _templateObject = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"], ["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"]),
+    _templateObject4 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"]),
+    _templateObject5 = _taggedTemplateLiteral(["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"], ["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"]),
+    _templateObject6 = _taggedTemplateLiteral(["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"], ["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"]),
+    _templateObject7 = _taggedTemplateLiteral(["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"], ["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"]);
 
 var _react = __webpack_require__(21);
 
@@ -26232,17 +26040,19 @@ function logState() {
   console.log("this is the state ", this.state);
 }
 
-var dropDown = (0, _reactEmotion.css)(_templateObject);
+var placeHolderText = (0, _reactEmotion.css)(_templateObject);
 
-var spaceCSS = (0, _reactEmotion.css)(_templateObject2);
+var dropDown = (0, _reactEmotion.css)(_templateObject2);
 
-var wordCSS = (0, _reactEmotion.css)(_templateObject3, dropDown);
+var spaceCSS = (0, _reactEmotion.css)(_templateObject3);
 
-var greenWordCSS = (0, _reactEmotion.css)(_templateObject4);
+var wordCSS = (0, _reactEmotion.css)(_templateObject4, dropDown);
 
-var synonymCSS = (0, _reactEmotion.css)(_templateObject5);
+var greenWordCSS = (0, _reactEmotion.css)(_templateObject5);
 
-var input = (0, _reactEmotion.css)(_templateObject6);
+var synonymCSS = (0, _reactEmotion.css)(_templateObject6);
+
+var input = (0, _reactEmotion.css)(_templateObject7);
 
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
@@ -26350,14 +26160,6 @@ var ThesaurusInput = function (_React$Component) {
     key: "getSynonyms",
     value: function getSynonyms(word, wordIndex) {
       var _this2 = this;
-
-      // if(window.testNum === undefined){window.testNum = 0}
-
-      // this.setState((state)=>{
-      //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-      // });    
-
-      // window.testNum += 1;
 
       _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + word + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK", { timeout: 3500 }).then(function (result) {
         _this2.setState(function (state) {
@@ -26609,10 +26411,10 @@ var ThesaurusInput = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         {
-          id: "input",
+          id: this.props.id ? this.props.id : input,
           "data-testid": "input",
-          className: input,
-          autoFocus: "true",
+          className: this.props.className ? this.props.className : input,
+          autoFocus: this.props.autofocus ? this.props.autofocus : "true",
           tabIndex: "0",
           onKeyDown: function onKeyDown(e) {
             if (e.key === "Backspace") {
@@ -26624,6 +26426,11 @@ var ThesaurusInput = function (_React$Component) {
             }
           }
         },
+        this.state.words.length === 0 ? _react2.default.createElement(
+          "div",
+          { id: "placeHolder", className: placeHolderText },
+          this.props.placeHolder ? this.props.placeHolder : "Start typing..."
+        ) : null,
         this.state.words.map(function (word, j) {
           return word[0].value !== " " ? _react2.default.createElement(
             "span",
