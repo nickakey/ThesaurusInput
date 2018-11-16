@@ -1,10 +1,10 @@
-import React from 'react';
-import { css, keyframes } from 'react-emotion';
-import axios from 'axios-jsonp-pro';
-import ThesaurusLetter from './ThesaurusLetter';
+import React from "react";
+import { css, keyframes } from "react-emotion";
+import axios from "axios-jsonp-pro";
+import ThesaurusLetter from "./ThesaurusLetter";
 
 function logState() {
-  console.log('this is the state ', this.state)
+  console.log("this is the state ", this.state);
 }
 
 const dropDown = css`
@@ -47,12 +47,12 @@ const wordCSS = css`
         display: inline-block;
       }
   }  
-`
+`;
 
 const greenWordCSS = css`
   background-color: #7bd68f6e;
   transition: all .4s;
-`
+`;
 
 
 const synonymCSS = css`
@@ -62,7 +62,7 @@ const synonymCSS = css`
     border-radius: 5px;
     cursor: pointer;
   }
-`
+`;
 
 const input = css`
   height: 4rem;
@@ -83,15 +83,12 @@ const input = css`
 `;
 
 class ThesaurusInput extends React.Component {
-
-
-
   static convertWordArrayIntoString(word) {
-    return word.reduce((acc, el) => (acc.concat(el.value)), '');
+    return word.reduce((acc, el) => (acc.concat(el.value)), "");
   }
 
   static splitStringIntoLettersArray(string) {
-    return string.split('').reduce((acc, el, i) => {
+    return string.split("").reduce((acc, el, i) => {
       acc.push({ value: el });
       return acc;
     }, [])
@@ -100,23 +97,23 @@ class ThesaurusInput extends React.Component {
   static synonymsFormatter(synonyms) {
     const formattedSynonyms = [];
     if (!synonyms) { return formattedSynonyms.push([undefined]); }
-    synonyms.response.forEach(({ list: { synonyms: synonymsString }}) => {
-      synonymsString.split('|')
+    synonyms.response.forEach(({ list: { synonyms: synonymsString } }) => {
+      synonymsString.split("|")
         .forEach((synonym) => {
-          formattedSynonyms.push(synonym.split(' ')[0]);
+          formattedSynonyms.push(synonym.split(" ")[0]);
         });
-    })
+    });
     return formattedSynonyms;
   }
 
   static handleCursorMove(state, direction) {
-    const directionIncrement = direction === 'Right' ? 1 : -1;
+    const directionIncrement = direction === "Right" ? 1 : -1;
     const { words, maxLeft, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
     const adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
 
     const pressingRightWhenAlreadyRight = !adjacentLetter && !words[wordIndex + 1] && direction === "Right";
-    const pressingLeftWhenAlreadyLeft = direction === 'Left' && wordIndex === 0 && characterIndex === 0;
-    const pressingRightWhenMaxLeft = direction === 'Right' && maxLeft;
+    const pressingLeftWhenAlreadyLeft = direction === "Left" && wordIndex === 0 && characterIndex === 0;
+    const pressingRightWhenMaxLeft = direction === "Right" && maxLeft;
     const noMoreLettersInWord = !adjacentLetter;
 
     if (pressingRightWhenAlreadyRight) {
@@ -132,7 +129,7 @@ class ThesaurusInput extends React.Component {
     }
     if (noMoreLettersInWord) {
       state.maxLeft = false;
-      const indexOfLetterInAdjacentWord = direction === 'Right' ? 0 : words[wordIndex - 1].length - 1;
+      const indexOfLetterInAdjacentWord = direction === "Right" ? 0 : words[wordIndex - 1].length - 1;
       cursorAfter.wordIndex += directionIncrement;
       cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
       return;
@@ -144,12 +141,8 @@ class ThesaurusInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      words: [
-        // [{ value: 'h' }, { value: 'e' }, { value: 'y' }],
-        // [{ value: ' ' }],
-        // [{ value: 'f' }, { value: 'r' }, { value: 'i' }, { value: 'e' }, { value: 'n' }, { value: 'd' }],
-      ],
-      synonyms: [/*['hello', 'hi', 'hey'], [], ['pal', 'buddy', 'companion']*/],
+      words: [],
+      synonyms: [],
       cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
       maxLeft: true,
     };
@@ -159,34 +152,29 @@ class ThesaurusInput extends React.Component {
 
 
   getSynonyms(word, wordIndex) {  
-    if(window.testNum === undefined){window.testNum = 0}
+    // if(window.testNum === undefined){window.testNum = 0}
 
-    this.setState((state)=>{
-      state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
-    });    
+    // this.setState((state)=>{
+    //   state.synonyms[wordIndex] = [window.testNum, window.testNum, window.testNum, window.testNum];
+    // });    
 
-    window.testNum += 1;
+    // window.testNum += 1;
 
-    // console.log('GET SYNONYMS IS BEING CALLED!!! ', word)  
-    // axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
-    //   { timeout: 3500 })
-    //   .then((result) => {
-    //     this.setState((state)=>{
-    //       state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
-    //     });
-    //   })
-    //   .catch((err)=>{
-    //     reject(err);
-    //   })    
+    axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
+      { timeout: 3500 })
+      .then((result) => {
+        this.setState((state) => {
+          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+          return state;
+        });
+      })
+      .catch((err)=>{
+        console.log("This is th err ", err)
+        reject(err);
+      })    
   }
 
-  handleLetterClick(characterIndex, wordIndex) {
-    this.setState((state) => {
-      state.cursorAfter.wordIndex = wordIndex;
-      state.cursorAfter.characterIndex = characterIndex;
-      return state;
-    });
-  }
+
 
   determineClassName(wordIndex) {
     if(!this.state.synonyms[wordIndex]) {
@@ -202,8 +190,8 @@ class ThesaurusInput extends React.Component {
   handleWordUpdate(state, wordIndex = this.state.cursorAfter.wordIndex) {
     state.synonyms[wordIndex] = [];
     const word = this.state.words[wordIndex];
-    clearTimeout(window['word' + wordIndex]);
-    window['word' + wordIndex] = setTimeout(() => {
+    clearTimeout(window["word" + wordIndex]);
+    window["word" + wordIndex] = setTimeout(() => {
       this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex)
     }, 1000)
   }
@@ -211,7 +199,7 @@ class ThesaurusInput extends React.Component {
 
 
   handleSynonymClick(synonym, wordIndex) {
-    this.setState((state)=>{
+    this.setState((state) => {
       state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
       if (state.cursorAfter.wordIndex === wordIndex) {
         state.cursorAfter.characterIndex = synonym.length - 1;
@@ -227,8 +215,8 @@ class ThesaurusInput extends React.Component {
 
     if (isAtMaxLeft) {
       return this.setState((state)=>{
-        state.words.unshift([{ value: ' ' }])
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        state.words.unshift([{ value: " " }])
+        ThesaurusInput.handleCursorMove(state, "Right");
         state.maxLeft = false;
         return state;
       });
@@ -237,39 +225,42 @@ class ThesaurusInput extends React.Component {
     const prevCharacter = words[wordIndex][characterIndex];
     const nextCharacter = words[wordIndex][characterIndex + 1];
 
-    const prevCharacterIsSpace = prevCharacter.value === ' ';
-    const firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === ' ';
+    const prevCharacterIsSpace = prevCharacter.value === " ";
+    const firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === " ";
     const addingSpaceToMiddleOfWord = nextCharacter;
 
     if (prevCharacterIsSpace) {
       return this.setState((state)=>{
-        state.words[wordIndex].push({ value: ' ' });
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        state.words[wordIndex].push({ value: " " });
+        ThesaurusInput.handleCursorMove(state, "Right");
         return state;
       });
     }
 
     if (firstCharacterInNextWordIsSpace) {
       return this.setState((state)=>{
-        state.words[wordIndex + 1].unshift({ value: ' ' });
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        state.words[wordIndex + 1].unshift({ value: " " });
+        ThesaurusInput.handleCursorMove(state, "Right");
         return state;
       });
       
 
     }
     if (addingSpaceToMiddleOfWord) {
+      // this should make a change request for both words.
       return this.setState((state)=>{
         const newWord = state.words[wordIndex].splice(characterIndex + 1)
-        state.words.splice(wordIndex + 1, 0, [{ value: ' ' }], newWord);
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        state.words.splice(wordIndex + 1, 0, [{ value: " " }], newWord);
+        ThesaurusInput.handleCursorMove(state, "Right");
+        this.handleWordUpdate(state, this.state.cursorAfter.wordIndex + 1)
+        this.handleWordUpdate(state, this.state.cursorAfter.wordIndex - 1)
         return state;
       });
     }
 
     this.setState((state)=>{
-      state.words.splice(wordIndex + 1, 0, [{ value: ' ' }]);
-      ThesaurusInput.handleCursorMove(state, 'Right');
+      state.words.splice(wordIndex + 1, 0, [{ value: " " }]);
+      ThesaurusInput.handleCursorMove(state, "Right");
       return state;
     });
     // this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(words[wordIndex]), wordIndex);
@@ -280,7 +271,7 @@ class ThesaurusInput extends React.Component {
   handleKeyboardInput(character) {
     this.props.keyboardCallback();
     const isNonCharacterInput = character.length > 1;
-    const isSpaceBar = character === ' ';
+    const isSpaceBar = character === " ";
     
     if (isNonCharacterInput) { return; }
     if (isSpaceBar) { return this.handleSpaceBar(); } 
@@ -292,7 +283,7 @@ class ThesaurusInput extends React.Component {
       return this.setState((state) => {
         state.words.splice(0, 0, [{ value: character }]);
         state.maxLeft = false;
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        ThesaurusInput.handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
       });
@@ -301,13 +292,13 @@ class ThesaurusInput extends React.Component {
     const { words, cursorAfter: { wordIndex, characterIndex } } = this.state;
     const prevCharacter = words[wordIndex][characterIndex];
     
-    const spaceBeforeAndNoWordAfter = prevCharacter.value === ' ' && (!words[wordIndex + 1]);
-    const spaceBeforeAndWordAfter = prevCharacter.value === ' ' && (words[wordIndex + 1] && words[wordIndex + 1][0]);
+    const spaceBeforeAndNoWordAfter = prevCharacter.value === " " && (!words[wordIndex + 1]);
+    const spaceBeforeAndWordAfter = prevCharacter.value === " " && (words[wordIndex + 1] && words[wordIndex + 1][0]);
 
     if (spaceBeforeAndNoWordAfter) {
       return this.setState((state) => {
         state.words.splice(wordIndex + 1, 0, [{ value: character }])
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        ThesaurusInput.handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
       });
@@ -316,7 +307,7 @@ class ThesaurusInput extends React.Component {
     if (spaceBeforeAndWordAfter) {
       return this.setState((state) => {
         state.words[wordIndex + 1].splice(0, 0, { value: character })
-        ThesaurusInput.handleCursorMove(state, 'Right');
+        ThesaurusInput.handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
       });
@@ -325,7 +316,7 @@ class ThesaurusInput extends React.Component {
     // else add to current word
     this.setState((state)=>{              
       state.words[wordIndex].splice(characterIndex + 1, 0, { value: character })
-      ThesaurusInput.handleCursorMove(state, 'Right');
+      ThesaurusInput.handleCursorMove(state, "Right");
       this.handleWordUpdate(state);
       return state;
     });
@@ -343,30 +334,33 @@ class ThesaurusInput extends React.Component {
     const prevWord = words[wordIndex - 1];
     const nextWord = words[wordIndex + 1];
 
-    const deletingSingleSpaceBetweenTwoWords = characterToDelete.value === ' ' && currentWord.length === 1 && prevWord && nextWord;
+    const deletingSingleSpaceBetweenTwoWords = characterToDelete.value === " " && currentWord.length === 1 && prevWord && nextWord;
     const deletingLastLetterInWord = currentWord.length === 1;
 
     if (deletingSingleSpaceBetweenTwoWords) {
       return this.setState((state)=>{
-        ThesaurusInput.handleCursorMove(state, 'Left')
+        ThesaurusInput.handleCursorMove(state, "Left")
         const combinedWords = [...prevWord, ...nextWord];
         state.words.splice(wordIndex - 1, 3, combinedWords);
+        this.handleWordUpdate(state)
         return state;
       });
     } 
 
     if (deletingLastLetterInWord) {
       return this.setState((state)=>{
-        ThesaurusInput.handleCursorMove(state, 'Left')
+        ThesaurusInput.handleCursorMove(state, "Left")
         state.words.splice(wordIndex, 1);
+        this.handleWordUpdate(state)
         return state;
       });
     }
 
     // if character has another character before it in the word, only delete that one character
     this.setState((state)=>{
-      ThesaurusInput.handleCursorMove(state, 'Left')
+      ThesaurusInput.handleCursorMove(state, "Left")
       state.words[wordIndex].splice(characterIndex, 1);
+      this.handleWordUpdate(state)
       return state;
     });
   } 
@@ -393,9 +387,9 @@ class ThesaurusInput extends React.Component {
         autoFocus="true"
         tabIndex="0"
         onKeyDown={(e) => {
-          if (e.key === 'Backspace') {
+          if (e.key === "Backspace") {
             this.handleDelete()
-          } else if (e.key.slice(0,5) === 'Arrow') {
+          } else if (e.key.slice(0,5) === "Arrow") {
             this.handleArrows(e.key.slice(5));
           } else {
             this.handleKeyboardInput(e.key);
@@ -405,7 +399,10 @@ class ThesaurusInput extends React.Component {
 
         {this.state.words.map((word, j) => {
           return word[0].value !== " " ? ( 
-            <span className={this.determineClassName(j)}>  
+            <span 
+              key={word[0].value + j}
+              className={this.determineClassName(j)}
+            >  
               {word.map((charObj, i) => {
                 return (
                   <ThesaurusLetter
@@ -421,8 +418,9 @@ class ThesaurusInput extends React.Component {
               })}
               {this.state.synonyms[j] && this.state.synonyms[j].length > 0 ? (
                 <span className={dropDown}>
-                  {this.state.synonyms[j].map(synonym => (
+                  {this.state.synonyms[j].map((synonym, k) => (
                     <div 
+                      key={k}
                       onClick={()=>{this.handleSynonymClick(synonym, j)}}
                       className={synonymCSS}>
                       {synonym}
@@ -432,7 +430,9 @@ class ThesaurusInput extends React.Component {
                 : null
               }
             </span> ) : (
-              <span className={spaceCSS}>  
+              <span 
+              key={word[0].value + j}
+              className={spaceCSS}>  
                 {word.map((charObj, i) => {
                   return (
                     <ThesaurusLetter

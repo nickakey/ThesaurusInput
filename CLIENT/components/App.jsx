@@ -3,9 +3,6 @@ import { css } from 'react-emotion';
 import { injectGlobal } from 'emotion';
 import axios from 'axios-jsonp-pro';
 import { synonymsFormatter } from '../utilities';
-import SentenceRoller from './SentenceRoller';
-import KeyWordInputWindow from './KeyWordInputWindow';
-import LoadingScreen from './LoadingScreen';
 import ThesaurusInput from '../reusableComponents/ThesaurusInput';
 
 /* eslint-disable */
