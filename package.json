@@ -5,7 +5,8 @@
   "main": "App.js",
   "scripts": {
     "compile": "webpack --watch",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "devtest": "jest --watch"
   },
   "repository": {
     "type": "git",
