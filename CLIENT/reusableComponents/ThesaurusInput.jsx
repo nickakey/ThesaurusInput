@@ -141,8 +141,8 @@ class ThesaurusInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      words: [[ { value: "h" }, { value: "i" } ]],
-      synonyms: [["hello", "hey"]],
+      words: [],
+      synonyms: [],
       cursorAfter: { wordIndex: 0, characterIndex: 0 }, 
       maxLeft: true,
     };
@@ -160,7 +160,6 @@ class ThesaurusInput extends React.Component {
 
     // window.testNum += 1;
 
-    // console.log("GET SYNONYMS IS BEING CALLED!!! ", word)  
     axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
       { timeout: 3500 })
       .then((result) => {
@@ -170,17 +169,12 @@ class ThesaurusInput extends React.Component {
         });
       })
       .catch((err)=>{
+        console.log("This is th err ", err)
         reject(err);
       })    
   }
 
-  handleLetterClick(characterIndex, wordIndex) {
-    this.setState((state) => {
-      state.cursorAfter.wordIndex = wordIndex;
-      state.cursorAfter.characterIndex = characterIndex;
-      return state;
-    });
-  }
+
 
   determineClassName(wordIndex) {
     if(!this.state.synonyms[wordIndex]) {
@@ -253,10 +247,13 @@ class ThesaurusInput extends React.Component {
 
     }
     if (addingSpaceToMiddleOfWord) {
+      // this should make a change request for both words.
       return this.setState((state)=>{
         const newWord = state.words[wordIndex].splice(characterIndex + 1)
         state.words.splice(wordIndex + 1, 0, [{ value: " " }], newWord);
         ThesaurusInput.handleCursorMove(state, "Right");
+        this.handleWordUpdate(state, this.state.cursorAfter.wordIndex + 1)
+        this.handleWordUpdate(state, this.state.cursorAfter.wordIndex - 1)
         return state;
       });
     }
@@ -345,6 +342,7 @@ class ThesaurusInput extends React.Component {
         ThesaurusInput.handleCursorMove(state, "Left")
         const combinedWords = [...prevWord, ...nextWord];
         state.words.splice(wordIndex - 1, 3, combinedWords);
+        this.handleWordUpdate(state)
         return state;
       });
     } 
@@ -353,6 +351,7 @@ class ThesaurusInput extends React.Component {
       return this.setState((state)=>{
         ThesaurusInput.handleCursorMove(state, "Left")
         state.words.splice(wordIndex, 1);
+        this.handleWordUpdate(state)
         return state;
       });
     }
@@ -361,6 +360,7 @@ class ThesaurusInput extends React.Component {
     this.setState((state)=>{
       ThesaurusInput.handleCursorMove(state, "Left")
       state.words[wordIndex].splice(characterIndex, 1);
+      this.handleWordUpdate(state)
       return state;
     });
   } 
@@ -399,7 +399,10 @@ class ThesaurusInput extends React.Component {
 
         {this.state.words.map((word, j) => {
           return word[0].value !== " " ? ( 
-            <span className={this.determineClassName(j)}>  
+            <span 
+              key={word[0].value + j}
+              className={this.determineClassName(j)}
+            >  
               {word.map((charObj, i) => {
                 return (
                   <ThesaurusLetter
@@ -415,8 +418,9 @@ class ThesaurusInput extends React.Component {
               })}
               {this.state.synonyms[j] && this.state.synonyms[j].length > 0 ? (
                 <span className={dropDown}>
-                  {this.state.synonyms[j].map(synonym => (
+                  {this.state.synonyms[j].map((synonym, k) => (
                     <div 
+                      key={k}
                       onClick={()=>{this.handleSynonymClick(synonym, j)}}
                       className={synonymCSS}>
                       {synonym}
@@ -426,7 +430,9 @@ class ThesaurusInput extends React.Component {
                 : null
               }
             </span> ) : (
-              <span className={spaceCSS}>  
+              <span 
+              key={word[0].value + j}
+              className={spaceCSS}>  
                 {word.map((charObj, i) => {
                   return (
                     <ThesaurusLetter
