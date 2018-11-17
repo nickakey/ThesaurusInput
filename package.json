@@ -1,8 +1,8 @@
 {
-  "name": "sentenceroller",
+  "name": "ThesaurusInput",
   "version": "1.0.0",
   "description": "Expand your vocabulary",
-  "main": "App.js",
+  "main": "CLIENT/index.js",
   "scripts": {
     "compile": "webpack --watch",
     "test": "jest --watch",
@@ -10,14 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nickakey/SentenceRoller.git"
+    "url": "https://github.com/nickakey/ThesaurusInput"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nickakey/SentenceRoller/issues"
+    "url": "https://github.com/nickakey/ThesaurusInput/issues"
   },
-  "homepage": "https://github.com/nickakey/SentenceRoller#readme",
+  "files": ["CLIENT"],
+  "homepage": "https://github.com/nickakey/ThesaurusInput#readme",
   "dependencies": {
     "axios": "0.18.0",
     "axios-jsonp": "^1.0.2",
