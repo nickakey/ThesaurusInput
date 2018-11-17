@@ -1,6 +1,8 @@
 import React from 'react';
 import { injectGlobal } from 'emotion';
-import ThesaurusInput from '../reusableComponents/ThesaurusInput';
+import ThesaurusInputConstructor from '../reusableComponents/ThesaurusInput';
+
+const ThesaurusInput = ThesaurusInputConstructor("yj7S3AHHSC5OTOF3rJhK");
 
 /* eslint-disable */
 injectGlobal`
@@ -18,6 +20,6 @@ injectGlobal`
   }
 `
 
-const App = () => <ThesaurusInput thesaurus={false} onChange={(text)=>{console.log(text)}}/>
+const App = () => <ThesaurusInput onChange={(text)=>{console.log(text)}}/>
 
 export default App;

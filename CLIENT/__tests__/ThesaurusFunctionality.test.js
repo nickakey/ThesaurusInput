@@ -2,7 +2,8 @@
 import { render, fireEvent, cleanup, getNodeText } from "react-testing-library";
 import React from "react";
 import axios from "axios-jsonp-pro";
-import ThesaurusInput from "../reusableComponents/ThesaurusInput.jsx";
+import ThesaurusInputConstructor from "../reusableComponents/ThesaurusInput.jsx";
+const ThesaurusInput = ThesaurusInputConstructor("TESTKEY")
 import randomLetter from "random-letter";
 jest.mock("axios-jsonp-pro");
 
@@ -17,7 +18,7 @@ const mockThesaurusResponseData = {
 let onChange;
 let input;
 
-function generateURL(word){return `http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`}
+function generateURL(word){return `http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=TESTKEY`}
 function numOfWords() {
   const words = input.children;
   let count = 0;

@@ -2,7 +2,8 @@
 import { render, fireEvent, cleanup, getNodeText } from "react-testing-library";
 import React from "react";
 import axios from "axios-jsonp-pro";
-import ThesaurusInput from "../reusableComponents/ThesaurusInput.jsx";
+import ThesaurusInputConstructor from "../reusableComponents/ThesaurusInput.jsx";
+const ThesaurusInput = ThesaurusInputConstructor("TESTKEY")
 import randomLetter from "random-letter";
 jest.mock("axios-jsonp-pro");
 
@@ -17,7 +18,7 @@ const mockThesaurusResponseData = {
 let onChange;
 let input;
 
-function generateURL(word){return `http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`}
+function generateURL(word){return `http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=TESTKEY`}
 function numOfWords() {
   const words = input.children;
   let count = 0;
@@ -60,7 +61,6 @@ function arrowRight() { typeCharacter("ArrowRight"); }
 function typeBackspace() { typeCharacter("Backspace"); }
 
 beforeEach(() => {
-  console.log("before each runs")
   axios.jsonp.mockClear();
   axios.jsonp.mockReset();
   input = null;  
@@ -133,24 +133,6 @@ test("When prop placeholder included, placeholder text matches prop", () => {
 })
 
 
-
-/*
-  CLASSES object
-  with the following keys
-    -character
-    -blink
-    -cursorAfterElement
-    -cursorBeforeElement
-    -SpaceCSS
-    -wordCSS
-    -greenWordCSS
-    -SynonymCSS
-    -input
-*/
-
-
-
-
 test("when a synonym is chosen, onchange is called", (done) => {
   jest.useFakeTimers();
   const someLetter = randomLetter();
@@ -190,3 +172,16 @@ test("if thesaurus prop false, thesaurus functionality disabled", () => {
 })
 
 
+/*
+  CLASSES object
+  with the following keys
+    -character
+    -blink
+    -cursorAfterElement
+    -cursorBeforeElement
+    -SpaceCSS
+    -wordCSS
+    -greenWordCSS
+    -SynonymCSS
+    -input
+*/
