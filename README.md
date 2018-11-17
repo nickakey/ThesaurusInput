@@ -11,9 +11,17 @@ A open source React input component, where synonyms are automatically generated 
 
 ## PROPS
 
+### onChange
+_function_
+Callback invoked when the value is changed.
+Invoked with a a string representing the state of the input field
+
 ### id
+_string_
+The id of the input element.
 
-
-
-
+### thesaurus
+_boolean_
+Set to false if you don't want the thesaurus functionality
+(true by default)
 
