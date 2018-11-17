@@ -18,6 +18,6 @@ injectGlobal`
   }
 `
 
-const App = () => <ThesaurusInput onChange={(text)=>{console.log(text)}}/>
+const App = () => <ThesaurusInput thesaurus={false} onChange={(text)=>{console.log(text)}}/>
 
 export default App;

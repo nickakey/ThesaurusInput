@@ -23387,7 +23387,7 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 (0, _emotion.injectGlobal)(_templateObject);
 
 var App = function App() {
-  return _react2.default.createElement(_ThesaurusInput2.default, { onChange: function onChange(text) {
+  return _react2.default.createElement(_ThesaurusInput2.default, { thesaurus: false, onChange: function onChange(text) {
       console.log(text);
     } });
 };
@@ -26040,6 +26040,8 @@ function logState() {
   console.log("this is the state ", this.state);
 }
 
+var waitingWordRequests = {};
+
 var placeHolderText = (0, _reactEmotion.css)(_templateObject);
 
 var dropDown = (0, _reactEmotion.css)(_templateObject2);
@@ -26151,6 +26153,15 @@ var ThesaurusInput = function (_React$Component) {
     return _this;
   }
 
+  // componentWillUnmount(){
+  //   console.log("clear all timeouts ", clearAllTimeouts.last);
+
+  //   for (const request in waitingWordRequests) {
+  //     clearTimeout(waitingWordRequests[request]);
+  //   }
+  // }
+
+
   _createClass(ThesaurusInput, [{
     key: "handleOnChangeCallback",
     value: function handleOnChangeCallback() {
@@ -26161,6 +26172,10 @@ var ThesaurusInput = function (_React$Component) {
     value: function getSynonyms(word, wordIndex) {
       var _this2 = this;
 
+      console.log("get synonyms is firing! ");
+      if (this.props.thesaurus === false) {
+        return;
+      }
       _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + word + "&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK", { timeout: 3500 }).then(function (result) {
         _this2.setState(function (state) {
           state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
@@ -26192,10 +26207,13 @@ var ThesaurusInput = function (_React$Component) {
 
       state.synonyms[wordIndex] = [];
       var word = this.state.words[wordIndex];
-      clearTimeout(window["word" + wordIndex]);
-      window["word" + wordIndex] = setTimeout(function () {
-        _this3.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex);
-      }, 1000);
+      clearTimeout(waitingWordRequests["word" + wordIndex]);
+      if (word && this.props.thesaurus !== false) {
+
+        waitingWordRequests["word" + wordIndex] = setTimeout(function () {
+          _this3.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex);
+        }, 1000);
+      }
     }
   }, {
     key: "handleSynonymClick",
@@ -26209,7 +26227,7 @@ var ThesaurusInput = function (_React$Component) {
         }
         _this4.handleWordUpdate(state, wordIndex);
         return state;
-      });
+      }, this.handleOnChangeCallback);
     }
   }, {
     key: "handleSpaceBar",

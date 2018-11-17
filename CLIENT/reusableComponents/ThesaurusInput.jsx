@@ -8,6 +8,8 @@ function logState() {
   console.log("this is the state ", this.state);
 }
 
+const waitingWordRequests = {};
+
 const placeHolderText = css`
   margin: 5px 0px 5px 0px;
   padding: 5px 3px 5px 3px;
@@ -92,8 +94,10 @@ const input = css`
 `;
 
 class ThesaurusInput extends React.Component {
-  static convertWordsStateIntoString(words){
-    return words.reduce((wordsString, word) => (wordsString.concat(ThesaurusInput.convertWordArrayIntoString(word))), "");
+  static convertWordsStateIntoString(words) {
+    return words.reduce((wordsString, word) => {
+      return wordsString.concat(ThesaurusInput.convertWordArrayIntoString(word))
+    }, "");
   }
 
   static convertWordArrayIntoString(word) {
@@ -162,12 +166,22 @@ class ThesaurusInput extends React.Component {
     this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
   }
 
+  // componentWillUnmount(){
+  //   console.log("clear all timeouts ", clearAllTimeouts.last);
+    
+  //   for (const request in waitingWordRequests) {
+  //     clearTimeout(waitingWordRequests[request]);
+  //   }
+  // }
+
 
   handleOnChangeCallback(){
     this.props.onChange(ThesaurusInput.convertWordsStateIntoString(this.state.words));
   }
 
   getSynonyms(word, wordIndex) {  
+    console.log("get synonyms is firing! ")
+    if(this.props.thesaurus === false){return}
     axios.jsonp(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=en_US&output=json&key=yj7S3AHHSC5OTOF3rJhK`,
       { timeout: 3500 })
       .then((result) => {
@@ -198,10 +212,13 @@ class ThesaurusInput extends React.Component {
   handleWordUpdate(state, wordIndex = this.state.cursorAfter.wordIndex) {
     state.synonyms[wordIndex] = [];
     const word = this.state.words[wordIndex];
-    clearTimeout(window["word" + wordIndex]);
-    window["word" + wordIndex] = setTimeout(() => {
-      this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex)
-    }, 1000)
+    clearTimeout(waitingWordRequests["word" + wordIndex]);
+    if(word && this.props.thesaurus !== false){
+
+      waitingWordRequests["word" + wordIndex] = setTimeout(() => {
+        this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex)
+      }, 1000)
+    }
   }
 
 
@@ -214,7 +231,7 @@ class ThesaurusInput extends React.Component {
       }
       this.handleWordUpdate(state, wordIndex);
       return state;
-    });
+    }, this.handleOnChangeCallback);
   }
 
   handleSpaceBar() {

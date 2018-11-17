@@ -60,6 +60,7 @@ function arrowRight() { typeCharacter("ArrowRight"); }
 function typeBackspace() { typeCharacter("Backspace"); }
 
 beforeEach(() => {
+  axios.jsonp.mockClear(0);
   onChange = jest.fn();
   const { getByTestId } = render(
     <ThesaurusInput onChange={onChange} />,

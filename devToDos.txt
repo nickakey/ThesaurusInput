@@ -1,3 +1,5 @@
+* Let's be real, there should just be no console errors
+
 * Add in instructions on how to get an API key
 
 * Add in an API key instantiator
