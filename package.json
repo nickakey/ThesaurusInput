@@ -1,5 +1,5 @@
 {
-  "name": "ThesaurusInput",
+  "name": "thesaurusinput",
   "version": "1.0.0",
   "description": "Expand your vocabulary",
   "main": "CLIENT/index.js",
