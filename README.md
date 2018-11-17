@@ -6,3 +6,14 @@
 A open source React input component, where synonyms are automatically generated for typed words. 
 
 [![Demo Gif](https://i.imgur.com/FGWCGo5.gif)
+
+## USAGE
+
+## PROPS
+
+### id
+
+
+
+
+
