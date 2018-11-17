@@ -2,7 +2,7 @@
   "name": "thesaurusinput",
   "version": "1.0.0",
   "description": "Expand your vocabulary",
-  "main": "CLIENT/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "compile": "webpack --watch",
     "test": "jest --watch",
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/nickakey/ThesaurusInput/issues"
   },
-  "files": ["CLIENT"],
+  "files": ["dist"],
   "homepage": "https://github.com/nickakey/ThesaurusInput#readme",
   "dependencies": {
     "axios": "0.18.0",
