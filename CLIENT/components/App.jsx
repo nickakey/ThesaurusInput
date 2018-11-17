@@ -1,8 +1,9 @@
 import React from 'react';
 import { injectGlobal } from 'emotion';
 import ThesaurusInputConstructor from '../reusableComponents/ThesaurusInput';
+import apikey from '../../config.js';
 
-const ThesaurusInput = ThesaurusInputConstructor("yj7S3AHHSC5OTOF3rJhK");
+const ThesaurusInput = ThesaurusInputConstructor(apikey);
 
 /* eslint-disable */
 injectGlobal`
