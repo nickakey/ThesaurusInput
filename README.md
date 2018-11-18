@@ -9,28 +9,50 @@ A open source React input component, where synonyms are automatically generated 
 
 ## USAGE
 
+This module is distributed via **npm**
+
+`npm install thesaurus-input`
+
+Use it like you would any react input component
+
+```javascript
+import ThesaurusInput from "thesaurus-input";
+
+const Container = () => (
+  <div className="App">
+    <ThesaurusInput apikey="YOURAPIKEY" onChange={handleChangeFunction}/>
+  </div>
+)
+```
+
+
 ## PROPS
 
+### apikey
+**string** _(required)_:  
+Your API key from [thesaurus.altervista](http://thesaurus.altervista.org)
+
 ### onChange
-_function_
+**function** _(required)_:  
 Callback invoked when the value is changed.
 Invoked with a a string representing the state of the input field
 
 ### thesaurus
-_boolean_
-Set to false if you don't want the thesaurus functionality
+**boolean**  
+Set to false if you don't want thesaurus functionality
 (true by default)
 
 ### placeholder
-_string_
+**string**   
 The short hint displayed in the input before the user enters a value.
+By default "Start typing"
 
 ### id
-_string_
+**string**  
 The id of the input element.
 
 ### className
-_string_
+**string**  
 The CSS class name of the wrapper element.
 
 ### autofocus

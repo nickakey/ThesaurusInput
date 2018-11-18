@@ -2,8 +2,7 @@
 import { render, fireEvent, cleanup, getNodeText } from "react-testing-library";
 import React from "react";
 import axios from "axios-jsonp-pro";
-import ThesaurusInputConstructor from "../CLIENT/reusableComponents/ThesaurusInput.jsx";
-const ThesaurusInput = ThesaurusInputConstructor("TESTKEY")
+import ThesaurusInput from "../CLIENT/reusableComponents/ThesaurusInput.jsx";
 import randomLetter from "random-letter";
 jest.mock("axios-jsonp-pro");
 
@@ -64,7 +63,7 @@ beforeEach(() => {
   axios.jsonp.mockClear(0);
   onChange = jest.fn();
   const { getByTestId } = render(
-    <ThesaurusInput onChange={onChange} />,
+    <ThesaurusInput apikey="TESTKEY" onChange={onChange} />,
   );
   input = getByTestId("input");  
   axios.jsonp.mockImplementation(() => {

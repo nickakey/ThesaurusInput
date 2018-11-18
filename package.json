@@ -1,6 +1,6 @@
 {
-  "name": "thesaurusinput",
-  "version": "1.0.0",
+  "name": "thesaurus-input",
+  "version": "1.0.4",
   "description": "Expand your vocabulary",
   "main": "dist/index.js",
   "scripts": {
@@ -17,7 +17,9 @@
   "bugs": {
     "url": "https://github.com/nickakey/ThesaurusInput/issues"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/nickakey/ThesaurusInput#readme",
   "dependencies": {
     "axios": "0.18.0",
@@ -32,8 +34,8 @@
     "eslint": "^5.8.0",
     "eslint-plugin-jest": "^22.0.0",
     "prop-types": "^15.6.2",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "react-emotion": "^9.2.12",
     "underscore": "^1.9.1",
     "webpack": "3.12.0"

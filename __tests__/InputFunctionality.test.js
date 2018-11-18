@@ -1,8 +1,7 @@
 import React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
 import randomLetter from "random-letter";
-import ThesaurusInputConstructor from "../CLIENT/reusableComponents/ThesaurusInput.jsx";
-const ThesaurusInput = ThesaurusInputConstructor()
+import ThesaurusInput from "../CLIENT/reusableComponents/ThesaurusInput.jsx";
 
 let onChange;
 let input;
@@ -44,7 +43,7 @@ function typeBackspace() { typeCharacter("Backspace"); }
 beforeEach(() => {
   onChange = jest.fn();
   const { getByTestId } = render(
-    <ThesaurusInput onChange={onChange} />,
+    <ThesaurusInput apikey="TESTKEY" onChange={onChange} />,
   );
   input = getByTestId("input");
 });

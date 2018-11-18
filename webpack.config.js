@@ -3,12 +3,12 @@ const path = require('path');
 module.exports = {
   context: path.join(__dirname, 'CLIENT'),
   entry: [
-    './components/main.jsx',
+    './reusableComponents/ThesaurusInput.jsx',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'index.js',
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs2',
   },
   module: {
     loaders: [
