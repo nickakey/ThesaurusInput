@@ -1222,6 +1222,10 @@ var _ThesaurusLetter = __webpack_require__(51);
 
 var _ThesaurusLetter2 = _interopRequireDefault(_ThesaurusLetter);
 
+var _Dropdown = __webpack_require__(65);
+
+var _Dropdown2 = _interopRequireDefault(_Dropdown);
+
 var _helpers = __webpack_require__(52);
 
 var _helpers2 = _interopRequireDefault(_helpers);
@@ -1234,7 +1238,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/* eslint-disable */
 
 
 var ThesaurusInput = function (_React$Component) {
@@ -1304,22 +1309,7 @@ var ThesaurusInput = function (_React$Component) {
                 charObj: charObj
               });
             }),
-            _this2.state.synonyms[j] && _this2.state.synonyms[j].length > 0 ? _react2.default.createElement(
-              "span",
-              { className: _ThesaurusInputStyle.dropDown },
-              _this2.state.synonyms[j].map(function (synonym, k) {
-                return _react2.default.createElement(
-                  "div",
-                  {
-                    key: k,
-                    onClick: function onClick() {
-                      _this2.handleSynonymClick(synonym, j);
-                    },
-                    className: _ThesaurusInputStyle.synonymCSS },
-                  synonym
-                );
-              })
-            ) : null
+            _react2.default.createElement(_Dropdown2.default, { synonyms: _this2.state.synonyms[j], handleSynonymClick: _this2.handleSynonymClick, wordIndex: j })
           ) : _react2.default.createElement(
             "span",
             {
@@ -5019,44 +5009,38 @@ function synonymsFormatter(synonyms) {
 
 
 var _templateObject = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"], ["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"]),
-    _templateObject4 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"]),
-    _templateObject5 = _taggedTemplateLiteral(["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"], ["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"]),
-    _templateObject6 = _taggedTemplateLiteral(["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"], ["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"]),
-    _templateObject7 = _taggedTemplateLiteral(["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"], ["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"]),
-    _templateObject8 = _taggedTemplateLiteral(["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"], ["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"]),
-    _templateObject9 = _taggedTemplateLiteral(["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"], ["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"]);
+    _templateObject2 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"]),
+    _templateObject4 = _taggedTemplateLiteral(["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"], ["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"]),
+    _templateObject5 = _taggedTemplateLiteral(["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"], ["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"]),
+    _templateObject6 = _taggedTemplateLiteral(["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"], ["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"]),
+    _templateObject7 = _taggedTemplateLiteral(["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"], ["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"]);
 
 var _reactEmotion = __webpack_require__(3);
+
+var _DropdownStyle = __webpack_require__(66);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var placeHolderText = (0, _reactEmotion.css)(_templateObject);
 
-var dropDown = (0, _reactEmotion.css)(_templateObject2);
+var spaceCSS = (0, _reactEmotion.css)(_templateObject2);
 
-var spaceCSS = (0, _reactEmotion.css)(_templateObject3);
+var wordCSS = (0, _reactEmotion.css)(_templateObject3, _DropdownStyle.dropDownCSS);
 
-var wordCSS = (0, _reactEmotion.css)(_templateObject4, dropDown);
+var greenWordCSS = (0, _reactEmotion.css)(_templateObject4);
 
-var greenWordCSS = (0, _reactEmotion.css)(_templateObject5);
+var input = (0, _reactEmotion.css)(_templateObject5);
 
-var synonymCSS = (0, _reactEmotion.css)(_templateObject6);
+var blink = (0, _reactEmotion.keyframes)(_templateObject6);
 
-var input = (0, _reactEmotion.css)(_templateObject7);
-
-var blink = (0, _reactEmotion.keyframes)(_templateObject8);
-
-var cursorBeforeElement = (0, _reactEmotion.css)(_templateObject9, blink);
+var cursorBeforeElement = (0, _reactEmotion.css)(_templateObject7, blink);
 
 module.exports = {
   placeHolderText: placeHolderText,
-  dropDown: dropDown,
   spaceCSS: spaceCSS,
   wordCSS: wordCSS,
   greenWordCSS: greenWordCSS,
-  synonymCSS: synonymCSS,
   input: input,
   blink: blink,
   cursorBeforeElement: cursorBeforeElement
@@ -5421,6 +5405,78 @@ function handleArrows(direction) {
     });
   }
 }
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _DropdownStyle = __webpack_require__(66);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Dropdown = function Dropdown(_ref) {
+  var synonyms = _ref.synonyms,
+      handleSynonymClick = _ref.handleSynonymClick,
+      wordIndex = _ref.wordIndex;
+
+  if (synonyms && synonyms.length) {
+    return _react2.default.createElement(
+      "span",
+      { className: _DropdownStyle.dropDownCSS },
+      synonyms.map(function (synonym, k) {
+        return _react2.default.createElement(
+          "div",
+          {
+            key: k,
+            onClick: function onClick() {
+              handleSynonymClick(synonym, wordIndex);
+            },
+            className: _DropdownStyle.synonymCSS
+          },
+          synonym
+        );
+      })
+    );
+  } else {
+    return null;
+  }
+};
+
+exports.default = Dropdown;
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _templateObject = _taggedTemplateLiteral(["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"], ["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"], ["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"]);
+
+var _reactEmotion = __webpack_require__(3);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var dropDownCSS = (0, _reactEmotion.css)(_templateObject);
+
+var synonymCSS = (0, _reactEmotion.css)(_templateObject2);
+
+module.exports = {
+  dropDownCSS: dropDownCSS,
+  synonymCSS: synonymCSS
+};
 
 /***/ })
 /******/ ]);

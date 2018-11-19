@@ -1,15 +1,15 @@
+
 /* eslint-disable */
 import React from "react";
 import { css, keyframes } from "react-emotion";
 import ThesaurusLetter from "./ThesaurusLetter";
+import Dropdown from './Dropdown';
 import importHelpers from "../helpers";
 import { 
   placeHolderText, 
-  dropDown, 
   spaceCSS,
   wordCSS,
   greenWordCSS,
-  synonymCSS,
   input,
   blink,
   cursorBeforeElement
@@ -71,19 +71,9 @@ import {
                   />
                 )
               })}
-              {this.state.synonyms[j] && this.state.synonyms[j].length > 0 ? (
-                <span className={dropDown}>
-                  {this.state.synonyms[j].map((synonym, k) => (
-                    <div 
-                      key={k}
-                      onClick={()=>{this.handleSynonymClick(synonym, j)}}
-                      className={synonymCSS}>
-                      {synonym}
-                    </div>
-                  ))} 
-                </span>) 
-                : null
-              }
+              
+              <Dropdown synonyms={this.state.synonyms[j]} handleSynonymClick={this.handleSynonymClick} wordIndex={j}/>
+              
             </span> ) : (
               <span 
               key={word[0].value + j}
