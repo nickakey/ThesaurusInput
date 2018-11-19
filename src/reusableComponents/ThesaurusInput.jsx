@@ -1,3 +1,8 @@
+import { handleCursorMove } from './../helpers/handleCursorMove';
+import { synonymsFormatter } from './../helpers/synonymsFormatter';
+import { splitStringIntoLettersArray } from './../helpers/splitStringIntoLettersArray';
+import { convertWordArrayIntoString } from './../helpers/convertWordArrayIntoString';
+import { convertWordsStateIntoString } from './../helpers/convertWordStateIntoString';
 /* eslint-disable */
 import React from "react";
 import { css, keyframes } from "react-emotion";
@@ -22,68 +27,7 @@ function logState() {
 const waitingWordRequests = {};
 
 
-
 class ThesaurusInput extends React.Component {
-  static convertWordsStateIntoString(words) {
-    return words.reduce((wordsString, word) => {
-      return wordsString.concat(ThesaurusInput.convertWordArrayIntoString(word))
-    }, "");
-  }
-
-  static convertWordArrayIntoString(word) {
-    return word.reduce((wordString, letter) => (wordString.concat(letter.value)), "");
-  }
-
-  static splitStringIntoLettersArray(string) {
-    return string.split("").reduce((acc, el, i) => {
-      acc.push({ value: el });
-      return acc;
-    }, [])
-  }
-
-  static synonymsFormatter(synonyms) {
-    const formattedSynonyms = [];
-    if (!synonyms) { return formattedSynonyms.push([undefined]); }
-    synonyms.response.forEach(({ list: { synonyms: synonymsString } }) => {
-      synonymsString.split("|")
-        .forEach((synonym) => {
-          formattedSynonyms.push(synonym.split(" ")[0]);
-        });
-    });
-    return formattedSynonyms;
-  }
-
-  static handleCursorMove(state, direction) {
-    const directionIncrement = direction === "Right" ? 1 : -1;
-    const { words, maxLeft, cursorAfter, cursorAfter: { wordIndex, characterIndex } } = state;
-    const adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
-
-    const pressingRightWhenAlreadyRight = !adjacentLetter && !words[wordIndex + 1] && direction === "Right";
-    const pressingLeftWhenAlreadyLeft = direction === "Left" && wordIndex === 0 && characterIndex === 0;
-    const pressingRightWhenMaxLeft = direction === "Right" && maxLeft;
-    const noMoreLettersInWord = !adjacentLetter;
-
-    if (pressingRightWhenAlreadyRight) {
-      return;
-    }
-    if (pressingLeftWhenAlreadyLeft) {
-      state.maxLeft = true;
-      return;
-    }
-    if (pressingRightWhenMaxLeft) {
-      state.maxLeft = false;
-      return;
-    }
-    if (noMoreLettersInWord) {
-      state.maxLeft = false;
-      const indexOfLetterInAdjacentWord = direction === "Right" ? 0 : words[wordIndex - 1].length - 1;
-      cursorAfter.wordIndex += directionIncrement;
-      cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
-      return;
-    }
-    state.maxLeft = false;
-    cursorAfter.characterIndex += directionIncrement;
-  }
 
   constructor(props) {
     super(props);
@@ -97,7 +41,7 @@ class ThesaurusInput extends React.Component {
   }
 
   handleOnChangeCallback(){
-    this.props.onChange(ThesaurusInput.convertWordsStateIntoString(this.state.words));
+    this.props.onChange(convertWordsStateIntoString(this.state.words));
   }
 
   getSynonyms(word, wordIndex) {  
@@ -106,7 +50,7 @@ class ThesaurusInput extends React.Component {
       { timeout: 3500 })
       .then((result) => {
         this.setState((state) => {
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+          state.synonyms[wordIndex] = synonymsFormatter(result);
           return state;
         });
       })
@@ -135,7 +79,7 @@ class ThesaurusInput extends React.Component {
     if(word && this.props.thesaurus !== false){
 
       waitingWordRequests["word" + wordIndex] = setTimeout(() => {
-        this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex)
+        this.getSynonyms(convertWordArrayIntoString(word), wordIndex)
       }, 1000)
     }
   }
@@ -144,7 +88,7 @@ class ThesaurusInput extends React.Component {
 
   handleSynonymClick(synonym, wordIndex) {
     this.setState((state) => {
-      state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
+      state.words[wordIndex] = splitStringIntoLettersArray(synonym);
       if (state.cursorAfter.wordIndex === wordIndex) {
         state.cursorAfter.characterIndex = synonym.length - 1;
       }
@@ -160,7 +104,7 @@ class ThesaurusInput extends React.Component {
     if (isAtMaxLeft) {
       return this.setState((state)=>{
         state.words.unshift([{ value: " " }])
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         state.maxLeft = false;
         return state;
       }, this.handleOnChangeCallback);
@@ -176,7 +120,7 @@ class ThesaurusInput extends React.Component {
     if (prevCharacterIsSpace) {
       return this.setState((state)=>{
         state.words[wordIndex].push({ value: " " });
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         return state;
       }, this.handleOnChangeCallback);
     }
@@ -184,7 +128,7 @@ class ThesaurusInput extends React.Component {
     if (firstCharacterInNextWordIsSpace) {
       return this.setState((state)=>{
         state.words[wordIndex + 1].unshift({ value: " " });
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         return state;
       }, this.handleOnChangeCallback);
       
@@ -195,7 +139,7 @@ class ThesaurusInput extends React.Component {
       return this.setState((state)=>{
         const newWord = state.words[wordIndex].splice(characterIndex + 1)
         state.words.splice(wordIndex + 1, 0, [{ value: " " }], newWord);
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         this.handleWordUpdate(state, this.state.cursorAfter.wordIndex + 1)
         this.handleWordUpdate(state, this.state.cursorAfter.wordIndex - 1)
         return state;
@@ -204,10 +148,10 @@ class ThesaurusInput extends React.Component {
 
     this.setState((state)=>{
       state.words.splice(wordIndex + 1, 0, [{ value: " " }]);
-      ThesaurusInput.handleCursorMove(state, "Right");
+      handleCursorMove(state, "Right");
       return state;
     }, this.handleOnChangeCallback);
-    // this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(words[wordIndex]), wordIndex);
+    // this.getSynonyms(convertWordArrayIntoString(words[wordIndex]), wordIndex);
   }
 
 
@@ -226,7 +170,7 @@ class ThesaurusInput extends React.Component {
       return this.setState((state) => {
         state.words.splice(0, 0, [{ value: character }]);
         state.maxLeft = false;
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         this.handleWordUpdate(state);
         return state;
       }, this.handleOnChangeCallback);
@@ -241,7 +185,7 @@ class ThesaurusInput extends React.Component {
     if (spaceBeforeAndNoWordAfter) {
       return this.setState((state) => {
         state.words.splice(wordIndex + 1, 0, [{ value: character }])
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
       }, this.handleOnChangeCallback);
@@ -250,7 +194,7 @@ class ThesaurusInput extends React.Component {
     if (spaceBeforeAndWordAfter) {
       return this.setState((state) => {
         state.words[wordIndex + 1].splice(0, 0, { value: character })
-        ThesaurusInput.handleCursorMove(state, "Right");
+        handleCursorMove(state, "Right");
         this.handleWordUpdate(state)
         return state;
       }, this.handleOnChangeCallback);
@@ -259,7 +203,7 @@ class ThesaurusInput extends React.Component {
     // else add to current word
     this.setState((state)=>{              
       state.words[wordIndex].splice(characterIndex + 1, 0, { value: character })
-      ThesaurusInput.handleCursorMove(state, "Right");
+      handleCursorMove(state, "Right");
       this.handleWordUpdate(state);
       return state;
     }, this.handleOnChangeCallback);
@@ -282,7 +226,7 @@ class ThesaurusInput extends React.Component {
 
     if (deletingSingleSpaceBetweenTwoWords) {
       return this.setState((state)=>{
-        ThesaurusInput.handleCursorMove(state, "Left")
+        handleCursorMove(state, "Left")
         const combinedWords = [...prevWord, ...nextWord];
         state.words.splice(wordIndex - 1, 3, combinedWords);
         this.handleWordUpdate(state)
@@ -292,7 +236,7 @@ class ThesaurusInput extends React.Component {
 
     if (deletingLastLetterInWord) {
       return this.setState((state)=>{
-        ThesaurusInput.handleCursorMove(state, "Left")
+        handleCursorMove(state, "Left")
         state.words.splice(wordIndex, 1);
         this.handleWordUpdate(state)
         return state;
@@ -301,7 +245,7 @@ class ThesaurusInput extends React.Component {
 
     // if character has another character before it in the word, only delete that one character
     this.setState((state)=>{
-      ThesaurusInput.handleCursorMove(state, "Left")
+      handleCursorMove(state, "Left")
       state.words[wordIndex].splice(characterIndex, 1);
       this.handleWordUpdate(state)
       return state;
@@ -313,7 +257,7 @@ class ThesaurusInput extends React.Component {
     if(direction === "Left" || direction === "Right") {
       if (this.state.words.length === 0) { return; }
       this.setState((state) => {
-        ThesaurusInput.handleCursorMove(state, direction);
+        handleCursorMove(state, direction);
         return state;
       })
     }

@@ -1171,6 +1171,16 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _handleCursorMove = __webpack_require__(54);
+
+var _synonymsFormatter = __webpack_require__(53);
+
+var _splitStringIntoLettersArray = __webpack_require__(51);
+
+var _convertWordArrayIntoString = __webpack_require__(52);
+
+var _convertWordStateIntoString = __webpack_require__(50);
+
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -1195,7 +1205,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/* eslint-disable */
 
 
 function logState() {
@@ -1206,85 +1217,6 @@ var waitingWordRequests = {};
 
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
-
-  _createClass(ThesaurusInput, null, [{
-    key: "convertWordsStateIntoString",
-    value: function convertWordsStateIntoString(words) {
-      return words.reduce(function (wordsString, word) {
-        return wordsString.concat(ThesaurusInput.convertWordArrayIntoString(word));
-      }, "");
-    }
-  }, {
-    key: "convertWordArrayIntoString",
-    value: function convertWordArrayIntoString(word) {
-      return word.reduce(function (wordString, letter) {
-        return wordString.concat(letter.value);
-      }, "");
-    }
-  }, {
-    key: "splitStringIntoLettersArray",
-    value: function splitStringIntoLettersArray(string) {
-      return string.split("").reduce(function (acc, el, i) {
-        acc.push({ value: el });
-        return acc;
-      }, []);
-    }
-  }, {
-    key: "synonymsFormatter",
-    value: function synonymsFormatter(synonyms) {
-      var formattedSynonyms = [];
-      if (!synonyms) {
-        return formattedSynonyms.push([undefined]);
-      }
-      synonyms.response.forEach(function (_ref) {
-        var synonymsString = _ref.list.synonyms;
-
-        synonymsString.split("|").forEach(function (synonym) {
-          formattedSynonyms.push(synonym.split(" ")[0]);
-        });
-      });
-      return formattedSynonyms;
-    }
-  }, {
-    key: "handleCursorMove",
-    value: function handleCursorMove(state, direction) {
-      var directionIncrement = direction === "Right" ? 1 : -1;
-      var words = state.words,
-          maxLeft = state.maxLeft,
-          cursorAfter = state.cursorAfter,
-          _state$cursorAfter = state.cursorAfter,
-          wordIndex = _state$cursorAfter.wordIndex,
-          characterIndex = _state$cursorAfter.characterIndex;
-
-      var adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
-
-      var pressingRightWhenAlreadyRight = !adjacentLetter && !words[wordIndex + 1] && direction === "Right";
-      var pressingLeftWhenAlreadyLeft = direction === "Left" && wordIndex === 0 && characterIndex === 0;
-      var pressingRightWhenMaxLeft = direction === "Right" && maxLeft;
-      var noMoreLettersInWord = !adjacentLetter;
-
-      if (pressingRightWhenAlreadyRight) {
-        return;
-      }
-      if (pressingLeftWhenAlreadyLeft) {
-        state.maxLeft = true;
-        return;
-      }
-      if (pressingRightWhenMaxLeft) {
-        state.maxLeft = false;
-        return;
-      }
-      if (noMoreLettersInWord) {
-        state.maxLeft = false;
-        var indexOfLetterInAdjacentWord = direction === "Right" ? 0 : words[wordIndex - 1].length - 1;
-        cursorAfter.wordIndex += directionIncrement;
-        cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
-        return;
-      }
-      state.maxLeft = false;
-      cursorAfter.characterIndex += directionIncrement;
-    }
-  }]);
 
   function ThesaurusInput(props) {
     _classCallCheck(this, ThesaurusInput);
@@ -1302,21 +1234,21 @@ var ThesaurusInput = function (_React$Component) {
   }
 
   _createClass(ThesaurusInput, [{
-    key: "handleOnChangeCallback",
+    key: 'handleOnChangeCallback',
     value: function handleOnChangeCallback() {
-      this.props.onChange(ThesaurusInput.convertWordsStateIntoString(this.state.words));
+      this.props.onChange((0, _convertWordStateIntoString.convertWordsStateIntoString)(this.state.words));
     }
   }, {
-    key: "getSynonyms",
+    key: 'getSynonyms',
     value: function getSynonyms(word, wordIndex) {
       var _this2 = this;
 
       if (this.props.thesaurus === false) {
         return;
       }
-      _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + word + "&language=en_US&output=json&key=" + this.props.apikey, { timeout: 3500 }).then(function (result) {
+      _axiosJsonpPro2.default.jsonp('http://thesaurus.altervista.org/thesaurus/v1?word=' + word + '&language=en_US&output=json&key=' + this.props.apikey, { timeout: 3500 }).then(function (result) {
         _this2.setState(function (state) {
-          state.synonyms[wordIndex] = ThesaurusInput.synonymsFormatter(result);
+          state.synonyms[wordIndex] = (0, _synonymsFormatter.synonymsFormatter)(result);
           return state;
         });
       }).catch(function (err) {
@@ -1324,19 +1256,19 @@ var ThesaurusInput = function (_React$Component) {
       });
     }
   }, {
-    key: "determineClassName",
+    key: 'determineClassName',
     value: function determineClassName(wordIndex) {
       if (!this.state.synonyms[wordIndex]) {
         return _ThesaurusInputStyle.wordCSS;
       }
       if (this.state.synonyms[wordIndex].length > 0) {
-        return _ThesaurusInputStyle.wordCSS + " " + _ThesaurusInputStyle.greenWordCSS;
+        return _ThesaurusInputStyle.wordCSS + ' ' + _ThesaurusInputStyle.greenWordCSS;
       } else {
         return _ThesaurusInputStyle.wordCSS;
       }
     }
   }, {
-    key: "handleWordUpdate",
+    key: 'handleWordUpdate',
     value: function handleWordUpdate(state) {
       var _this3 = this;
 
@@ -1348,17 +1280,17 @@ var ThesaurusInput = function (_React$Component) {
       if (word && this.props.thesaurus !== false) {
 
         waitingWordRequests["word" + wordIndex] = setTimeout(function () {
-          _this3.getSynonyms(ThesaurusInput.convertWordArrayIntoString(word), wordIndex);
+          _this3.getSynonyms((0, _convertWordArrayIntoString.convertWordArrayIntoString)(word), wordIndex);
         }, 1000);
       }
     }
   }, {
-    key: "handleSynonymClick",
+    key: 'handleSynonymClick',
     value: function handleSynonymClick(synonym, wordIndex) {
       var _this4 = this;
 
       this.setState(function (state) {
-        state.words[wordIndex] = ThesaurusInput.splitStringIntoLettersArray(synonym);
+        state.words[wordIndex] = (0, _splitStringIntoLettersArray.splitStringIntoLettersArray)(synonym);
         if (state.cursorAfter.wordIndex === wordIndex) {
           state.cursorAfter.characterIndex = synonym.length - 1;
         }
@@ -1367,22 +1299,22 @@ var ThesaurusInput = function (_React$Component) {
       }, this.handleOnChangeCallback);
     }
   }, {
-    key: "handleSpaceBar",
+    key: 'handleSpaceBar',
     value: function handleSpaceBar() {
       var _this5 = this;
 
       var _state = this.state,
           words = _state.words,
-          _state$cursorAfter2 = _state.cursorAfter,
-          wordIndex = _state$cursorAfter2.wordIndex,
-          characterIndex = _state$cursorAfter2.characterIndex;
+          _state$cursorAfter = _state.cursorAfter,
+          wordIndex = _state$cursorAfter.wordIndex,
+          characterIndex = _state$cursorAfter.characterIndex;
 
       var isAtMaxLeft = this.state.maxLeft;
 
       if (isAtMaxLeft) {
         return this.setState(function (state) {
           state.words.unshift([{ value: " " }]);
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           state.maxLeft = false;
           return state;
         }, this.handleOnChangeCallback);
@@ -1398,7 +1330,7 @@ var ThesaurusInput = function (_React$Component) {
       if (prevCharacterIsSpace) {
         return this.setState(function (state) {
           state.words[wordIndex].push({ value: " " });
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           return state;
         }, this.handleOnChangeCallback);
       }
@@ -1406,7 +1338,7 @@ var ThesaurusInput = function (_React$Component) {
       if (firstCharacterInNextWordIsSpace) {
         return this.setState(function (state) {
           state.words[wordIndex + 1].unshift({ value: " " });
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           return state;
         }, this.handleOnChangeCallback);
       }
@@ -1415,7 +1347,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           var newWord = state.words[wordIndex].splice(characterIndex + 1);
           state.words.splice(wordIndex + 1, 0, [{ value: " " }], newWord);
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           _this5.handleWordUpdate(state, _this5.state.cursorAfter.wordIndex + 1);
           _this5.handleWordUpdate(state, _this5.state.cursorAfter.wordIndex - 1);
           return state;
@@ -1424,13 +1356,13 @@ var ThesaurusInput = function (_React$Component) {
 
       this.setState(function (state) {
         state.words.splice(wordIndex + 1, 0, [{ value: " " }]);
-        ThesaurusInput.handleCursorMove(state, "Right");
+        (0, _handleCursorMove.handleCursorMove)(state, "Right");
         return state;
       }, this.handleOnChangeCallback);
-      // this.getSynonyms(ThesaurusInput.convertWordArrayIntoString(words[wordIndex]), wordIndex);
+      // this.getSynonyms(convertWordArrayIntoString(words[wordIndex]), wordIndex);
     }
   }, {
-    key: "handleKeyboardInput",
+    key: 'handleKeyboardInput',
     value: function handleKeyboardInput(character) {
       var _this6 = this;
 
@@ -1450,7 +1382,7 @@ var ThesaurusInput = function (_React$Component) {
         return this.setState(function (state) {
           state.words.splice(0, 0, [{ value: character }]);
           state.maxLeft = false;
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           _this6.handleWordUpdate(state);
           return state;
         }, this.handleOnChangeCallback);
@@ -1470,7 +1402,7 @@ var ThesaurusInput = function (_React$Component) {
       if (spaceBeforeAndNoWordAfter) {
         return this.setState(function (state) {
           state.words.splice(wordIndex + 1, 0, [{ value: character }]);
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           _this6.handleWordUpdate(state);
           return state;
         }, this.handleOnChangeCallback);
@@ -1479,7 +1411,7 @@ var ThesaurusInput = function (_React$Component) {
       if (spaceBeforeAndWordAfter) {
         return this.setState(function (state) {
           state.words[wordIndex + 1].splice(0, 0, { value: character });
-          ThesaurusInput.handleCursorMove(state, "Right");
+          (0, _handleCursorMove.handleCursorMove)(state, "Right");
           _this6.handleWordUpdate(state);
           return state;
         }, this.handleOnChangeCallback);
@@ -1488,13 +1420,13 @@ var ThesaurusInput = function (_React$Component) {
       // else add to current word
       this.setState(function (state) {
         state.words[wordIndex].splice(characterIndex + 1, 0, { value: character });
-        ThesaurusInput.handleCursorMove(state, "Right");
+        (0, _handleCursorMove.handleCursorMove)(state, "Right");
         _this6.handleWordUpdate(state);
         return state;
       }, this.handleOnChangeCallback);
     }
   }, {
-    key: "handleDelete",
+    key: 'handleDelete',
     value: function handleDelete() {
       var _this7 = this;
 
@@ -1520,7 +1452,7 @@ var ThesaurusInput = function (_React$Component) {
 
       if (deletingSingleSpaceBetweenTwoWords) {
         return this.setState(function (state) {
-          ThesaurusInput.handleCursorMove(state, "Left");
+          (0, _handleCursorMove.handleCursorMove)(state, "Left");
           var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
           state.words.splice(wordIndex - 1, 3, combinedWords);
           _this7.handleWordUpdate(state);
@@ -1530,7 +1462,7 @@ var ThesaurusInput = function (_React$Component) {
 
       if (deletingLastLetterInWord) {
         return this.setState(function (state) {
-          ThesaurusInput.handleCursorMove(state, "Left");
+          (0, _handleCursorMove.handleCursorMove)(state, "Left");
           state.words.splice(wordIndex, 1);
           _this7.handleWordUpdate(state);
           return state;
@@ -1539,38 +1471,38 @@ var ThesaurusInput = function (_React$Component) {
 
       // if character has another character before it in the word, only delete that one character
       this.setState(function (state) {
-        ThesaurusInput.handleCursorMove(state, "Left");
+        (0, _handleCursorMove.handleCursorMove)(state, "Left");
         state.words[wordIndex].splice(characterIndex, 1);
         _this7.handleWordUpdate(state);
         return state;
       }, this.handleOnChangeCallback);
     }
   }, {
-    key: "handleArrows",
+    key: 'handleArrows',
     value: function handleArrows(direction) {
       if (direction === "Left" || direction === "Right") {
         if (this.state.words.length === 0) {
           return;
         }
         this.setState(function (state) {
-          ThesaurusInput.handleCursorMove(state, direction);
+          (0, _handleCursorMove.handleCursorMove)(state, direction);
           return state;
         });
       }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this8 = this;
 
       return _react2.default.createElement(
-        "div",
+        'div',
         {
           id: this.props.id ? this.props.id : _ThesaurusInputStyle.input,
-          "data-testid": "input",
+          'data-testid': 'input',
           className: this.props.className ? this.props.className : _ThesaurusInputStyle.input,
           autoFocus: this.props.autofocus ? this.props.autofocus : true,
-          tabIndex: "0",
+          tabIndex: '0',
           onKeyDown: function onKeyDown(e) {
             if (e.key === "Backspace") {
               _this8.handleDelete();
@@ -1582,13 +1514,13 @@ var ThesaurusInput = function (_React$Component) {
           }
         },
         this.state.words.length === 0 ? _react2.default.createElement(
-          "div",
-          { id: "placeHolder", className: _ThesaurusInputStyle.placeHolderText + " " + _ThesaurusInputStyle.cursorBeforeElement },
+          'div',
+          { id: 'placeHolder', className: _ThesaurusInputStyle.placeHolderText + ' ' + _ThesaurusInputStyle.cursorBeforeElement },
           this.props.placeHolder ? this.props.placeHolder : "Start typing..."
         ) : null,
         this.state.words.map(function (word, j) {
           return word[0].value !== " " ? _react2.default.createElement(
-            "span",
+            'span',
             {
               key: word[0].value + j,
               className: _this8.determineClassName(j)
@@ -1607,11 +1539,11 @@ var ThesaurusInput = function (_React$Component) {
               });
             }),
             _this8.state.synonyms[j] && _this8.state.synonyms[j].length > 0 ? _react2.default.createElement(
-              "span",
+              'span',
               { className: _ThesaurusInputStyle.dropDown },
               _this8.state.synonyms[j].map(function (synonym, k) {
                 return _react2.default.createElement(
-                  "div",
+                  'div',
                   {
                     key: k,
                     onClick: function onClick() {
@@ -1623,7 +1555,7 @@ var ThesaurusInput = function (_React$Component) {
               })
             ) : null
           ) : _react2.default.createElement(
-            "span",
+            'span',
             {
               key: word[0].value + j,
               className: _ThesaurusInputStyle.spaceCSS },
@@ -5148,6 +5080,143 @@ module.exports = {
   blink: blink,
   cursorBeforeElement: cursorBeforeElement
 };
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.convertWordsStateIntoString = convertWordsStateIntoString;
+
+var _convertWordArrayIntoString = __webpack_require__(52);
+
+function convertWordsStateIntoString(words) {
+  return words.reduce(function (wordsString, word) {
+    return wordsString.concat((0, _convertWordArrayIntoString.convertWordArrayIntoString)(word));
+  }, "");
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.splitStringIntoLettersArray = splitStringIntoLettersArray;
+function splitStringIntoLettersArray(string) {
+  return string.split("").reduce(function (acc, el, i) {
+    acc.push({
+      value: el
+    });
+    return acc;
+  }, []);
+}
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.convertWordArrayIntoString = convertWordArrayIntoString;
+function convertWordArrayIntoString(word) {
+  return word.reduce(function (wordString, letter) {
+    return wordString.concat(letter.value);
+  }, "");
+}
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.synonymsFormatter = synonymsFormatter;
+function synonymsFormatter(synonyms) {
+  var formattedSynonyms = [];
+
+  if (!synonyms) {
+    return formattedSynonyms.push([undefined]);
+  }
+
+  synonyms.response.forEach(function (_ref) {
+    var synonymsString = _ref.list.synonyms;
+
+    synonymsString.split("|").forEach(function (synonym) {
+      formattedSynonyms.push(synonym.split(" ")[0]);
+    });
+  });
+  return formattedSynonyms;
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleCursorMove = handleCursorMove;
+function handleCursorMove(state, direction) {
+  var directionIncrement = direction === "Right" ? 1 : -1;
+  var words = state.words,
+      maxLeft = state.maxLeft,
+      cursorAfter = state.cursorAfter,
+      _state$cursorAfter = state.cursorAfter,
+      wordIndex = _state$cursorAfter.wordIndex,
+      characterIndex = _state$cursorAfter.characterIndex;
+
+  var adjacentLetter = words[wordIndex][characterIndex + directionIncrement];
+  var pressingRightWhenAlreadyRight = !adjacentLetter && !words[wordIndex + 1] && direction === "Right";
+  var pressingLeftWhenAlreadyLeft = direction === "Left" && wordIndex === 0 && characterIndex === 0;
+  var pressingRightWhenMaxLeft = direction === "Right" && maxLeft;
+  var noMoreLettersInWord = !adjacentLetter;
+
+  if (pressingRightWhenAlreadyRight) {
+    return;
+  }
+
+  if (pressingLeftWhenAlreadyLeft) {
+    state.maxLeft = true;
+    return;
+  }
+
+  if (pressingRightWhenMaxLeft) {
+    state.maxLeft = false;
+    return;
+  }
+
+  if (noMoreLettersInWord) {
+    state.maxLeft = false;
+    var indexOfLetterInAdjacentWord = direction === "Right" ? 0 : words[wordIndex - 1].length - 1;
+    cursorAfter.wordIndex += directionIncrement;
+    cursorAfter.characterIndex = indexOfLetterInAdjacentWord;
+    return;
+  }
+
+  state.maxLeft = false;
+  cursorAfter.characterIndex += directionIncrement;
+}
 
 /***/ })
 /******/ ]);
