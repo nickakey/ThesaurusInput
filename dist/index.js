@@ -1216,8 +1216,6 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactEmotion = __webpack_require__(3);
-
 var _helpers = __webpack_require__(52);
 
 var _helpers2 = _interopRequireDefault(_helpers);
@@ -1227,6 +1225,10 @@ var _ThesaurusInputStyle = __webpack_require__(56);
 var _Word = __webpack_require__(67);
 
 var _Word2 = _interopRequireDefault(_Word);
+
+var _Placeholder = __webpack_require__(68);
+
+var _Placeholder2 = _interopRequireDefault(_Placeholder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1280,11 +1282,7 @@ var ThesaurusInput = function (_React$Component) {
             }
           }
         },
-        this.state.words.length === 0 ? _react2.default.createElement(
-          "div",
-          { id: "placeHolder", className: _ThesaurusInputStyle.placeHolderText + " " + _ThesaurusInputStyle.cursorBeforeElement },
-          this.props.placeHolder ? this.props.placeHolder : "Start typing..."
-        ) : null,
+        this.state.words.length === 0 ? _react2.default.createElement(_Placeholder2.default, { customPlaceholder: this.props.placeHolder }) : null,
         this.state.words.map(function (word, j) {
           return _react2.default.createElement(_Word2.default, {
             word: word,
@@ -5524,6 +5522,36 @@ var Word = function Word(_ref) {
 };
 
 exports.default = Word;
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ThesaurusInput = __webpack_require__(56);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Placeholder = function Placeholder(_ref) {
+  var customPlaceholder = _ref.customPlaceholder;
+  return _react2.default.createElement(
+    "div",
+    { id: "placeHolder", className: _ThesaurusInput.placeHolderText + " " + _ThesaurusInput.cursorBeforeElement },
+    customPlaceholder ? customPlaceholder : "Start typing..."
+  );
+};
+
+exports.default = Placeholder;
 
 /***/ })
 /******/ ]);

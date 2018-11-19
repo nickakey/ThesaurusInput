@@ -1,18 +1,14 @@
 
 /* eslint-disable */
 import React from "react";
-import { css, keyframes } from "react-emotion";
 import importHelpers from "../helpers";
 import { 
   placeHolderText, 
-  spaceCSS,
-  wordCSS,
-  greenWordCSS,
   input,
-  blink,
   cursorBeforeElement
  } from "../styles/ThesaurusInput.style.js";
- import Word from "./Word.jsx"
+import Word from "./Word.jsx"
+import PlaceHolder from "./Placeholder.jsx"
 
  class ThesaurusInput extends React.Component {
   constructor(props) {
@@ -46,9 +42,7 @@ import {
         }}
       >
         {this.state.words.length === 0 ? (
-          <div id="placeHolder" className={`${placeHolderText} ${cursorBeforeElement}`}>
-            {this.props.placeHolder ? this.props.placeHolder : "Start typing..."}
-          </div>
+          <PlaceHolder customPlaceholder={this.props.placeHolder}/>
         ) : null}
 
         {this.state.words.map((word, j) => (
@@ -63,7 +57,6 @@ import {
             handleSynonymClick={this.handleSynonymClick}
           />
         ))}
-
       </div>
     );
   }
