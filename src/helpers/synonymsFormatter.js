@@ -1,5 +1,5 @@
 
-export function synonymsFormatter(synonyms) {
+export default function synonymsFormatter(synonyms) {
   const formattedSynonyms = [];
 
   if (!synonyms) {

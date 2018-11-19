@@ -1,5 +1,5 @@
 
-export function handleCursorMove(state, direction) {
+export default function handleCursorMove(state, direction) {
   const directionIncrement = direction === "Right" ? 1 : -1;
   const {
     words,

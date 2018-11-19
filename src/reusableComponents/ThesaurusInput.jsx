@@ -1,13 +1,14 @@
-import { handleCursorMove } from './../helpers/handleCursorMove';
-import { synonymsFormatter } from './../helpers/synonymsFormatter';
-import { splitStringIntoLettersArray } from './../helpers/splitStringIntoLettersArray';
-import { convertWordArrayIntoString } from './../helpers/convertWordArrayIntoString';
-import { convertWordsStateIntoString } from './../helpers/convertWordStateIntoString';
+
 /* eslint-disable */
 import React from "react";
 import { css, keyframes } from "react-emotion";
 import axios from "axios-jsonp-pro";
 import ThesaurusLetter from "./ThesaurusLetter";
+import handleCursorMove from './../helpers/handleCursorMove';
+import synonymsFormatter from './../helpers/synonymsFormatter';
+import splitStringIntoLettersArray from './../helpers/splitStringIntoLettersArray';
+import convertWordArrayIntoString from './../helpers/convertWordArrayIntoString';
+import convertWordsStateIntoString from './../helpers/convertWordStateIntoString';
 import { 
   placeHolderText, 
   dropDown, 
