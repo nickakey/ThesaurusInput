@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,8 +71,8 @@ module.exports =
 "use strict";
 
 
-var bind = __webpack_require__(9);
-var isBuffer = __webpack_require__(31);
+var bind = __webpack_require__(11);
+var isBuffer = __webpack_require__(34);
 
 /*global toString:true*/
 
@@ -572,6 +572,36 @@ module.exports = require("react");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_emotion__ = __webpack_require__(8);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["flush"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "hydrate", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["hydrate"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "cx", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["cx"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["merge"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getRegisteredStyles", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["getRegisteredStyles"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "injectGlobal", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["injectGlobal"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["keyframes"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "css", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["css"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "sheet", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["sheet"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "caches", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["caches"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_create_emotion_styled__ = __webpack_require__(26);
+
+
+
+
+
+var index = Object(__WEBPACK_IMPORTED_MODULE_2_create_emotion_styled__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1_emotion__, __WEBPACK_IMPORTED_MODULE_0_react___default.a);
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -590,14 +620,14 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(33);
+var normalizeHeaderName = __webpack_require__(36);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -613,10 +643,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(12);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(12);
   }
   return adapter;
 }
@@ -690,37 +720,48 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_emotion__ = __webpack_require__(6);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["flush"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "hydrate", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["hydrate"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "cx", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["cx"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["merge"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getRegisteredStyles", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["getRegisteredStyles"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "injectGlobal", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["injectGlobal"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["keyframes"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "css", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["css"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "sheet", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["sheet"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "caches", function() { return __WEBPACK_IMPORTED_MODULE_1_emotion__["caches"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_create_emotion_styled__ = __webpack_require__(23);
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = convertWordsStateIntoString;
 
+var _convertWordArrayIntoString = __webpack_require__(7);
 
+var _convertWordArrayIntoString2 = _interopRequireDefault(_convertWordArrayIntoString);
 
-var index = Object(__WEBPACK_IMPORTED_MODULE_2_create_emotion_styled__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1_emotion__, __WEBPACK_IMPORTED_MODULE_0_react___default.a);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* harmony default export */ __webpack_exports__["default"] = (index);
-
+function convertWordsStateIntoString(words) {
+  return words.reduce(function (wordsString, word) {
+    return wordsString.concat((0, _convertWordArrayIntoString2.default)(word));
+  }, "");
+}
 
 /***/ }),
-/* 6 */
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = convertWordArrayIntoString;
+function convertWordArrayIntoString(word) {
+  return word.reduce(function (wordString, letter) {
+    return wordString.concat(letter.value);
+  }, "");
+}
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -735,7 +776,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "css", function() { return css; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sheet", function() { return sheet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "caches", function() { return caches; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_create_emotion__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_create_emotion__ = __webpack_require__(21);
 
 
 var context = typeof global !== 'undefined' ? global : {};
@@ -754,10 +795,10 @@ var _createEmotion = Object(__WEBPACK_IMPORTED_MODULE_0_create_emotion__["a" /* 
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(20)))
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -773,7 +814,7 @@ function memoize(fn) {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -798,17 +839,17 @@ if (process.env.NODE_ENV !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(24)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(27)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(27)();
+  module.exports = __webpack_require__(30)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -826,19 +867,19 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(34);
-var buildURL = __webpack_require__(12);
-var parseHeaders = __webpack_require__(36);
-var isURLSameOrigin = __webpack_require__(37);
-var createError = __webpack_require__(11);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(38);
+var settle = __webpack_require__(37);
+var buildURL = __webpack_require__(14);
+var parseHeaders = __webpack_require__(39);
+var isURLSameOrigin = __webpack_require__(40);
+var createError = __webpack_require__(13);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(41);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -935,7 +976,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(39);
+      var cookies = __webpack_require__(42);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1014,13 +1055,13 @@ module.exports = function xhrAdapter(config) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(35);
+var enhanceError = __webpack_require__(38);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -1039,7 +1080,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1114,7 +1155,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1126,7 +1167,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1152,14 +1193,14 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(16);
+module.exports = __webpack_require__(18);
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1175,37 +1216,26 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactEmotion = __webpack_require__(5);
+var _reactEmotion = __webpack_require__(3);
 
-var _axiosJsonpPro = __webpack_require__(29);
-
-var _axiosJsonpPro2 = _interopRequireDefault(_axiosJsonpPro);
-
-var _ThesaurusLetter = __webpack_require__(48);
+var _ThesaurusLetter = __webpack_require__(51);
 
 var _ThesaurusLetter2 = _interopRequireDefault(_ThesaurusLetter);
 
-var _helpers = __webpack_require__(55);
+var _helpers = __webpack_require__(52);
 
-var _ThesaurusInputStyle = __webpack_require__(49);
+var _helpers2 = _interopRequireDefault(_helpers);
+
+var _ThesaurusInputStyle = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/* eslint-disable */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable */
 
-
-function logState() {
-  console.log("this is the state ", this.state);
-}
-
-var waitingWordRequests = {};
 
 var ThesaurusInput = function (_React$Component) {
   _inherits(ThesaurusInput, _React$Component);
@@ -1221,271 +1251,15 @@ var ThesaurusInput = function (_React$Component) {
       cursorAfter: { wordIndex: 0, characterIndex: 0 },
       maxLeft: true
     };
-    _this.handleKeyboardInput = _this.handleKeyboardInput.bind(_this);
+    _this.waitingWordRequests = {};
+    (0, _helpers2.default)(_this);
     return _this;
   }
 
   _createClass(ThesaurusInput, [{
-    key: "handleOnChangeCallback",
-    value: function handleOnChangeCallback() {
-      this.props.onChange((0, _helpers.convertWordsStateIntoString)(this.state.words));
-    }
-  }, {
-    key: "getSynonyms",
-    value: function getSynonyms(word, wordIndex) {
-      var _this2 = this;
-
-      if (this.props.thesaurus === false) {
-        return;
-      }
-      _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + word + "&language=en_US&output=json&key=" + this.props.apikey, { timeout: 3500 }).then(function (result) {
-        _this2.setState(function (state) {
-          state.synonyms[wordIndex] = (0, _helpers.synonymsFormatter)(result);
-          return state;
-        });
-      }).catch(function (err) {
-        // ADD BETTER ERROR HANDLING HERE
-      });
-    }
-  }, {
-    key: "determineClassName",
-    value: function determineClassName(wordIndex) {
-      if (!this.state.synonyms[wordIndex]) {
-        return _ThesaurusInputStyle.wordCSS;
-      }
-      if (this.state.synonyms[wordIndex].length > 0) {
-        return _ThesaurusInputStyle.wordCSS + " " + _ThesaurusInputStyle.greenWordCSS;
-      } else {
-        return _ThesaurusInputStyle.wordCSS;
-      }
-    }
-  }, {
-    key: "handleWordUpdate",
-    value: function handleWordUpdate(state) {
-      var _this3 = this;
-
-      var wordIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state.cursorAfter.wordIndex;
-
-      state.synonyms[wordIndex] = [];
-      var word = this.state.words[wordIndex];
-      clearTimeout(waitingWordRequests["word" + wordIndex]);
-      if (word && this.props.thesaurus !== false) {
-
-        waitingWordRequests["word" + wordIndex] = setTimeout(function () {
-          _this3.getSynonyms((0, _helpers.convertWordArrayIntoString)(word), wordIndex);
-        }, 1000);
-      }
-    }
-  }, {
-    key: "handleSynonymClick",
-    value: function handleSynonymClick(synonym, wordIndex) {
-      var _this4 = this;
-
-      this.setState(function (state) {
-        state.words[wordIndex] = (0, _helpers.splitStringIntoLettersArray)(synonym);
-        if (state.cursorAfter.wordIndex === wordIndex) {
-          state.cursorAfter.characterIndex = synonym.length - 1;
-        }
-        _this4.handleWordUpdate(state, wordIndex);
-        return state;
-      }, this.handleOnChangeCallback);
-    }
-  }, {
-    key: "handleSpaceBar",
-    value: function handleSpaceBar() {
-      var _this5 = this;
-
-      var _state = this.state,
-          words = _state.words,
-          _state$cursorAfter = _state.cursorAfter,
-          wordIndex = _state$cursorAfter.wordIndex,
-          characterIndex = _state$cursorAfter.characterIndex;
-
-      var isAtMaxLeft = this.state.maxLeft;
-
-      if (isAtMaxLeft) {
-        return this.setState(function (state) {
-          state.words.unshift([{ value: " " }]);
-          (0, _helpers.handleCursorMove)(state, "Right");
-          state.maxLeft = false;
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      var prevCharacter = words[wordIndex][characterIndex];
-      var nextCharacter = words[wordIndex][characterIndex + 1];
-
-      var prevCharacterIsSpace = prevCharacter.value === " ";
-      var firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === " ";
-      var addingSpaceToMiddleOfWord = nextCharacter;
-
-      if (prevCharacterIsSpace) {
-        return this.setState(function (state) {
-          state.words[wordIndex].push({ value: " " });
-          (0, _helpers.handleCursorMove)(state, "Right");
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      if (firstCharacterInNextWordIsSpace) {
-        return this.setState(function (state) {
-          state.words[wordIndex + 1].unshift({ value: " " });
-          (0, _helpers.handleCursorMove)(state, "Right");
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-      if (addingSpaceToMiddleOfWord) {
-        // this should make a change request for both words.
-        return this.setState(function (state) {
-          var newWord = state.words[wordIndex].splice(characterIndex + 1);
-          state.words.splice(wordIndex + 1, 0, [{ value: " " }], newWord);
-          (0, _helpers.handleCursorMove)(state, "Right");
-          _this5.handleWordUpdate(state, _this5.state.cursorAfter.wordIndex + 1);
-          _this5.handleWordUpdate(state, _this5.state.cursorAfter.wordIndex - 1);
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      this.setState(function (state) {
-        state.words.splice(wordIndex + 1, 0, [{ value: " " }]);
-        (0, _helpers.handleCursorMove)(state, "Right");
-        return state;
-      }, this.handleOnChangeCallback);
-      // this.getSynonyms(convertWordArrayIntoString(words[wordIndex]), wordIndex);
-    }
-  }, {
-    key: "handleKeyboardInput",
-    value: function handleKeyboardInput(character) {
-      var _this6 = this;
-
-      var isNonCharacterInput = character.length > 1;
-      var isSpaceBar = character === " ";
-
-      if (isNonCharacterInput) {
-        return;
-      }
-      if (isSpaceBar) {
-        return this.handleSpaceBar();
-      }
-
-      var isAtMaxLeft = this.state.maxLeft;
-
-      if (isAtMaxLeft) {
-        return this.setState(function (state) {
-          state.words.splice(0, 0, [{ value: character }]);
-          state.maxLeft = false;
-          (0, _helpers.handleCursorMove)(state, "Right");
-          _this6.handleWordUpdate(state);
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      var _state2 = this.state,
-          words = _state2.words,
-          _state2$cursorAfter = _state2.cursorAfter,
-          wordIndex = _state2$cursorAfter.wordIndex,
-          characterIndex = _state2$cursorAfter.characterIndex;
-
-      var prevCharacter = words[wordIndex][characterIndex];
-
-      var spaceBeforeAndNoWordAfter = prevCharacter.value === " " && !words[wordIndex + 1];
-      var spaceBeforeAndWordAfter = prevCharacter.value === " " && words[wordIndex + 1] && words[wordIndex + 1][0];
-
-      if (spaceBeforeAndNoWordAfter) {
-        return this.setState(function (state) {
-          state.words.splice(wordIndex + 1, 0, [{ value: character }]);
-          (0, _helpers.handleCursorMove)(state, "Right");
-          _this6.handleWordUpdate(state);
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      if (spaceBeforeAndWordAfter) {
-        return this.setState(function (state) {
-          state.words[wordIndex + 1].splice(0, 0, { value: character });
-          (0, _helpers.handleCursorMove)(state, "Right");
-          _this6.handleWordUpdate(state);
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      // else add to current word
-      this.setState(function (state) {
-        state.words[wordIndex].splice(characterIndex + 1, 0, { value: character });
-        (0, _helpers.handleCursorMove)(state, "Right");
-        _this6.handleWordUpdate(state);
-        return state;
-      }, this.handleOnChangeCallback);
-    }
-  }, {
-    key: "handleDelete",
-    value: function handleDelete() {
-      var _this7 = this;
-
-      // TODO - I also have to handle the cursor
-
-      if (this.state.maxLeft) {
-        return;
-      }
-
-      var _state3 = this.state,
-          words = _state3.words,
-          _state3$cursorAfter = _state3.cursorAfter,
-          wordIndex = _state3$cursorAfter.wordIndex,
-          characterIndex = _state3$cursorAfter.characterIndex;
-
-      var characterToDelete = words[wordIndex][characterIndex];
-      var currentWord = words[wordIndex];
-      var prevWord = words[wordIndex - 1];
-      var nextWord = words[wordIndex + 1];
-
-      var deletingSingleSpaceBetweenTwoWords = characterToDelete.value === " " && currentWord.length === 1 && prevWord && nextWord;
-      var deletingLastLetterInWord = currentWord.length === 1;
-
-      if (deletingSingleSpaceBetweenTwoWords) {
-        return this.setState(function (state) {
-          (0, _helpers.handleCursorMove)(state, "Left");
-          var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
-          state.words.splice(wordIndex - 1, 3, combinedWords);
-          _this7.handleWordUpdate(state);
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      if (deletingLastLetterInWord) {
-        return this.setState(function (state) {
-          (0, _helpers.handleCursorMove)(state, "Left");
-          state.words.splice(wordIndex, 1);
-          _this7.handleWordUpdate(state);
-          return state;
-        }, this.handleOnChangeCallback);
-      }
-
-      // if character has another character before it in the word, only delete that one character
-      this.setState(function (state) {
-        (0, _helpers.handleCursorMove)(state, "Left");
-        state.words[wordIndex].splice(characterIndex, 1);
-        _this7.handleWordUpdate(state);
-        return state;
-      }, this.handleOnChangeCallback);
-    }
-  }, {
-    key: "handleArrows",
-    value: function handleArrows(direction) {
-      if (direction === "Left" || direction === "Right") {
-        if (this.state.words.length === 0) {
-          return;
-        }
-        this.setState(function (state) {
-          (0, _helpers.handleCursorMove)(state, direction);
-          return state;
-        });
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this8 = this;
+      var _this2 = this;
 
       return _react2.default.createElement(
         "div",
@@ -1497,11 +1271,11 @@ var ThesaurusInput = function (_React$Component) {
           tabIndex: "0",
           onKeyDown: function onKeyDown(e) {
             if (e.key === "Backspace") {
-              _this8.handleDelete();
+              _this2.handleDelete();
             } else if (e.key.slice(0, 5) === "Arrow") {
-              _this8.handleArrows(e.key.slice(5));
+              _this2.handleArrows(e.key.slice(5));
             } else {
-              _this8.handleKeyboardInput(e.key);
+              _this2.handleKeyboardInput(e.key);
             }
           }
         },
@@ -1515,31 +1289,31 @@ var ThesaurusInput = function (_React$Component) {
             "span",
             {
               key: word[0].value + j,
-              className: _this8.determineClassName(j)
+              className: _this2.determineClassName(j, _ThesaurusInputStyle.wordCSS, _ThesaurusInputStyle.wordCSS + " " + _ThesaurusInputStyle.greenWordCSS)
             },
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
                 onClick: function onClick() {
-                  _this8.handleLetterClick.apply(_this8, arguments);
+                  _this2.handleLetterClick.apply(_this2, arguments);
                 },
-                maxLeft: _this8.state.maxLeft,
-                cursorIndex: _this8.state.cursorAfter,
+                maxLeft: _this2.state.maxLeft,
+                cursorIndex: _this2.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,
                 charObj: charObj
               });
             }),
-            _this8.state.synonyms[j] && _this8.state.synonyms[j].length > 0 ? _react2.default.createElement(
+            _this2.state.synonyms[j] && _this2.state.synonyms[j].length > 0 ? _react2.default.createElement(
               "span",
               { className: _ThesaurusInputStyle.dropDown },
-              _this8.state.synonyms[j].map(function (synonym, k) {
+              _this2.state.synonyms[j].map(function (synonym, k) {
                 return _react2.default.createElement(
                   "div",
                   {
                     key: k,
                     onClick: function onClick() {
-                      _this8.handleSynonymClick(synonym, j);
+                      _this2.handleSynonymClick(synonym, j);
                     },
                     className: _ThesaurusInputStyle.synonymCSS },
                   synonym
@@ -1554,10 +1328,10 @@ var ThesaurusInput = function (_React$Component) {
             word.map(function (charObj, i) {
               return _react2.default.createElement(_ThesaurusLetter2.default, {
                 onClick: function onClick() {
-                  _this8.handleLetterClick.apply(_this8, arguments);
+                  _this2.handleLetterClick.apply(_this2, arguments);
                 },
-                maxLeft: _this8.state.maxLeft,
-                cursorIndex: _this8.state.cursorAfter,
+                maxLeft: _this2.state.maxLeft,
+                cursorIndex: _this2.state.cursorAfter,
                 wordIndex: j,
                 key: charObj.value + i,
                 index: i,
@@ -1576,7 +1350,29 @@ var ThesaurusInput = function (_React$Component) {
 exports.default = ThesaurusInput;
 
 /***/ }),
-/* 17 */
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleOnChangeCallback;
+
+var _convertWordsStateIntoString = __webpack_require__(6);
+
+var _convertWordsStateIntoString2 = _interopRequireDefault(_convertWordsStateIntoString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function handleOnChangeCallback() {
+  this.props.onChange((0, _convertWordsStateIntoString2.default)(this.state.words));
+}
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1603,15 +1399,15 @@ module.exports = g;
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__emotion_memoize__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__emotion_unitless__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emotion_hash__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__emotion_stylis__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet__ = __webpack_require__(22);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__emotion_memoize__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__emotion_unitless__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emotion_hash__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__emotion_stylis__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet__);
 
 
@@ -2136,7 +1932,7 @@ function createEmotion(context, options) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2189,7 +1985,7 @@ var unitlessKeys = {
 
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2233,7 +2029,7 @@ function murmurhash2_32_gc(str) {
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2868,7 +2664,7 @@ function stylis_min (W) {
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (factory) {
@@ -2922,13 +2718,13 @@ function stylis_min (W) {
 
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(8);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__emotion_is_prop_valid__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__emotion_is_prop_valid__ = __webpack_require__(31);
 
 
 
@@ -3155,7 +2951,7 @@ function createEmotionStyled(emotion, view) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3168,10 +2964,10 @@ function createEmotionStyled(emotion, view) {
 
 
 
-var assign = __webpack_require__(25);
+var assign = __webpack_require__(28);
 
-var ReactPropTypesSecret = __webpack_require__(3);
-var checkPropTypes = __webpack_require__(26);
+var ReactPropTypesSecret = __webpack_require__(4);
+var checkPropTypes = __webpack_require__(29);
 
 var printWarning = function() {};
 
@@ -3718,7 +3514,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3815,7 +3611,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3831,7 +3627,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var printWarning = function() {};
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactPropTypesSecret = __webpack_require__(3);
+  var ReactPropTypesSecret = __webpack_require__(4);
   var loggedTypeFailures = {};
 
   printWarning = function(text) {
@@ -3914,7 +3710,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3927,7 +3723,7 @@ module.exports = checkPropTypes;
 
 
 
-var ReactPropTypesSecret = __webpack_require__(3);
+var ReactPropTypesSecret = __webpack_require__(4);
 
 function emptyFunction() {}
 
@@ -3980,11 +3776,11 @@ module.exports = function() {
 
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__emotion_memoize__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__emotion_memoize__ = __webpack_require__(9);
 
 
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|default|defer|dir|disabled|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|itemProp|itemScope|itemType|itemID|itemRef|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class)|(on[A-Z].*)|((data|aria|x)-.*))$/i;
@@ -3994,22 +3790,22 @@ var index = Object(__WEBPACK_IMPORTED_MODULE_0__emotion_memoize__["a" /* default
 
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(30);
+module.exports = __webpack_require__(33);
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(9);
-var Axios = __webpack_require__(32);
-var defaults = __webpack_require__(4);
+var bind = __webpack_require__(11);
+var Axios = __webpack_require__(35);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -4041,15 +3837,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(14);
-axios.CancelToken = __webpack_require__(46);
-axios.isCancel = __webpack_require__(13);
+axios.Cancel = __webpack_require__(16);
+axios.CancelToken = __webpack_require__(49);
+axios.isCancel = __webpack_require__(15);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(47);
+axios.spread = __webpack_require__(50);
 
 module.exports = axios;
 
@@ -4058,7 +3854,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4085,17 +3881,17 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(40);
-var dispatchRequest = __webpack_require__(41);
-var jsonp = __webpack_require__(45);
+var InterceptorManager = __webpack_require__(43);
+var dispatchRequest = __webpack_require__(44);
+var jsonp = __webpack_require__(48);
 
 /**
  * Create a new instance of Axios
@@ -4203,7 +3999,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4222,13 +4018,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(11);
+var createError = __webpack_require__(13);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -4255,7 +4051,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4283,7 +4079,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4343,7 +4139,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4418,7 +4214,7 @@ module.exports = (
 
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4461,7 +4257,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4521,7 +4317,7 @@ module.exports = (
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4580,18 +4376,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(42);
-var isCancel = __webpack_require__(13);
-var defaults = __webpack_require__(4);
-var isAbsoluteURL = __webpack_require__(43);
-var combineURLs = __webpack_require__(44);
+var transformData = __webpack_require__(45);
+var isCancel = __webpack_require__(15);
+var defaults = __webpack_require__(5);
+var isAbsoluteURL = __webpack_require__(46);
+var combineURLs = __webpack_require__(47);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -4673,7 +4469,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4700,7 +4496,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4721,7 +4517,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4742,13 +4538,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var buildURL = __webpack_require__(12);
+var buildURL = __webpack_require__(14);
 /**
  * Callback index.
  */
@@ -4836,13 +4632,13 @@ module.exports = jsonp;
 
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(14);
+var Cancel = __webpack_require__(16);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -4900,7 +4696,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4934,7 +4730,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4953,9 +4749,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactEmotion = __webpack_require__(5);
+var _reactEmotion = __webpack_require__(3);
 
-var _propTypes = __webpack_require__(8);
+var _propTypes = __webpack_require__(10);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -5023,78 +4819,6 @@ ThesaurusLetter.propTypes = {
 exports.default = ThesaurusLetter;
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _templateObject = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"], ["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"]),
-    _templateObject4 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"]),
-    _templateObject5 = _taggedTemplateLiteral(["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"], ["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"]),
-    _templateObject6 = _taggedTemplateLiteral(["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"], ["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"]),
-    _templateObject7 = _taggedTemplateLiteral(["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"], ["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"]),
-    _templateObject8 = _taggedTemplateLiteral(["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"], ["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"]),
-    _templateObject9 = _taggedTemplateLiteral(["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"], ["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"]);
-
-var _reactEmotion = __webpack_require__(5);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var placeHolderText = (0, _reactEmotion.css)(_templateObject);
-
-var dropDown = (0, _reactEmotion.css)(_templateObject2);
-
-var spaceCSS = (0, _reactEmotion.css)(_templateObject3);
-
-var wordCSS = (0, _reactEmotion.css)(_templateObject4, dropDown);
-
-var greenWordCSS = (0, _reactEmotion.css)(_templateObject5);
-
-var synonymCSS = (0, _reactEmotion.css)(_templateObject6);
-
-var input = (0, _reactEmotion.css)(_templateObject7);
-
-var blink = (0, _reactEmotion.keyframes)(_templateObject8);
-
-var cursorBeforeElement = (0, _reactEmotion.css)(_templateObject9, blink);
-
-module.exports = {
-  placeHolderText: placeHolderText,
-  dropDown: dropDown,
-  spaceCSS: spaceCSS,
-  wordCSS: wordCSS,
-  greenWordCSS: greenWordCSS,
-  synonymCSS: synonymCSS,
-  input: input,
-  blink: blink,
-  cursorBeforeElement: cursorBeforeElement
-};
-
-/***/ }),
-/* 50 */,
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = splitStringIntoLettersArray;
-function splitStringIntoLettersArray(string) {
-  return string.split("").reduce(function (acc, el, i) {
-    acc.push({
-      value: el
-    });
-    return acc;
-  }, []);
-}
-
-/***/ }),
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5104,43 +4828,91 @@ function splitStringIntoLettersArray(string) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = convertWordArrayIntoString;
-function convertWordArrayIntoString(word) {
-  return word.reduce(function (wordString, letter) {
-    return wordString.concat(letter.value);
-  }, "");
+exports.default = bindAndAssignHelpersToContext;
+
+var _convertWordArrayIntoString = __webpack_require__(7);
+
+var _convertWordArrayIntoString2 = _interopRequireDefault(_convertWordArrayIntoString);
+
+var _convertWordsStateIntoString = __webpack_require__(6);
+
+var _convertWordsStateIntoString2 = _interopRequireDefault(_convertWordsStateIntoString);
+
+var _handleCursorMove = __webpack_require__(53);
+
+var _handleCursorMove2 = _interopRequireDefault(_handleCursorMove);
+
+var _splitStringIntoLettersArray = __webpack_require__(54);
+
+var _splitStringIntoLettersArray2 = _interopRequireDefault(_splitStringIntoLettersArray);
+
+var _synonymsFormatter = __webpack_require__(55);
+
+var _synonymsFormatter2 = _interopRequireDefault(_synonymsFormatter);
+
+var _handleOnChangeCallback = __webpack_require__(19);
+
+var _handleOnChangeCallback2 = _interopRequireDefault(_handleOnChangeCallback);
+
+var _getSynonyms = __webpack_require__(57);
+
+var _getSynonyms2 = _interopRequireDefault(_getSynonyms);
+
+var _determineClassName = __webpack_require__(58);
+
+var _determineClassName2 = _interopRequireDefault(_determineClassName);
+
+var _handleWordUpdate = __webpack_require__(59);
+
+var _handleWordUpdate2 = _interopRequireDefault(_handleWordUpdate);
+
+var _handleSynonymClick = __webpack_require__(60);
+
+var _handleSynonymClick2 = _interopRequireDefault(_handleSynonymClick);
+
+var _handleSpaceBar = __webpack_require__(61);
+
+var _handleSpaceBar2 = _interopRequireDefault(_handleSpaceBar);
+
+var _handleKeyboardInput = __webpack_require__(62);
+
+var _handleKeyboardInput2 = _interopRequireDefault(_handleKeyboardInput);
+
+var _handleDelete = __webpack_require__(63);
+
+var _handleDelete2 = _interopRequireDefault(_handleDelete);
+
+var _handleArrows = __webpack_require__(64);
+
+var _handleArrows2 = _interopRequireDefault(_handleArrows);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function bindAndAssignHelpersToContext(context) {
+  var modules = {
+    convertWordArrayIntoString: _convertWordArrayIntoString2.default,
+    convertWordsStateIntoString: _convertWordsStateIntoString2.default,
+    handleCursorMove: _handleCursorMove2.default,
+    splitStringIntoLettersArray: _splitStringIntoLettersArray2.default,
+    synonymsFormatter: _synonymsFormatter2.default,
+    handleOnChangeCallback: _handleOnChangeCallback2.default,
+    getSynonyms: _getSynonyms2.default,
+    determineClassName: _determineClassName2.default,
+    handleWordUpdate: _handleWordUpdate2.default,
+    handleSynonymClick: _handleSynonymClick2.default,
+    handleSpaceBar: _handleSpaceBar2.default,
+    handleKeyboardInput: _handleKeyboardInput2.default,
+    handleDelete: _handleDelete2.default,
+    handleArrows: _handleArrows2.default
+  };
+
+  Object.keys(modules).forEach(function (key) {
+    context[key] = modules[key].bind(context);
+  });
 }
 
 /***/ }),
 /* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = synonymsFormatter;
-function synonymsFormatter(synonyms) {
-  var formattedSynonyms = [];
-
-  if (!synonyms) {
-    return formattedSynonyms.push([undefined]);
-  }
-
-  synonyms.response.forEach(function (_ref) {
-    var synonymsString = _ref.list.synonyms;
-
-    synonymsString.split("|").forEach(function (synonym) {
-      formattedSynonyms.push(synonym.split(" ")[0]);
-    });
-  });
-  return formattedSynonyms;
-}
-
-/***/ }),
-/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5192,6 +4964,26 @@ function handleCursorMove(state, direction) {
 }
 
 /***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = splitStringIntoLettersArray;
+function splitStringIntoLettersArray(string) {
+  return string.split("").reduce(function (acc, el, i) {
+    acc.push({
+      value: el
+    });
+    return acc;
+  }, []);
+}
+
+/***/ }),
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5201,53 +4993,23 @@ function handleCursorMove(state, direction) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = synonymsFormatter;
+function synonymsFormatter(synonyms) {
+  var formattedSynonyms = [];
 
-var _convertWordArrayIntoString = __webpack_require__(52);
-
-Object.defineProperty(exports, "convertWordArrayIntoString", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_convertWordArrayIntoString).default;
+  if (!synonyms) {
+    return formattedSynonyms.push([undefined]);
   }
-});
 
-var _convertWordsStateIntoString = __webpack_require__(56);
+  synonyms.response.forEach(function (_ref) {
+    var synonymsString = _ref.list.synonyms;
 
-Object.defineProperty(exports, "convertWordsStateIntoString", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_convertWordsStateIntoString).default;
-  }
-});
-
-var _handleCursorMove = __webpack_require__(54);
-
-Object.defineProperty(exports, "handleCursorMove", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_handleCursorMove).default;
-  }
-});
-
-var _splitStringIntoLettersArray = __webpack_require__(51);
-
-Object.defineProperty(exports, "splitStringIntoLettersArray", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_splitStringIntoLettersArray).default;
-  }
-});
-
-var _synonymsFormatter = __webpack_require__(53);
-
-Object.defineProperty(exports, "synonymsFormatter", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_synonymsFormatter).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+    synonymsString.split("|").forEach(function (synonym) {
+      formattedSynonyms.push(synonym.split(" ")[0]);
+    });
+  });
+  return formattedSynonyms;
+}
 
 /***/ }),
 /* 56 */
@@ -5256,21 +5018,408 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 "use strict";
 
 
+var _templateObject = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  font-size: 35px;\n  color: black;\n  opacity: .4;\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"], ["\n  display: none;\n  position: absolute;\n  z-index: 5;\n  background-color: white;\n  top: 100%;\n  left: 0;\n  padding: 10px;\n  border: 1px solid black;\n  border-radius: 10px;\n  transition: opacity .5s;\n  &:focus {\n    outline :0;\n  }   \n"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 0px 5px 0px;\n  height: 42px;\n  display: inline-block;\n"]),
+    _templateObject4 = _taggedTemplateLiteral(["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"], ["\n  margin: 5px 0px 5px 0px;\n  padding: 5px 3px 5px 3px;\n  border-radius: 10px;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  transition: background-color .2s;\n  &:hover {\n      .", " {\n        display: inline-block;\n      }\n  }  \n"]),
+    _templateObject5 = _taggedTemplateLiteral(["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"], ["\n  background-color: #7bd68f6e;\n  transition: all .4s;\n"]),
+    _templateObject6 = _taggedTemplateLiteral(["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"], ["\n  padding: 2px;\n  &:hover {\n    background-color: lightgray;\n    border-radius: 5px;\n    cursor: pointer;\n  }\n"]),
+    _templateObject7 = _taggedTemplateLiteral(["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"], ["\n  height: 4rem;\n  position: absolute;\n  background-color: white;\n  display: block;\n  top: 40%;\n  left: 50%; \n  transform: translate(-50%, -50%);\n  width: 51%;\n  text-align: left;\n  border-radius: 5px;\n  z-index: -5;\n  padding-left: 10px;\n  &:focus {\n    outline :0;\n  }  \n"]),
+    _templateObject8 = _taggedTemplateLiteral(["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"], ["\n  0%{\n    opacity: 0;\n  }\n  100%{\n    opacity: 1;\n  }\n"]),
+    _templateObject9 = _taggedTemplateLiteral(["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"], ["\n  &::before {\n    content: \"\";\n    animation: ", " 1s linear infinite;\n    padding: 0px;\n    width: 1px;\n    border: solid black 1px;\n    position: absolute;\n    height: 43px;\n    box-sizing: border-box;\n  };\n"]);
+
+var _reactEmotion = __webpack_require__(3);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var placeHolderText = (0, _reactEmotion.css)(_templateObject);
+
+var dropDown = (0, _reactEmotion.css)(_templateObject2);
+
+var spaceCSS = (0, _reactEmotion.css)(_templateObject3);
+
+var wordCSS = (0, _reactEmotion.css)(_templateObject4, dropDown);
+
+var greenWordCSS = (0, _reactEmotion.css)(_templateObject5);
+
+var synonymCSS = (0, _reactEmotion.css)(_templateObject6);
+
+var input = (0, _reactEmotion.css)(_templateObject7);
+
+var blink = (0, _reactEmotion.keyframes)(_templateObject8);
+
+var cursorBeforeElement = (0, _reactEmotion.css)(_templateObject9, blink);
+
+module.exports = {
+  placeHolderText: placeHolderText,
+  dropDown: dropDown,
+  spaceCSS: spaceCSS,
+  wordCSS: wordCSS,
+  greenWordCSS: greenWordCSS,
+  synonymCSS: synonymCSS,
+  input: input,
+  blink: blink,
+  cursorBeforeElement: cursorBeforeElement
+};
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = convertWordsStateIntoString;
+exports.default = getSynonyms;
 
-var _convertWordArrayIntoString = __webpack_require__(52);
+var _axiosJsonpPro = __webpack_require__(32);
 
-var _convertWordArrayIntoString2 = _interopRequireDefault(_convertWordArrayIntoString);
+var _axiosJsonpPro2 = _interopRequireDefault(_axiosJsonpPro);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function convertWordsStateIntoString(words) {
-  return words.reduce(function (wordsString, word) {
-    return wordsString.concat((0, _convertWordArrayIntoString2.default)(word));
-  }, "");
+function getSynonyms(word, wordIndex) {
+  var _this = this;
+
+  if (this.props.thesaurus === false) {
+    return;
+  }
+
+  _axiosJsonpPro2.default.jsonp("http://thesaurus.altervista.org/thesaurus/v1?word=" + word + "&language=en_US&output=json&key=" + this.props.apikey, {
+    timeout: 3500
+  }).then(function (result) {
+    _this.setState(function (state) {
+      state.synonyms[wordIndex] = _this.synonymsFormatter(result);
+      return state;
+    });
+  }).catch(function (err) {// ADD BETTER ERROR HANDLING HERE
+  });
+}
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = determineClassName;
+function determineClassName(wordIndex, option1, option2) {
+  if (this.state.synonyms[wordIndex] && this.state.synonyms[wordIndex].length > 0) {
+    return option2;
+  }
+  return option1;
+}
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleWordUpdate;
+function handleWordUpdate(state) {
+  var _this = this;
+
+  var wordIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state.cursorAfter.wordIndex;
+
+  state.synonyms[wordIndex] = [];
+  var word = this.state.words[wordIndex];
+  clearTimeout(this.waitingWordRequests["word" + wordIndex]);
+
+  if (word && this.props.thesaurus !== false) {
+    this.waitingWordRequests["word" + wordIndex] = setTimeout(function () {
+      _this.getSynonyms(_this.convertWordArrayIntoString(word), wordIndex);
+    }, 1000);
+  }
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleSynonymClick;
+function handleSynonymClick(synonym, wordIndex) {
+  var _this = this;
+
+  this.setState(function (state) {
+    state.words[wordIndex] = _this.splitStringIntoLettersArray(synonym);
+
+    if (state.cursorAfter.wordIndex === wordIndex) {
+      state.cursorAfter.characterIndex = synonym.length - 1;
+    }
+
+    _this.handleWordUpdate(state, wordIndex);
+    return state;
+  }, this.handleOnChangeCallback);
+}
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleSpaceBar;
+function handleSpaceBar() {
+  var _this = this;
+
+  var _state = this.state,
+      words = _state.words,
+      _state$cursorAfter = _state.cursorAfter,
+      wordIndex = _state$cursorAfter.wordIndex,
+      characterIndex = _state$cursorAfter.characterIndex;
+
+  var isAtMaxLeft = this.state.maxLeft;
+
+  if (isAtMaxLeft) {
+    return this.setState(function (state) {
+      state.words.unshift([{
+        value: " "
+      }]);
+      _this.handleCursorMove(state, "Right");
+      state.maxLeft = false;
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  var prevCharacter = words[wordIndex][characterIndex];
+  var nextCharacter = words[wordIndex][characterIndex + 1];
+  var prevCharacterIsSpace = prevCharacter.value === " ";
+  var firstCharacterInNextWordIsSpace = !nextCharacter && words[wordIndex + 1] && words[wordIndex + 1][0].value === " ";
+  var addingSpaceToMiddleOfWord = nextCharacter;
+
+  if (prevCharacterIsSpace) {
+    return this.setState(function (state) {
+      state.words[wordIndex].push({
+        value: " "
+      });
+      _this.handleCursorMove(state, "Right");
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  if (firstCharacterInNextWordIsSpace) {
+    return this.setState(function (state) {
+      state.words[wordIndex + 1].unshift({
+        value: " "
+      });
+      _this.handleCursorMove(state, "Right");
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  if (addingSpaceToMiddleOfWord) {
+    // this should make a change request for both words.
+    return this.setState(function (state) {
+      var newWord = state.words[wordIndex].splice(characterIndex + 1);
+      state.words.splice(wordIndex + 1, 0, [{
+        value: " "
+      }], newWord);
+      _this.handleCursorMove(state, "Right");
+      _this.handleWordUpdate(state, _this.state.cursorAfter.wordIndex + 1);
+      _this.handleWordUpdate(state, _this.state.cursorAfter.wordIndex - 1);
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  this.setState(function (state) {
+    state.words.splice(wordIndex + 1, 0, [{
+      value: " "
+    }]);
+    _this.handleCursorMove(state, "Right");
+    return state;
+  }, this.handleOnChangeCallback);
+}
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleKeyboardInput;
+function handleKeyboardInput(character) {
+  var _this = this;
+
+  var isNonCharacterInput = character.length > 1;
+  var isSpaceBar = character === " ";
+
+  if (isNonCharacterInput) {
+    return;
+  }
+
+  if (isSpaceBar) {
+    return this.handleSpaceBar();
+  }
+
+  var isAtMaxLeft = this.state.maxLeft;
+
+  if (isAtMaxLeft) {
+    return this.setState(function (state) {
+      state.words.splice(0, 0, [{
+        value: character
+      }]);
+      state.maxLeft = false;
+      _this.handleCursorMove(state, "Right");
+      _this.handleWordUpdate(state);
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  var _state = this.state,
+      words = _state.words,
+      _state$cursorAfter = _state.cursorAfter,
+      wordIndex = _state$cursorAfter.wordIndex,
+      characterIndex = _state$cursorAfter.characterIndex;
+
+  var prevCharacter = words[wordIndex][characterIndex];
+  var spaceBeforeAndNoWordAfter = prevCharacter.value === " " && !words[wordIndex + 1];
+  var spaceBeforeAndWordAfter = prevCharacter.value === " " && words[wordIndex + 1] && words[wordIndex + 1][0];
+
+  if (spaceBeforeAndNoWordAfter) {
+    return this.setState(function (state) {
+      state.words.splice(wordIndex + 1, 0, [{
+        value: character
+      }]);
+      _this.handleCursorMove(state, "Right");
+      _this.handleWordUpdate(state);
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  if (spaceBeforeAndWordAfter) {
+    return this.setState(function (state) {
+      state.words[wordIndex + 1].splice(0, 0, {
+        value: character
+      });
+      _this.handleCursorMove(state, "Right");
+      _this.handleWordUpdate(state);
+      return state;
+    }, this.handleOnChangeCallback);
+  } // else add to current word
+
+
+  this.setState(function (state) {
+    state.words[wordIndex].splice(characterIndex + 1, 0, {
+      value: character
+    });
+    _this.handleCursorMove(state, "Right");
+    _this.handleWordUpdate(state);
+    return state;
+  }, this.handleOnChangeCallback);
+}
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleDelete;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function handleDelete() {
+  var _this = this;
+
+  // TODO - I also have to handle the cursor
+  if (this.state.maxLeft) {
+    return;
+  }
+
+  var _state = this.state,
+      words = _state.words,
+      _state$cursorAfter = _state.cursorAfter,
+      wordIndex = _state$cursorAfter.wordIndex,
+      characterIndex = _state$cursorAfter.characterIndex;
+
+  var characterToDelete = words[wordIndex][characterIndex];
+  var currentWord = words[wordIndex];
+  var prevWord = words[wordIndex - 1];
+  var nextWord = words[wordIndex + 1];
+  var deletingSingleSpaceBetweenTwoWords = characterToDelete.value === " " && currentWord.length === 1 && prevWord && nextWord;
+  var deletingLastLetterInWord = currentWord.length === 1;
+
+  if (deletingSingleSpaceBetweenTwoWords) {
+    return this.setState(function (state) {
+      _this.handleCursorMove(state, "Left");
+      var combinedWords = [].concat(_toConsumableArray(prevWord), _toConsumableArray(nextWord));
+      state.words.splice(wordIndex - 1, 3, combinedWords);
+      _this.handleWordUpdate(state);
+      return state;
+    }, this.handleOnChangeCallback);
+  }
+
+  if (deletingLastLetterInWord) {
+    return this.setState(function (state) {
+      _this.handleCursorMove(state, "Left");
+      state.words.splice(wordIndex, 1);
+      _this.handleWordUpdate(state);
+      return state;
+    }, this.handleOnChangeCallback);
+  } // if character has another character before it in the word, only delete that one character
+
+
+  this.setState(function (state) {
+    _this.handleCursorMove(state, "Left");
+    state.words[wordIndex].splice(characterIndex, 1);
+    _this.handleWordUpdate(state);
+    return state;
+  }, this.handleOnChangeCallback);
+}
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = handleArrows;
+function handleArrows(direction) {
+  var _this = this;
+
+  if (direction === "Left" || direction === "Right") {
+    if (this.state.words.length === 0) {
+      return;
+    }
+
+    this.setState(function (state) {
+      _this.handleCursorMove(state, direction);
+      return state;
+    });
+  }
 }
 
 /***/ })

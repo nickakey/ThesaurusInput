@@ -1,6 +1,6 @@
-* put api key in env files
+DONE - put api key in env files
 
-* add bundle to git ignore
+DONE - add bundle to git ignore
 
 * Let's be real, there should just be no console errors
 

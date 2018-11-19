@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
 import randomLetter from "random-letter";
-import ThesaurusInput from "../src/reusableComponents/ThesaurusInput.jsx";
+import ThesaurusInput from "../src/components/ThesaurusInput.jsx";
 
 let onChange;
 let input;
@@ -63,6 +63,12 @@ test("Typing a letter moves the cursor to after the new letter", () => {
   typeCharacter();
   expect(hasCursor(0, 0)).toBe(false);
   expect(hasCursor(0, 1)).toBe(true);
+});
+
+test("Typing a letter before a space throws no errors", () => {
+  typeSpace();
+  arrowLeft();
+  typeCharacter();
 });
 
 test("Typing spacebar adds a new word to with a single space in it", () => {
