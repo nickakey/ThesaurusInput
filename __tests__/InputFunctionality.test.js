@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
 import randomLetter from "random-letter";
-import ThesaurusInput from "../CLIENT/reusableComponents/ThesaurusInput.jsx";
+import ThesaurusInput from "../src/reusableComponents/ThesaurusInput.jsx";
 
 let onChange;
 let input;

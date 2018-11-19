@@ -1,7 +1,7 @@
 const path = require('path');
  
 module.exports = {
-  context: path.join(__dirname, 'CLIENT'),
+  context: path.join(__dirname, 'src'),
   entry: [
     './reusableComponents/ThesaurusInput.jsx',
   ],

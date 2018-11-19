@@ -2,7 +2,7 @@
 import { render, fireEvent, cleanup, getNodeText } from "react-testing-library";
 import React from "react";
 import axios from "axios-jsonp-pro";
-import ThesaurusInput from "../CLIENT/reusableComponents/ThesaurusInput.jsx";
+import ThesaurusInput from "../src/reusableComponents/ThesaurusInput.jsx";
 import randomLetter from "random-letter";
 jest.mock("axios-jsonp-pro");
 
