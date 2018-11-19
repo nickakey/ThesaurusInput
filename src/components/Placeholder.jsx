@@ -1,6 +1,5 @@
 import React from 'react';
-import { placeHolderText, cursorBeforeElement } from "../styles/ThesaurusInput.style";
-
+import { placeHolderText, cursorBeforeElement } from "../styles/Placeholder.style";
 
 const Placeholder = ({ customPlaceholder }) => (
   <div id="placeHolder" className={`${placeHolderText} ${cursorBeforeElement}`}>

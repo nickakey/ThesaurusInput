@@ -1,21 +1,15 @@
 import { css, keyframes } from "react-emotion";
 
-const input = css`
-  height: 4rem;
-  position: absolute;
+const placeHolderText = css`
+  margin: 5px 0px 5px 0px;
+  padding: 5px 3px 5px 3px;
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
   background-color: white;
-  display: block;
-  top: 40%;
-  left: 50%; 
-  transform: translate(-50%, -50%);
-  width: 51%;
-  text-align: left;
-  border-radius: 5px;
-  z-index: -5;
-  padding-left: 10px;
-  &:focus {
-    outline :0;
-  }  
+  font-size: 35px;
+  color: black;
+  opacity: .4;
 `;
 
 const blink = keyframes`
@@ -26,7 +20,6 @@ const blink = keyframes`
     opacity: 1;
   }
 `;
-
 
 const cursorBeforeElement = css`
   &::before {
@@ -42,7 +35,6 @@ const cursorBeforeElement = css`
 `;
 
 module.exports = {
-  input,
-  blink,
+  placeHolderText,
   cursorBeforeElement,
 }

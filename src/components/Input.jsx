@@ -2,11 +2,7 @@
 /* eslint-disable */
 import React from "react";
 import importHelpers from "../helpers";
-import { 
-  placeHolderText, 
-  input,
-  cursorBeforeElement
- } from "../styles/ThesaurusInput.style.js";
+import { input } from "../styles/ThesaurusInput.style.js";
 import Word from "./Word.jsx"
 import PlaceHolder from "./Placeholder.jsx"
 
