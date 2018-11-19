@@ -2,8 +2,6 @@
 /* eslint-disable */
 import React from "react";
 import { css, keyframes } from "react-emotion";
-import ThesaurusLetter from "./ThesaurusLetter";
-import Dropdown from './Dropdown';
 import importHelpers from "../helpers";
 import { 
   placeHolderText, 
@@ -14,6 +12,7 @@ import {
   blink,
   cursorBeforeElement
  } from "../styles/ThesaurusInput.style.js";
+ import Word from "./Word.jsx"
 
  class ThesaurusInput extends React.Component {
   constructor(props) {
@@ -46,54 +45,24 @@ import {
           }
         }}
       >
-      {this.state.words.length === 0 ? (
-        <div id="placeHolder" className={`${placeHolderText} ${cursorBeforeElement}`}>
-          {this.props.placeHolder ? this.props.placeHolder : "Start typing..."}
-        </div>
-      ) : null}
+        {this.state.words.length === 0 ? (
+          <div id="placeHolder" className={`${placeHolderText} ${cursorBeforeElement}`}>
+            {this.props.placeHolder ? this.props.placeHolder : "Start typing..."}
+          </div>
+        ) : null}
 
-        {this.state.words.map((word, j) => {
-          return word[0].value !== " " ? ( 
-            <span 
-              key={word[0].value + j}
-              className={this.determineClassName(j, wordCSS, `${wordCSS} ${greenWordCSS}`)}
-            >  
-              {word.map((charObj, i) => {
-                return (
-                  <ThesaurusLetter
-                    onClick={(...args) => {this.handleLetterClick(...args)}}
-                    maxLeft={this.state.maxLeft}
-                    cursorIndex={this.state.cursorAfter}
-                    wordIndex={j}
-                    key={charObj.value + i}
-                    index={i}
-                    charObj={charObj}
-                  />
-                )
-              })}
-              
-              <Dropdown synonyms={this.state.synonyms[j]} handleSynonymClick={this.handleSynonymClick} wordIndex={j}/>
-              
-            </span> ) : (
-              <span 
-              key={word[0].value + j}
-              className={spaceCSS}>  
-                {word.map((charObj, i) => {
-                  return (
-                    <ThesaurusLetter
-                      onClick={(...args) => {this.handleLetterClick(...args)}}
-                      maxLeft={this.state.maxLeft}
-                      cursorIndex={this.state.cursorAfter}
-                      wordIndex={j}
-                      key={charObj.value + i}
-                      index={i}
-                      charObj={charObj}
-                    />
-                  )
-                })}
-              </span>
-            )
-        })}
+        {this.state.words.map((word, j) => (
+          <Word 
+            word={word}
+            determineClassName={this.determineClassName}
+            handleLetterClick={this.handleLetterClick}
+            maxLeft={this.state.maxLeft}
+            cursorAfter={this.state.cursorAfter}
+            wordIndex={j}
+            synonyms={this.state.synonyms[j]}
+            handleSynonymClick={this.handleSynonymClick}
+          />
+        ))}
 
       </div>
     );

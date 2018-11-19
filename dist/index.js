@@ -1218,19 +1218,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactEmotion = __webpack_require__(3);
 
-var _ThesaurusLetter = __webpack_require__(51);
-
-var _ThesaurusLetter2 = _interopRequireDefault(_ThesaurusLetter);
-
-var _Dropdown = __webpack_require__(65);
-
-var _Dropdown2 = _interopRequireDefault(_Dropdown);
-
 var _helpers = __webpack_require__(52);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
 var _ThesaurusInputStyle = __webpack_require__(56);
+
+var _Word = __webpack_require__(67);
+
+var _Word2 = _interopRequireDefault(_Word);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1290,45 +1286,16 @@ var ThesaurusInput = function (_React$Component) {
           this.props.placeHolder ? this.props.placeHolder : "Start typing..."
         ) : null,
         this.state.words.map(function (word, j) {
-          return word[0].value !== " " ? _react2.default.createElement(
-            "span",
-            {
-              key: word[0].value + j,
-              className: _this2.determineClassName(j, _ThesaurusInputStyle.wordCSS, _ThesaurusInputStyle.wordCSS + " " + _ThesaurusInputStyle.greenWordCSS)
-            },
-            word.map(function (charObj, i) {
-              return _react2.default.createElement(_ThesaurusLetter2.default, {
-                onClick: function onClick() {
-                  _this2.handleLetterClick.apply(_this2, arguments);
-                },
-                maxLeft: _this2.state.maxLeft,
-                cursorIndex: _this2.state.cursorAfter,
-                wordIndex: j,
-                key: charObj.value + i,
-                index: i,
-                charObj: charObj
-              });
-            }),
-            _react2.default.createElement(_Dropdown2.default, { synonyms: _this2.state.synonyms[j], handleSynonymClick: _this2.handleSynonymClick, wordIndex: j })
-          ) : _react2.default.createElement(
-            "span",
-            {
-              key: word[0].value + j,
-              className: _ThesaurusInputStyle.spaceCSS },
-            word.map(function (charObj, i) {
-              return _react2.default.createElement(_ThesaurusLetter2.default, {
-                onClick: function onClick() {
-                  _this2.handleLetterClick.apply(_this2, arguments);
-                },
-                maxLeft: _this2.state.maxLeft,
-                cursorIndex: _this2.state.cursorAfter,
-                wordIndex: j,
-                key: charObj.value + i,
-                index: i,
-                charObj: charObj
-              });
-            })
-          );
+          return _react2.default.createElement(_Word2.default, {
+            word: word,
+            determineClassName: _this2.determineClassName,
+            handleLetterClick: _this2.handleLetterClick,
+            maxLeft: _this2.state.maxLeft,
+            cursorAfter: _this2.state.cursorAfter,
+            wordIndex: j,
+            synonyms: _this2.state.synonyms[j],
+            handleSynonymClick: _this2.handleSynonymClick
+          });
         })
       );
     }
@@ -5477,6 +5444,86 @@ module.exports = {
   dropDownCSS: dropDownCSS,
   synonymCSS: synonymCSS
 };
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ThesaurusLetter = __webpack_require__(51);
+
+var _ThesaurusLetter2 = _interopRequireDefault(_ThesaurusLetter);
+
+var _Dropdown = __webpack_require__(65);
+
+var _Dropdown2 = _interopRequireDefault(_Dropdown);
+
+var _ThesaurusInputStyle = __webpack_require__(56);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Word = function Word(_ref) {
+  var word = _ref.word,
+      determineClassName = _ref.determineClassName,
+      handleLetterClick = _ref.handleLetterClick,
+      maxLeft = _ref.maxLeft,
+      cursorAfter = _ref.cursorAfter,
+      wordIndex = _ref.wordIndex,
+      synonyms = _ref.synonyms,
+      handleSynonymClick = _ref.handleSynonymClick;
+
+  return word[0].value !== " " ? _react2.default.createElement(
+    'span',
+    {
+      key: word[0].value + wordIndex,
+      className: determineClassName(wordIndex, _ThesaurusInputStyle.wordCSS, _ThesaurusInputStyle.wordCSS + ' ' + _ThesaurusInputStyle.greenWordCSS)
+    },
+    word.map(function (charObj, i) {
+      return _react2.default.createElement(_ThesaurusLetter2.default, {
+        onClick: function onClick() {
+          handleLetterClick.apply(undefined, arguments);
+        },
+        maxLeft: maxLeft,
+        cursorIndex: cursorAfter,
+        wordIndex: wordIndex,
+        key: charObj.value + i,
+        index: i,
+        charObj: charObj
+      });
+    }),
+    _react2.default.createElement(_Dropdown2.default, { synonyms: synonyms, handleSynonymClick: handleSynonymClick, wordIndex: wordIndex })
+  ) : _react2.default.createElement(
+    'span',
+    {
+      key: word[0].value + wordIndex,
+      className: _ThesaurusInputStyle.spaceCSS },
+    word.map(function (charObj, i) {
+      return _react2.default.createElement(_ThesaurusLetter2.default, {
+        onClick: function onClick() {
+          handleLetterClick.apply(undefined, arguments);
+        },
+        maxLeft: maxLeft,
+        cursorIndex: cursorAfter,
+        wordIndex: wordIndex,
+        key: charObj.value + i,
+        index: i,
+        charObj: charObj
+      });
+    })
+  );
+};
+
+exports.default = Word;
 
 /***/ })
 /******/ ]);
