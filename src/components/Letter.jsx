@@ -61,6 +61,7 @@ const ThesaurusLetter = ({ index, charObj, wordIndex, cursorIndex, maxLeft, onCl
       <span
         className={determineClass(index, wordIndex, cursorIndex, maxLeft)}
         onClick={()=>{onClick(index, wordIndex)}}
+        key={index + charObj.value}
       >
         &nbsp;
       </span>
@@ -71,6 +72,7 @@ const ThesaurusLetter = ({ index, charObj, wordIndex, cursorIndex, maxLeft, onCl
     <span
       className={determineClass(index, wordIndex, cursorIndex, maxLeft)}
       onClick={()=>{onClick(index, wordIndex)}}
+      key={index + charObj.value}
     >
       {charObj.value}
     </span>

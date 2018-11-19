@@ -1,3 +1,3 @@
-import ThesaurusInputConstructor from './reusableComponents/ThesaurusInput.jsx';
+import ThesaurusInput from './components/Input.jsx';
 
-export default ThesaurusInputConstructor;
+export default ThesaurusInput;

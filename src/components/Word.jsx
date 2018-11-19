@@ -1,5 +1,5 @@
 import React from 'react';
-import ThesaurusLetter from "./Letter";
+import Letter from "./Letter";
 import Dropdown from './Dropdown';
 import { spaceCSS, wordCSS, greenWordCSS } from "../styles/Word.style.js";
 
@@ -12,7 +12,7 @@ const Word = ({ word, determineClassName, handleLetterClick, maxLeft, cursorAfte
     >  
       {word.map((charObj, i) => {
         return (
-          <ThesaurusLetter
+          <Letter
             onClick={(...args) => {handleLetterClick(...args)}}
             maxLeft={maxLeft}
             cursorIndex={cursorAfter}
@@ -32,7 +32,7 @@ const Word = ({ word, determineClassName, handleLetterClick, maxLeft, cursorAfte
         className={spaceCSS}>  
         {word.map((charObj, i) => {
           return (
-            <ThesaurusLetter
+            <Letter
               onClick={(...args) => {handleLetterClick(...args)}}
               maxLeft={maxLeft}
               cursorIndex={cursorAfter}
